@@ -1,4 +1,4 @@
-﻿namespace ConsoleTemplate
+﻿namespace TemplateLogic
 {
     class GenericInfo
     {
