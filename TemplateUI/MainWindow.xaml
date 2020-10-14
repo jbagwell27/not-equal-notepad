@@ -5,37 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TemplateUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Template Creator" Height="450" Width="800">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Menu Grid.Row="0">
-            <MenuItem Header="File">
-                <MenuItem Header="New"/>
-                <MenuItem Header="Duplicate Window"/>
-                <Separator/>
-                <MenuItem Header="Preferences"/>
-                <Separator/>
-                <MenuItem Header="Close"/>
-            </MenuItem>
-            <MenuItem Header="Logs">
-                <MenuItem Header="Today"/>
-                <MenuItem Header="Yesterday"/>
-                <MenuItem Header="Open Log Folder"/>
-            </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="Instructions"/>
-                <Separator/>
-                <MenuItem Header="About"/>
-            </MenuItem>
-        </Menu>
+
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Menu Grid.Column="0" 
+                  Background="White">
+                <MenuItem Header="File">
+                    <MenuItem Header="New"/>
+                    <MenuItem Header="Duplicate Window"/>
+                    <Separator/>
+                    <MenuItem Header="Preferences"/>
+                    <Separator/>
+                    <MenuItem Header="Close"/>
+                </MenuItem>
+                <MenuItem Header="Logs">
+                    <MenuItem Header="Today"/>
+                    <MenuItem Header="Yesterday"/>
+                    <MenuItem Header="Open Log Folder"/>
+                </MenuItem>
+                <MenuItem Header="Help">
+                    <MenuItem Header="Instructions"/>
+                    <Separator/>
+                    <MenuItem Header="About"/>
+                </MenuItem>
+            </Menu>
+            <Button Content="About" 
+                    Grid.Column="2"/>
+            </Grid>
 
         <TabControl x:Name="MainTabs"
                     Grid.Row="1">
+            <TabItem x:Name="GenericInfoTab"
+                     Header="Generic Info">
+                                
+            </TabItem>
             
         </TabControl>
         
