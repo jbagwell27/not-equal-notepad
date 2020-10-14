@@ -25,13 +25,5 @@ namespace TemplateUI
         {
             InitializeComponent();
         }
-
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            GenericInfo gi = new GenericInfo();
-            gi.ContactName = ContactNameBox.Text;
-            gi.PhoneNumber = PhoneNumberBox.Text;
-            MessageBox.Show(gi.ToString());
-        }
     }
 }
