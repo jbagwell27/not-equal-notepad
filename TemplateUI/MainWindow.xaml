@@ -70,6 +70,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
 
@@ -132,22 +133,31 @@
                     
                     <TextBlock Text="Problem Details"
                                Grid.Column="1" Grid.Row="4"
-                               Margin="3,10" Padding="4"/>
+                               Margin="3" Padding="4"/>
                     <TextBox x:Name="ProblemDetailsBox"
                              Grid.Column="2" Grid.Row="4"
                              Grid.ColumnSpan="4"
-                             Margin="3,10" Padding="3"/>
+                             Margin="3" Padding="3"/>
                     
                     <!--Troubleshooting Steps Field-->
-                    <TextBlock Text="Troubleshooting Steps"
+                    <TextBlock Text="Troubleshooting Steps (What are all of the steps taken)"
                                Grid.Column="1" Grid.Row="5"
-                               Grid.ColumnSpan="2"
+                               Grid.ColumnSpan="5"
                                Margin="3" Padding="3"/>
                     <TextBox x:Name="TroubleshootStepsBox"
                              Grid.Column="1" Grid.Row="6"
                              Grid.ColumnSpan="5"
                              Margin="3" Padding="3"/>
                     
+                    <!--Resolution Details Field-->
+                    <TextBlock Text="Resolution Details (Which of the above steps fixed the issue)"
+                               Grid.Column="1" Grid.Row="7"
+                               Grid.ColumnSpan="5"
+                               Margin="3" Padding="3"/>
+                    <TextBox x:Name="ResolutionBox"
+                             Grid.Column="1" Grid.Row="8"
+                             Grid.ColumnSpan="5"
+                             Margin="3" Padding="3"/>
 
                 </Grid>
                                 
