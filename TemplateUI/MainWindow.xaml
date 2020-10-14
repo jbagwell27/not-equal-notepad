@@ -12,13 +12,14 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-            <Grid>
+        
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
+            
             <Menu Grid.Column="0" 
                   Background="White">
                 <MenuItem Header="File">
@@ -40,14 +41,86 @@
                     <MenuItem Header="About"/>
                 </MenuItem>
             </Menu>
-            <Button Content="About" 
+            <Button Content="Extra Button for whatever" 
                     Grid.Column="2"/>
-            </Grid>
+        </Grid>
 
         <TabControl x:Name="MainTabs"
                     Grid.Row="1">
             <TabItem x:Name="GenericInfoTab"
                      Header="Generic Info">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Contact name and phone number sections-->
+                    <TextBlock Text="Contact Name"
+                               Grid.Column="1" Grid.Row="1"
+                               Margin="3" Padding="3"/>
+                    <TextBox x:Name="ContactNameBox"
+                             Grid.Column="2" Grid.Row="1"
+                             Width="150"
+                             Margin="3" Padding="3"/>
+
+                    <TextBlock Text="Phone Number"
+                               Grid.Column="1" Grid.Row="2"
+                               Margin="3" Padding="3"/>
+                    <TextBox x:Name="PhoneNumberBox"
+                             Grid.Column="2" Grid.Row="2"
+                             Width="150"
+                             Margin="3" Padding="3"/>
+                    
+                    <!--Case number and email fields-->
+                    <TextBlock Text="Case Number"
+                               Grid.Column="3" Grid.Row="1"
+                               Margin="50,3,3,3" Padding="3"/>
+                    <TextBox x:Name="CaseNumberBox"
+                             Grid.Column="4" Grid.Row="1"
+                             Width="150"
+                             Margin="3" Padding="3"/>
+
+                    <TextBlock Text="Email Address"
+                               Grid.Column="3" Grid.Row="2"
+                               Margin="50,3,3,3" Padding="3"/>
+                    <TextBox x:Name="EmailAddressBox"
+                             Grid.Column="4" Grid.Row="2"
+                             Width="150"
+                             Margin="3" Padding="3"/>
+                    
+                    <!--Right Aligned buttons-->
+                    <StackPanel x:Name="RightAlignedButtonPanel"
+                                Grid.Column="6" Grid.Row="1"
+                                Grid.RowSpan="5">
+                        <Button Content="Copy to Clipboard"
+                                Margin="10" Padding="3"/>
+                        <Button Content="Clear Data"
+                                Margin="10" Padding="3"/>
+                        <Button Content="Copy Details"
+                                Margin="10" Padding="3"/>
+                        <Button Content="Copy Steps"
+                                Margin="10" Padding="3"/>
+                    </StackPanel>
+                    
+                   
+                </Grid>
                                 
             </TabItem>
             
