@@ -1,6 +1,6 @@
 ﻿namespace TemplateLogic
 {
-    class Computers
+    class Computer
     {
         public string Name { get; set; }
         public string WinVer { get; set; }

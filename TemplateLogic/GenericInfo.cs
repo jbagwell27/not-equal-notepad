@@ -11,8 +11,6 @@
         public string TroubleShootingSteps { get; set; }
         public string ResolutionDetails { get; set; }
 
-        public GenericInfo() { }
-
         public void Clear()
         {
             ContactName = null;
@@ -39,7 +37,7 @@
             if (Problem != null)
                 result += $"Problem Description:\n{Problem}\n\n";
             if (ProblemDetails != null)
-                result += $"Problem Details\n{ProblemDetails}\n\n";
+                result += $"Problem Details:\n{ProblemDetails}\n\n";
             if (TroubleShootingSteps != null)
                 result += $"Troubleshooting Steps:\n{TroubleShootingSteps}\n\n";
             if (ResolutionDetails != null)
