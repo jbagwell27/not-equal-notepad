@@ -149,8 +149,8 @@
                     <StackPanel x:Name="RightAlignedButtonPanel"
                                 Grid.Column="6" Grid.Row="1"
                                 Grid.RowSpan="6">
-                        <Button Content="Copy to Clipboard"
-                                Margin="20" Padding="3"/>
+                        <Button Content="Copy To Clipboard"
+                                Margin="20" Padding="3" Click="CopyToClipboard_Click"/>
                         <Button Content="Clear Data"
                                 Margin="20" Padding="3"/>
                         <Button Content="Copy Details"
@@ -184,6 +184,8 @@
                     <TextBox x:Name="TroubleshootStepsBox"
                              Grid.Column="1" Grid.Row="6"
                              Grid.ColumnSpan="5"
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             SpellCheck.IsEnabled="True"
                              Margin="3" Padding="3"/>
                     
                     <!--Resolution Details Field-->

@@ -11,6 +11,10 @@
         public string TroubleShootingSteps { get; set; }
         public string ResolutionDetails { get; set; }
 
+        public GenericInfo()
+        {
+            Clear();
+        }
         public void Clear()
         {
             ContactName = null;
