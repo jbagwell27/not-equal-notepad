@@ -12,10 +12,12 @@ namespace TemplateUI
     {
 
         GenericInfo GInfo;
+        LogWriter lw;
         public MainWindow()
         {
             InitializeComponent();
             GInfo = new GenericInfo();
+            lw = new LogWriter();
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
@@ -28,6 +30,8 @@ namespace TemplateUI
             GInfo.ProblemDetails = ProblemDetailsBox.Text;
             GInfo.TroubleShootingSteps = TroubleshootStepsBox.Text;
             GInfo.ResolutionDetails = ResolutionBox.Text;
+
+            lw.AddLogEntry(GInfo.ToString());
 
             ClipboardService.SetText(GInfo.ToString());
 
