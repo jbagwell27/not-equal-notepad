@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 
-namespace TemplateLogic
+namespace TemplateUI.Logic
 {
     class ProductReader
     {
@@ -47,7 +47,8 @@ namespace TemplateLogic
             {
                 PMSVersions.Add(item);
             }
-        } private void FillBridge()
+        }
+        private void FillBridge()
         {
             JToken token = JToken.Parse(TemplateFile);
             string list = token.SelectToken("Bridge").ToString();
@@ -56,7 +57,8 @@ namespace TemplateLogic
             {
                 BridgeVersions.Add(item);
             }
-        } private void FillDevice()
+        }
+        private void FillDevice()
         {
             JToken token = JToken.Parse(TemplateFile);
             string list = token.SelectToken("Device").ToString();
@@ -65,7 +67,8 @@ namespace TemplateLogic
             {
                 Devices.Add(item);
             }
-        } private void FillDriver()
+        }
+        private void FillDriver()
         {
             JToken token = JToken.Parse(TemplateFile);
             string list = token.SelectToken("Driver").ToString();

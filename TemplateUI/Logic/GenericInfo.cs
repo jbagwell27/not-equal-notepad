@@ -1,4 +1,4 @@
-﻿namespace TemplateLogic
+﻿namespace TemplateUI.Logic
 {
     class GenericInfo
     {

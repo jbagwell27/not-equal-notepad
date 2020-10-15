@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using TemplateLogic;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
+using System.Windows;
+using TemplateUI.Logic;
 using TextCopy;
 
 namespace TemplateUI
