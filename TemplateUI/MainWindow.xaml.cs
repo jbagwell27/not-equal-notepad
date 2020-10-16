@@ -29,7 +29,11 @@ namespace TemplateUI
             Lwriter = new LogWriter();
             Preader = new ProductReader();
 
+            //Initial setup process.
             FillComboBoxes();
+            TemplatePreviewTab.IsEnabled = false;
+            ContactNameBox.Focus();
+
         }
 
         private void FillComboBoxes()
@@ -57,7 +61,7 @@ namespace TemplateUI
             Ginfo.TroubleShootingSteps = TroubleshootStepsBox.Text != string.Empty ? TroubleshootStepsBox.Text : null;
             Ginfo.ResolutionDetails = ResolutionBox.Text != string.Empty ? ResolutionBox.Text : null;
 
-            Pinfo.Imaging = ImagingVersionBox.SelectedItem?.ToString();
+            Pinfo.Imaging = ImagingVersionBox.SelectedItem?.ToString(); 
             Pinfo.PMS = PMSVersionBox.SelectedItem?.ToString();
             Pinfo.Bridge = BridgeVersionBox.SelectedItem?.ToString();
             Pinfo.DatabasePath = DatabasePathBox.Text != string.Empty ? DatabasePathBox.Text : null;
@@ -65,9 +69,12 @@ namespace TemplateUI
             Pinfo.SerialNumber = SerialNumberBox.Text != string.Empty ? SerialNumberBox.Text : null;
             Pinfo.Driver = DriverVersionBox.SelectedItem?.ToString();
 
-            Lwriter.AddLogEntry(Ginfo.ToString() + Pinfo.ToString());
+            string templateString = Ginfo.ToString() + Pinfo.ToString();
+            Lwriter.AddLogEntry(templateString);
+            TemplatePreviewTab.IsEnabled = true;
+            TemplatePreviewBox.Text = templateString;
 
-            ClipboardService.SetText(Ginfo.ToString() + Pinfo.ToString());
+            ClipboardService.SetText(templateString);
 
         }
 
@@ -104,8 +111,11 @@ namespace TemplateUI
                         ((ComboBox)(el)).SelectedIndex = -1;
                 }
             }
+
             Ginfo.Clear();
             Pinfo.Clear();
+            TemplatePreviewBox.Clear();
+            TemplatePreviewTab.IsEnabled = false;
             GenericInfoTab.IsSelected = true;
             ContactNameBox.Focus();
         }
