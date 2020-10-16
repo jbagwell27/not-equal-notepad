@@ -1,5 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using TemplateUI.Logic;
@@ -75,7 +78,7 @@ namespace TemplateUI
                 AffirmativeButtonText = "Yes",
                 NegativeButtonText = "No",
             };
-            var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything",MessageDialogStyle.AffirmativeAndNegative, settings);
+            var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
             if (result == MessageDialogResult.Affirmative)
             {
@@ -101,9 +104,36 @@ namespace TemplateUI
                         ((ComboBox)(el)).SelectedIndex = -1;
                 }
             }
-
+            Ginfo.Clear();
+            Pinfo.Clear();
             GenericInfoTab.IsSelected = true;
             ContactNameBox.Focus();
         }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            CancellationToken token;
+            TaskScheduler uiSched = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Factory.StartNew(DialogsBeforeExit, token, TaskCreationOptions.None, uiSched);
+        }
+        private async void DialogsBeforeExit()
+        {
+            var settings = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = "Yes",
+                NegativeButtonText = "No",
+            };
+            MessageDialogResult result = await this.ShowMessageAsync("Are you sure want to exit?", "No information will be saved.", MessageDialogStyle.AffirmativeAndNegative, settings);
+            if (result == MessageDialogResult.Negative)
+            {
+                return;
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
     }
 }
