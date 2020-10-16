@@ -36,7 +36,7 @@
             result += DeviceType != null && DeviceType != string.Empty ? $"Device:  {DeviceType}\n" : null;
             result += SerialNumber != null ? $"SN:  {SerialNumber}\n" : null;
             result += Driver != null && Driver != string.Empty ? $"Driver:  {Driver}\n" : null;
-            
+
             return result;
         }
     }

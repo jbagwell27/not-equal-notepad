@@ -1,5 +1,5 @@
-﻿using ControlzEx.Theming;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
 using System.Windows.Controls;
 using TemplateUI.Logic;
@@ -20,7 +20,7 @@ namespace TemplateUI
         public MainWindow()
         {
             InitializeComponent();
-            
+
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             Lwriter = new LogWriter();
@@ -53,7 +53,7 @@ namespace TemplateUI
             Ginfo.IssueDetails = IssueDetailsBox.Text != string.Empty ? IssueDetailsBox.Text : null;
             Ginfo.TroubleShootingSteps = TroubleshootStepsBox.Text != string.Empty ? TroubleshootStepsBox.Text : null;
             Ginfo.ResolutionDetails = ResolutionBox.Text != string.Empty ? ResolutionBox.Text : null;
-            
+
             Pinfo.Imaging = ImagingVersionBox.SelectedItem?.ToString();
             Pinfo.PMS = PMSVersionBox.SelectedItem?.ToString();
             Pinfo.Bridge = BridgeVersionBox.SelectedItem?.ToString();
@@ -68,26 +68,38 @@ namespace TemplateUI
 
         }
 
-        private void ClearDataButton_Click(object sender, RoutedEventArgs e)
+        private async void ClearDataButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (UIElement el in GenericInfoGrid.Children)
+            var settings = new MetroDialogSettings()
             {
-                if (el.GetType() == typeof(TextBox))
-                    ((TextBox)(el)).Clear();
-            }
-            foreach (UIElement el in DeviceInfoGrid.Children)
+                AffirmativeButtonText = "Yes",
+                NegativeButtonText = "No",
+            };
+            var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything",MessageDialogStyle.AffirmativeAndNegative, settings);
+
+            if (result == MessageDialogResult.Affirmative)
             {
-                if (el.GetType() == typeof(TextBox))
-                    ((TextBox)(el)).Clear();
-                if (el.GetType() == typeof(ComboBox))
-                    ((ComboBox)(el)).SelectedIndex = -1;
-            }
-            foreach (UIElement el in SoftwareInfoGrid.Children)
-            {
-                if (el.GetType() == typeof(TextBox))
-                    ((TextBox)(el)).Clear();
-                if (el.GetType() == typeof(ComboBox))
-                    ((ComboBox)(el)).SelectedIndex = -1;
+
+
+                foreach (UIElement el in GenericInfoGrid.Children)
+                {
+                    if (el.GetType() == typeof(TextBox))
+                        ((TextBox)(el)).Clear();
+                }
+                foreach (UIElement el in DeviceInfoGrid.Children)
+                {
+                    if (el.GetType() == typeof(TextBox))
+                        ((TextBox)(el)).Clear();
+                    if (el.GetType() == typeof(ComboBox))
+                        ((ComboBox)(el)).SelectedIndex = -1;
+                }
+                foreach (UIElement el in SoftwareInfoGrid.Children)
+                {
+                    if (el.GetType() == typeof(TextBox))
+                        ((TextBox)(el)).Clear();
+                    if (el.GetType() == typeof(ComboBox))
+                        ((ComboBox)(el)).SelectedIndex = -1;
+                }
             }
 
             GenericInfoTab.IsSelected = true;
