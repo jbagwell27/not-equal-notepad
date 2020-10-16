@@ -30,22 +30,14 @@
         public override string ToString()
         {
             string result = "";
-            if (ContactName != null)
-                result += $"Contact Name:  {ContactName}\n";
-            if (PhoneNumber != null)
-                result += $"Phone Number:  {PhoneNumber}\n";
-            if (EmailAddress != null)
-                result += $"Email:  {EmailAddress}\n";
-            if (CaseNumber != null)
-                result += $"Case #:  {CaseNumber}\n\n";
-            if (IssueSummary != null)
-                result += $"Problem Description:\n{IssueSummary}\n\n";
-            if (IssueDetails != null)
-                result += $"Problem Details:\n{IssueDetails}\n\n";
-            if (TroubleShootingSteps != null)
-                result += $"Troubleshooting Steps:\n{TroubleShootingSteps}\n\n";
-            if (ResolutionDetails != null)
-                result += $"Resolution Details:\n{ResolutionDetails}\n\n";
+            result += ContactName != null ? $"Contact Name:  {ContactName}\n" : null;
+            result += PhoneNumber != null ? $"Phone Number:  {PhoneNumber}\n" : null;
+            result += EmailAddress != null ? $"Email:  {EmailAddress}\n" : null;
+            result += CaseNumber != null ? $"Case #:  {CaseNumber}\n\n" : null;
+            result += IssueSummary != null ? $"Problem Description:\n{IssueSummary}\n\n" : null;
+            result += IssueDetails != null ? $"Problem Details:\n{IssueDetails}\n\n" : null;
+            result += TroubleShootingSteps != null ? $"Troubleshooting Steps:\n{TroubleShootingSteps}\n\n" : null;
+            result += ResolutionDetails != null ? $"Resolution Details:\n{ResolutionDetails}\n\n" : null;
 
             return result;
         }

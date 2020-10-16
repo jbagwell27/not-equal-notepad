@@ -35,9 +35,7 @@ namespace TemplateUI.Logic
             string list = token.SelectToken("Imaging").ToString();
             dynamic array = JsonConvert.DeserializeObject(list);
             foreach (string item in array)
-            {
                 ImagingVersions.Add(item);
-            }
         }
         private void FillPMS()
         {
@@ -45,9 +43,7 @@ namespace TemplateUI.Logic
             string list = token.SelectToken("PMS").ToString();
             dynamic array = JsonConvert.DeserializeObject(list);
             foreach (string item in array)
-            {
                 PMSVersions.Add(item);
-            }
         }
         private void FillBridge()
         {
@@ -55,9 +51,7 @@ namespace TemplateUI.Logic
             string list = token.SelectToken("Bridge").ToString();
             dynamic array = JsonConvert.DeserializeObject(list);
             foreach (string item in array)
-            {
                 BridgeVersions.Add(item);
-            }
         }
         private void FillDevice()
         {
@@ -65,9 +59,7 @@ namespace TemplateUI.Logic
             string list = token.SelectToken("Device").ToString();
             dynamic array = JsonConvert.DeserializeObject(list);
             foreach (string item in array)
-            {
                 DeviceTypes.Add(item);
-            }
         }
         private void FillDriver()
         {
@@ -75,9 +67,7 @@ namespace TemplateUI.Logic
             string list = token.SelectToken("Driver").ToString();
             dynamic array = JsonConvert.DeserializeObject(list);
             foreach (string item in array)
-            {
                 DriverVersions.Add(item);
-            }
         }
     }
 

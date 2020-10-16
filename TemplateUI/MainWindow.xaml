@@ -242,7 +242,7 @@
             <TabItem x:Name="GenericInfoTab"
                      Header="Generic Info">
 
-                <Grid>
+                <Grid x:Name="GenericInfoGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="auto"/>
@@ -308,7 +308,8 @@
                                 Margin="20" Padding="3" 
                                 Click="CopyToClipboard_Click"/>
                         <Button Content="Clear Data"
-                                Margin="20" Padding="3"/>
+                                Margin="20" Padding="3" 
+                                Click="ClearDataButton_Click"/>
                         <Button Content="Copy Details"
                                 Margin="20" Padding="3"/>
                         <Button Content="Copy Steps"
@@ -374,7 +375,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="1">
+                    <Grid x:Name="DeviceInfoGrid" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5"/>
                             <ColumnDefinition Width=".5*"/>
@@ -420,7 +421,7 @@
                               ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
                     </Grid>
 
-                    <Grid Grid.Row="2">
+                    <Grid x:Name="SoftwareInfoGrid" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5"/>
                             <ColumnDefinition Width="*"/>

@@ -29,21 +29,14 @@
         {
             string result = "";
 
-            if (Imaging != null)
-                result += $"Imaging Version:  {Imaging}\n";
-            if (PMS != null)
-                result += $"PMS Version:  {PMS}\n";
-            if (Bridge != null)
-                result += $"Integrator Version:  {Bridge}\n";
-            if (DatabasePath != null)
-                result += $"Database Path:  {DatabasePath}\n";
-            if (DeviceType != null)
-                result += $"Device:  {DeviceType}\n";
-            if (SerialNumber != null)
-                result += $"SN:  {SerialNumber}\n";
-            if (Driver != null)
-                result += $"Driver:  {Driver}\n";
-
+            result += Imaging != null && Imaging != string.Empty ? $"Imaging Version:  {Imaging}\n" : null;
+            result += PMS != null && PMS != string.Empty ? $"PMS Version:  {PMS}\n" : null;
+            result += Bridge != null && Bridge != string.Empty ? $"Integrator Version:  {Bridge}\n" : null;
+            result += DatabasePath != null ? $"Database Path:  {DatabasePath}\n" : null;
+            result += DeviceType != null && DeviceType != string.Empty ? $"Device:  {DeviceType}\n" : null;
+            result += SerialNumber != null ? $"SN:  {SerialNumber}\n" : null;
+            result += Driver != null && Driver != string.Empty ? $"Driver:  {Driver}\n" : null;
+            
             return result;
         }
     }
