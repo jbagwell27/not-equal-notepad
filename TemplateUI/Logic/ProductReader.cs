@@ -15,7 +15,7 @@ namespace TemplateUI.Logic
         private readonly string TemplateFile;
         public ProductReader()
         {
-            TemplateFile = new StreamReader("Products.json").ReadToEnd();
+            TemplateFile = new StreamReader(@"Logic\Products.json").ReadToEnd();
             ImagingVersions = new List<string>();
             PMSVersions = new List<string>();
             BridgeVersions = new List<string>();

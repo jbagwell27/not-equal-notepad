@@ -1,5 +1,7 @@
-﻿using MahApps.Metro.Controls;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using TemplateUI.Logic;
 using TextCopy;
 
@@ -12,12 +14,25 @@ namespace TemplateUI
     {
 
         GenericInfo GInfo;
-        LogWriter lw;
+        ProductReader Pr;
+        LogWriter Lw;
         public MainWindow()
         {
             InitializeComponent();
+            
             GInfo = new GenericInfo();
-            lw = new LogWriter();
+            Lw = new LogWriter();
+            Pr = new ProductReader();
+
+            FillComboBoxes();
+        }
+
+        private void FillComboBoxes()
+        {
+            foreach (var item in Pr.Devices)
+            {
+                DeviceComboBox.Items.Add(item);
+            }
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
@@ -26,14 +41,16 @@ namespace TemplateUI
             GInfo.PhoneNumber = PhoneNumberBox.Text;
             GInfo.EmailAddress = EmailAddressBox.Text;
             GInfo.CaseNumber = CaseNumberBox.Text;
-            GInfo.Problem = ProblemBox.Text;
-            GInfo.ProblemDetails = ProblemDetailsBox.Text;
+            GInfo.IssueSummary = IssueSummaryBox.Text;
+            GInfo.IssueDetails = IssueDetailsBox.Text;
             GInfo.TroubleShootingSteps = TroubleshootStepsBox.Text;
             GInfo.ResolutionDetails = ResolutionBox.Text;
 
-            lw.AddLogEntry(GInfo.ToString());
+            Lw.AddLogEntry(GInfo.ToString());
 
             ClipboardService.SetText(GInfo.ToString());
+
+            MessageBox.Show($"width {this.Width} | height {this.Height}");
 
         }
     }

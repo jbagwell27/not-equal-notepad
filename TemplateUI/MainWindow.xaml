@@ -4,10 +4,12 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:markup="clr-namespace:MahApps.Metro.Markup;assembly=MahApps.Metro"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="Template Creator" Height="450" Width="800">
+                 Title="Template Creator" Height="520" Width="960"
+                 SaveWindowPosition="True">
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <mah:DropDownButton x:Name="MenuButton" ToolTip="Menu Options">
@@ -81,10 +83,163 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
+    <mah:MetroWindow.Resources>
+        <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="32" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="Border"
+                                    Grid.ColumnSpan="2"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1" />
+                            <Path x:Name="Arrow"
+                                  Grid.Column="1"    
+                                  Fill="{TemplateBinding Foreground}"
+                                  Stroke="{TemplateBinding Foreground}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 0 L 4 4 L 8 0 Z" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
+            <Border x:Name="PART_ContentHost" Focusable="True" />
+        </ControlTemplate>
 
+        <Style x:Key="theComboBox" TargetType="{x:Type ComboBox}">
+            <Setter Property="Foreground" Value="#333" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton
+                                Name="ToggleButton"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Style="{StaticResource ComboBoxToggleButton}"
+                                Grid.Column="2"
+                                Focusable="false"
+                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press"/>
+
+                            <ContentPresenter
+                                Name="ContentSite"
+                                IsHitTestVisible="False"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                Margin="5,3,30,3"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Style="{x:Null}"
+                                     Template="{StaticResource ComboBoxTextBox}"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
+                                     Margin="3,3,23,3"
+                                     Focusable="True"                               
+                                     Visibility="Hidden"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
+
+                            <Popup 
+                                Name="Popup"
+                                Placement="Bottom"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                PopupAnimation="Slide">
+                                <Grid
+                                    Name="DropDown"
+                                    SnapsToDevicePixels="True"              
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border
+                                        x:Name="DropDownBorder"
+                                        Background="White"
+                                        BorderThickness="1"
+                                        BorderBrush="LightGray"
+                                    />
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" Value="#707070"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="theComboBoxItem" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border
+                            Name="Border"
+                            Padding="5"
+                            BorderThickness="2,0,0,0"
+                            CornerRadius="0"
+                            Background="Transparent"
+                            BorderBrush="Transparent">
+                            <TextBlock TextAlignment="Left">
+                                
+                                <ContentPresenter />
+                            </TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#525050"/>
+                                <Setter TargetName="Border" Property="Background" Value="#3393DF"/>
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </mah:MetroWindow.Resources>
+    
     <Grid>
-        <mah:MetroTabControl x:Name="MainTabs">
-            <mah:MetroTabItem x:Name="GenericInfoTab"
+        <TabControl x:Name="MainTabs">
+            <TabItem x:Name="GenericInfoTab"
                      Header="Generic Info">
 
                 <Grid>
@@ -103,11 +258,11 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height=".3*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height=".3*"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
 
@@ -150,7 +305,8 @@
                                 Grid.Column="6" Grid.Row="1"
                                 Grid.RowSpan="6">
                         <Button Content="Copy To Clipboard"
-                                Margin="20" Padding="3" Click="CopyToClipboard_Click"/>
+                                Margin="20" Padding="3" 
+                                Click="CopyToClipboard_Click"/>
                         <Button Content="Clear Data"
                                 Margin="20" Padding="3"/>
                         <Button Content="Copy Details"
@@ -160,51 +316,95 @@
                     </StackPanel>
                     
                     <!--Problem info fields-->
-                    <TextBlock Text="Problem"
+                    <TextBlock Text="Issue Summary"
                                Grid.Column="1" Grid.Row="3"
-                               Margin="3,10" Padding="4"/>
-                    <TextBox x:Name="ProblemBox"
+                               Margin="3,10"/>
+                    <TextBox x:Name="IssueSummaryBox"
                              Grid.Column="2" Grid.Row="3"
                              Grid.ColumnSpan="4"
-                             Margin="3,10" Padding="3"/>
+                             SpellCheck.IsEnabled="True"
+                             Margin="3,10,3,3" Padding="3"
+                             mah:TextBoxHelper.Watermark="Summary of the issue"/>
                     
-                    <TextBlock Text="Problem Details"
+                    <TextBlock Text="IssueDetails"
                                Grid.Column="1" Grid.Row="4"
-                               Margin="3" Padding="4"/>
-                    <TextBox x:Name="ProblemDetailsBox"
+                               Margin="3"/>
+                    <TextBox x:Name="IssueDetailsBox"
                              Grid.Column="2" Grid.Row="4"
                              Grid.ColumnSpan="4"
-                             Margin="3" Padding="3"/>
-                    
+                             SpellCheck.IsEnabled="True"
+                             Margin="3" Padding="3"
+                             mah:TextBoxHelper.Watermark="More details of the issue (optional)"/>
+
                     <!--Troubleshooting Steps Field-->
-                    <TextBlock Text="Troubleshooting Steps (What are all of the steps taken)"
+                    <TextBlock Text="Troubleshooting Steps"
                                Grid.Column="1" Grid.Row="5"
                                Grid.ColumnSpan="5"
-                               Margin="3" Padding="3"/>
+                               Margin="3"/>
                     <TextBox x:Name="TroubleshootStepsBox"
                              Grid.Column="1" Grid.Row="6"
                              Grid.ColumnSpan="5"
                              AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
-                             Margin="3" Padding="3"/>
+                             VerticalScrollBarVisibility="Auto"
+                             Margin="3" Padding="3"
+                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"/>
                     
                     <!--Resolution Details Field-->
-                    <TextBlock Text="Resolution Details (Which of the above steps fixed the issue)"
+                    <TextBlock Text="Resolution Details"
                                Grid.Column="1" Grid.Row="7"
                                Grid.ColumnSpan="5"
-                               Margin="3" Padding="3"/>
+                               Margin="3"/>
                     <TextBox x:Name="ResolutionBox"
                              Grid.Column="1" Grid.Row="8"
                              Grid.ColumnSpan="5"
-                             Margin="3" Padding="3"/>
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             SpellCheck.IsEnabled="True"
+                             Margin="3" Padding="3"
+                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"/>
 
                 </Grid>
-            </mah:MetroTabItem>
-            <mah:MetroTabItem Header="Product Info">
+            </TabItem>
+
+            <TabItem x:Name="ProductInfoTab"
+                     Header="Product Info">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Device Combobox List section-->
+                    <TextBlock Text="Device"
+                               Grid.Column="1" Grid.Row="1"
+                               Margin="3" Padding="3"/>
+                    <ComboBox x:Name="DeviceComboBox"
+                              Grid.Column="2" Grid.Row="1"
+                              MinWidth="150"
+                              IsEditable="False"
+                              Padding="3"
+                              Style="{DynamicResource theComboBox}"
+                              ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                    
+                    <!--SN box-->
+                    <TextBlock Text="Serial Number"
+                    
+                </Grid>
                 
-            </mah:MetroTabItem>
+            </TabItem>
+           
             
-        </mah:MetroTabControl>
+        </TabControl>
         
     </Grid>
     

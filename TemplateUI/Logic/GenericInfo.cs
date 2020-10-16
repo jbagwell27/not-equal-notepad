@@ -6,8 +6,8 @@
         public string PhoneNumber { get; set; }
         public string EmailAddress { get; set; }
         public string CaseNumber { get; set; }
-        public string Problem { get; set; }
-        public string ProblemDetails { get; set; }
+        public string IssueSummary { get; set; }
+        public string IssueDetails { get; set; }
         public string TroubleShootingSteps { get; set; }
         public string ResolutionDetails { get; set; }
 
@@ -21,8 +21,8 @@
             PhoneNumber = null;
             EmailAddress = null;
             CaseNumber = null;
-            Problem = null;
-            ProblemDetails = null;
+            IssueSummary = null;
+            IssueDetails = null;
             TroubleShootingSteps = null;
             ResolutionDetails = null;
         }
@@ -38,10 +38,10 @@
                 result += $"Email:  {EmailAddress}\n";
             if (CaseNumber != null)
                 result += $"Case #:  {CaseNumber}\n\n";
-            if (Problem != null)
-                result += $"Problem Description:\n{Problem}\n\n";
-            if (ProblemDetails != null)
-                result += $"Problem Details:\n{ProblemDetails}\n\n";
+            if (IssueSummary != null)
+                result += $"Problem Description:\n{IssueSummary}\n\n";
+            if (IssueDetails != null)
+                result += $"Problem Details:\n{IssueDetails}\n\n";
             if (TroubleShootingSteps != null)
                 result += $"Troubleshooting Steps:\n{TroubleShootingSteps}\n\n";
             if (ResolutionDetails != null)
