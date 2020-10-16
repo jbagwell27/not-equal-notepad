@@ -5,7 +5,8 @@
         public string Imaging { get; set; }
         public string PMS { get; set; }
         public string Bridge { get; set; }
-        public string Device { get; set; }
+        public string DatabasePath { get; set; }
+        public string DeviceType { get; set; }
         public string SerialNumber { get; set; }
         public string Driver { get; set; }
 
@@ -18,7 +19,8 @@
             Imaging = null;
             PMS = null;
             Bridge = null;
-            Device = null;
+            DatabasePath = null;
+            DeviceType = null;
             SerialNumber = null;
             Driver = null;
         }
@@ -33,8 +35,10 @@
                 result += $"PMS Version:  {PMS}\n";
             if (Bridge != null)
                 result += $"Integrator Version:  {Bridge}\n";
-            if (Device != null)
-                result += $"Device:  {Device}\n";
+            if (DatabasePath != null)
+                result += $"Database Path:  {DatabasePath}\n";
+            if (DeviceType != null)
+                result += $"Device:  {DeviceType}\n";
             if (SerialNumber != null)
                 result += $"SN:  {SerialNumber}\n";
             if (Driver != null)

@@ -326,7 +326,7 @@
                              Margin="3,10,3,3" Padding="3"
                              mah:TextBoxHelper.Watermark="Summary of the issue"/>
                     
-                    <TextBlock Text="IssueDetails"
+                    <TextBlock Text="Issue Details"
                                Grid.Column="1" Grid.Row="4"
                                Margin="3"/>
                     <TextBox x:Name="IssueDetailsBox"
@@ -369,38 +369,127 @@
             <TabItem x:Name="ProductInfoTab"
                      Header="Product Info">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="5"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="25"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
 
-                    <!--Device Combobox List section-->
-                    <TextBlock Text="Device"
-                               Grid.Column="1" Grid.Row="1"
+                        <!--Device Combobox List section-->
+                        <TextBlock Text="Device Type"
+                               Grid.Column="1"
+                                   HorizontalAlignment="Right"
                                Margin="3" Padding="3"/>
-                    <ComboBox x:Name="DeviceComboBox"
-                              Grid.Column="2" Grid.Row="1"
-                              MinWidth="150"
+                        <ComboBox x:Name="DeviceTypeBox"
+                              Grid.Column="2"
                               IsEditable="False"
-                              Padding="3"
+                              Margin="3" Padding="3"
                               Style="{DynamicResource theComboBox}"
                               ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
-                    
-                    <!--SN box-->
-                    <TextBlock Text="Serial Number"
-                    
+
+                        <!--SN box-->
+                        <TextBlock Text="Serial Number"
+                               Grid.Column="3"
+                                   HorizontalAlignment="Right"
+                               Margin="3" Padding="3"/>
+                        <TextBox x:Name="SerialNumberBox"
+                             Grid.Column="4"
+                             Margin="3" Padding="3"/>
+
+                        <!--Driver Section-->
+                        <TextBlock Text="Driver Version"
+                               Grid.Column="5"
+                                   HorizontalAlignment="Right"
+                               Margin="3" Padding="3"/>
+                        <ComboBox x:Name="DriverVersionBox"
+                              Grid.Column="6"
+                              IsEditable="False"
+                              Margin="3" Padding="3"
+                              Style="{DynamicResource theComboBox}"
+                              ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!--Software Info-->
+                        <TextBlock Text="Imaging Version"
+                                   Grid.Column="1" Grid.Row="0"
+                                   VerticalAlignment="Bottom"
+                                   Margin="3" Padding="3"/>
+                        <ComboBox x:Name="ImagingVersionBox"
+                                  Grid.Column="1" Grid.Row="1"
+                                  Height="27"
+                                  Padding="3"
+                                  Style="{DynamicResource theComboBox}"
+                                  ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                        
+                        <TextBlock Text="PMS"
+                                   Grid.Column="1" Grid.Row="2"
+                                   VerticalAlignment="Bottom"
+                                   Margin="3" Padding="3"/>
+                        <ComboBox x:Name="PMSVersionBox"
+                                  Grid.Column="1" Grid.Row="3"
+                                  Height="27"
+                                  Padding="3"
+                                  Style="{DynamicResource theComboBox}"
+                                  ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                        
+                        <TextBlock Text="Bridge Version"
+                                   Grid.Column="1" Grid.Row="4"
+                                   VerticalAlignment="Bottom"
+                                   Margin="3" Padding="3"/>
+                        <ComboBox x:Name="BridgeVersionBox"
+                                  Grid.Column="1" Grid.Row="5"
+                                  Height="27"
+                                  Padding="3"
+                                  Style="{DynamicResource theComboBox}"
+                                  ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                        
+                        <!--DB path-->
+                        <TextBlock Text="Database Path"
+                                   Grid.Column="3" Grid.Row="0"
+                                   VerticalAlignment="Bottom"
+                                   Margin="3" Padding="3"/>
+                        <TextBox x:Name="DatabasePathBox"
+                                 Grid.Column="3" Grid.Row="1"
+                                 Padding="3"
+                                 Height="27"/>
+
+                        <mah:ToggleSwitch x:Name="RMASwitch"
+                                          Header="RMA Tab"
+                                          Grid.Column="3" Grid.Row="2"
+                                          VerticalAlignment="Bottom"/>
+
+                    </Grid>
                 </Grid>
-                
+
             </TabItem>
            
             

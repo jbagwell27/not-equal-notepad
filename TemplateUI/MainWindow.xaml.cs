@@ -29,10 +29,16 @@ namespace TemplateUI
 
         private void FillComboBoxes()
         {
-            foreach (var item in Pr.Devices)
-            {
-                DeviceComboBox.Items.Add(item);
-            }
+            foreach (var item in Pr.ImagingVersions)
+                ImagingVersionBox.Items.Add(item);
+            foreach (var item in Pr.PMSVersions)
+                PMSVersionBox.Items.Add(item);
+            foreach (var item in Pr.BridgeVersions)
+                BridgeVersionBox.Items.Add(item);
+            foreach (var item in Pr.DeviceTypes)
+                DeviceTypeBox.Items.Add(item);
+            foreach (var item in Pr.DriverVersions)
+                DriverVersionBox.Items.Add(item);
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)

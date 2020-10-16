@@ -10,8 +10,9 @@ namespace TemplateUI.Logic
         public List<string> ImagingVersions { get; }
         public List<string> PMSVersions { get; }
         public List<string> BridgeVersions { get; }
-        public List<string> Devices { get; }
+        public List<string> DeviceTypes { get; }
         public List<string> DriverVersions { get; }
+
         private readonly string TemplateFile;
         public ProductReader()
         {
@@ -19,7 +20,7 @@ namespace TemplateUI.Logic
             ImagingVersions = new List<string>();
             PMSVersions = new List<string>();
             BridgeVersions = new List<string>();
-            Devices = new List<string>();
+            DeviceTypes = new List<string>();
             DriverVersions = new List<string>();
             FillImaging();
             FillPMS();
@@ -65,7 +66,7 @@ namespace TemplateUI.Logic
             dynamic array = JsonConvert.DeserializeObject(list);
             foreach (string item in array)
             {
-                Devices.Add(item);
+                DeviceTypes.Add(item);
             }
         }
         private void FillDriver()
