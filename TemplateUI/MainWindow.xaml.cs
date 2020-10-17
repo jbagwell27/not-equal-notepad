@@ -242,9 +242,11 @@ namespace TemplateUI
         {
             string result = "";
             if (string.IsNullOrEmpty(IssueDetailsBox.Text))
-                result = $"{IssueSummaryBox.Text} \n Sessions:\n";
+                result = $"{IssueSummaryBox.Text}\n";
             else
-                result = $"{IssueDetailsBox.Text} \n Sessions:\n";
+                result = $"{IssueDetailsBox.Text}\n";
+            if (!RemoteSessionListBox.Items.IsEmpty)
+                result += "Sessions:\n";
             foreach (Computer cp in RemoteSessionListBox.Items)
             {
                 result += $"{cp}\n";
@@ -352,6 +354,20 @@ namespace TemplateUI
             Win10Radio.IsChecked = true;
             ProRadio.IsChecked = true;
             x64Radio.IsChecked = true;
+        }
+
+        private void SelectAllTriple_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (e.ClickCount ==3)
+            {
+                tb.SelectAll();
+            }
+        }
+
+        private void EasterEggImage_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Easter Egg", "Listen Here you little shit");
         }
     }
 }

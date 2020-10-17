@@ -274,7 +274,9 @@
                     <iconPacks:PackIconRemixIcon Kind="ContactsLine"
                                                  Grid.Column="1"
                                                  HorizontalAlignment="Left"
-                                                 VerticalAlignment="Center"/>
+                                                 VerticalAlignment="Center"
+                                                 MouseDown="EasterEggImage_Click"
+                                                 />
                     
                     <!--Contact name and phone number sections-->
                     <TextBlock Text="Contact Name"
@@ -300,7 +302,8 @@
                     <TextBox x:Name="CaseNumberBox"
                              Grid.Column="4" Grid.Row="1"
                              Width="150"
-                             Margin="3" Padding="3"/>
+                             Margin="3" Padding="3" 
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                     <TextBlock Text="Email Address"
                                Grid.Column="3" Grid.Row="2"
@@ -308,7 +311,8 @@
                     <TextBox x:Name="EmailAddressBox"
                              Grid.Column="4" Grid.Row="2"
                              Width="150"
-                             Margin="3" Padding="3"/>
+                             Margin="3" Padding="3"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <!--Right Aligned buttons-->
                     <StackPanel x:Name="RightAlignedButtonPanel"
@@ -353,13 +357,15 @@
                     <!--Problem info fields-->
                     <TextBlock Text="Issue Summary"
                                Grid.Column="1" Grid.Row="3"
-                               Margin="3,10"/>
+                               Margin="3,10"
+                               PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     <TextBox x:Name="IssueSummaryBox"
                              Grid.Column="2" Grid.Row="3"
                              Grid.ColumnSpan="4"
                              SpellCheck.IsEnabled="True"
                              Margin="3,10,3,3" Padding="3"
-                             mah:TextBoxHelper.Watermark="Summary of the issue"/>
+                             mah:TextBoxHelper.Watermark="Summary of the issue"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <TextBlock Text="Issue Details"
                                Grid.Column="1" Grid.Row="4"
@@ -367,9 +373,12 @@
                     <TextBox x:Name="IssueDetailsBox"
                              Grid.Column="2" Grid.Row="4"
                              Grid.ColumnSpan="4"
+                             AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
+                             VerticalScrollBarVisibility="Auto"
                              Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="More details of the issue (optional)"/>
+                             mah:TextBoxHelper.Watermark="(Optional) More details of the issue"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                     <!--Troubleshooting Steps Field-->
                     <TextBlock Text="Troubleshooting Steps"
@@ -383,7 +392,8 @@
                              SpellCheck.IsEnabled="True"
                              VerticalScrollBarVisibility="Auto"
                              Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"/>
+                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <!--Resolution Details Field-->
                     <TextBlock Text="Resolution Details"
@@ -396,7 +406,8 @@
                              AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
                              Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"/>
+                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                 </Grid>
             </TabItem>

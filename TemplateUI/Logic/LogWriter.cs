@@ -46,20 +46,20 @@ namespace TemplateUI.Logic
 
         public static int LaunchPreviousDayLogFile()
         {
-            DateTime yesterday = DateTime.Now.AddDays(-1);
+            DateTime previousDaysLog = DateTime.Now.AddDays(-1);
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Monday)
             {
-                yesterday = DateTime.Now.AddDays(-3);
+                previousDaysLog = DateTime.Now.AddDays(-3);
             }
-            string yesterdaysLog = $@"CaseHistory\{yesterday.Year}.{yesterday.Month}.{yesterday.Day}.log";
+            string yesterdaysLog = $@"CaseHistory\{previousDaysLog.Year}.{previousDaysLog.Month}.{previousDaysLog.Day}.log";
             if (!File.Exists(yesterdaysLog))
             {
                 return 0;
             }
             else
             {
-                Process.Start("", yesterdaysLog);
+                Process.Start("notepad.exe", yesterdaysLog);
             }
             return 1;
         }
