@@ -11,7 +11,7 @@ namespace TemplateUI.Logic
             int CurrentMonth = DateTime.Today.Month;
             int CurrentDay = DateTime.Today.Day;
             string LogFileName = $@"CaseHistory\{CurrentYear}.{CurrentMonth}.{CurrentDay}.log";
-            
+
 
             if (!Directory.Exists("CaseHistory"))
             {

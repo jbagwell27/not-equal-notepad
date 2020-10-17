@@ -33,7 +33,7 @@
             result += !string.IsNullOrEmpty(ContactName) ? $"Contact Name:  {ContactName}\n" : null;
             result += !string.IsNullOrEmpty(PhoneNumber) ? $"Phone Number:  {PhoneNumber}\n" : null;
             result += !string.IsNullOrEmpty(EmailAddress) ? $"Email:  {EmailAddress}\n" : null;
-            result += !string.IsNullOrEmpty(CaseNumber ) ? $"Case #:  {CaseNumber}\n\n" : null;
+            result += !string.IsNullOrEmpty(CaseNumber) ? $"Case #:  {CaseNumber}\n\n" : null;
             result += !string.IsNullOrEmpty(IssueSummary) ? $"Problem Description:\n{IssueSummary}\n\n" : null;
             result += !string.IsNullOrEmpty(IssueDetails) ? $"Problem Details:\n{IssueDetails}\n\n" : null;
             result += !string.IsNullOrEmpty(TroubleShootingSteps) ? $"Troubleshooting Steps:\n{TroubleShootingSteps}\n\n" : null;

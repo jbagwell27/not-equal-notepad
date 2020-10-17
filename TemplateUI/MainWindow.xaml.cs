@@ -1,6 +1,5 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +19,6 @@ namespace TemplateUI
         private GenericInfo Ginfo;
         private ProductInfo Pinfo;
         private ProductReader Preader;
-        private List<Computer> RemoteSessions;
         private string OSVersion;
         private string WindowsEdition;
         private string OSArchitecture;
@@ -32,7 +30,6 @@ namespace TemplateUI
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             Preader = new ProductReader();
-            RemoteSessions = new List<Computer>();
 
             //Initial setup process.
             FillComboBoxes();
@@ -74,7 +71,17 @@ namespace TemplateUI
             Pinfo.SerialNumber = !string.IsNullOrEmpty(SerialNumberBox.Text) ? SerialNumberBox.Text : null;
             Pinfo.Driver = DriverVersionBox.SelectedItem?.ToString();
 
-            string templateString = Ginfo.ToString() + Pinfo.ToString();
+            string computerList = "";
+            if (!RemoteSessionListBox.Items.IsEmpty)
+            {
+                computerList = "Remote Sessions:\n";
+                foreach (Computer cp in RemoteSessionListBox.Items)
+                {
+                    computerList += $"{cp}\n";
+                }
+            }
+            string templateString = $"{Ginfo}{Pinfo}\n{computerList}";
+
             LogWriter.AddLogEntry(templateString);
             TemplatePreviewTab.IsEnabled = true;
             TemplatePreviewBox.Text = templateString;
@@ -115,14 +122,37 @@ namespace TemplateUI
                     if (el.GetType() == typeof(ComboBox))
                         ((ComboBox)(el)).SelectedIndex = -1;
                 }
+                Ginfo.Clear();
+                Pinfo.Clear();
+                ClearRemoteSessionScreen();
+                RemoteSessionListBox.Items.Clear();
+                TemplatePreviewBox.Clear();
+                TemplatePreviewTab.IsEnabled = false;
+                GenericInfoTab.IsSelected = true;
+                ContactNameBox.Focus();
             }
 
-            Ginfo.Clear();
-            Pinfo.Clear();
-            TemplatePreviewBox.Clear();
-            TemplatePreviewTab.IsEnabled = false;
-            GenericInfoTab.IsSelected = true;
-            ContactNameBox.Focus();
+        }
+
+        private void ClearRemoteSessionScreen()
+        {
+            ComputerNameBox.Clear();
+            foreach (UIElement el in OSPanel.Children)
+            {
+                if (el.GetType() == typeof(RadioButton))
+                    ((RadioButton)(el)).IsChecked = false;
+            }
+            foreach (UIElement el in EditionPanel.Children)
+            {
+                if (el.GetType() == typeof(RadioButton))
+                    ((RadioButton)(el)).IsChecked = false;
+            }
+            foreach (UIElement el in ArchitecturePanel.Children)
+            {
+                if (el.GetType() == typeof(RadioButton))
+                    ((RadioButton)(el)).IsChecked = false;
+            }
+           
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -156,11 +186,11 @@ namespace TemplateUI
 
             if (ck.Content.ToString().Contains("Server"))
             {
-                WindowsEditionPanel.IsEnabled = false;
+                EditionPanel.IsEnabled = false;
             }
             else
             {
-                WindowsEditionPanel.IsEnabled = true;
+                EditionPanel.IsEnabled = true;
             }
             this.OSVersion = ck.Content.ToString();
         }
@@ -178,18 +208,16 @@ namespace TemplateUI
 
         private async void AddComputerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) || 
+            if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) ||
                 string.IsNullOrEmpty(WindowsEdition) || string.IsNullOrEmpty(OSArchitecture))
             {
                 await this.ShowMessageAsync("Some fields are empty.", "Please fill out all available fields.");
             }
-            Computer cp = new Computer();
-            cp.Name = ComputerNameBox.Text;
-            cp.OSVersion = OSVersion;
-            cp.Edition = WindowsEdition;
-            cp.Architecture = OSArchitecture;
-
-
+            else
+            {
+                RemoteSessionListBox.Items.Add(new Computer(ComputerNameBox.Text, OSVersion, WindowsEdition, OSArchitecture));
+                ClearRemoteSessionScreen();
+            }
         }
 
 
