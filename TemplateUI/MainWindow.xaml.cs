@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Behaviors;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Threading;
@@ -35,6 +36,7 @@ namespace TemplateUI
             FillComboBoxes();
             TemplatePreviewTab.IsEnabled = false;
             ContactNameBox.Focus();
+            
 
         }
 
@@ -176,7 +178,23 @@ namespace TemplateUI
             }
             else
             {
-                Application.Current.Shutdown();
+                int count = 0;
+                foreach (Window win in Application.Current.Windows)
+                {
+                    if (win.Visibility == Visibility.Visible)
+                    {
+                        count++;
+                    }
+                }
+                if (count > 2)
+                {
+                    this.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+
             }
         }
 
@@ -276,5 +294,14 @@ namespace TemplateUI
 
 
         }
+
+        private void NewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new MainWindow();
+            newWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            newWindow.Show();
+        }
+
+       
     }
 }

@@ -174,7 +174,8 @@
                            TargetType="{x:Type MenuItem}"/>
                 </mah:DropDownButton.ItemContainerStyle>
                 <mah:DropDownButton.Items>
-                    <MenuItem Name="NewWindow" Header="New">
+                    <MenuItem Name="NewWindow" Header="New" 
+                              Click="NewWindow_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 
                                 Kind="FilePlus" Margin="3"/>
@@ -579,35 +580,35 @@
 
                         <RadioButton Content="XP"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="7"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="8/8.1"
                                      GroupName="OSgroup"
-                                     Margin="3" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="10"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2008"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2012"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2016"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2019"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"
+                                     Margin="5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                     </WrapPanel>
 
