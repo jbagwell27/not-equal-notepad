@@ -193,7 +193,7 @@
                             <iconPacks:PackIconMaterial 
                                 Kind="History" Margin="3"/>
                         </MenuItem.Icon>
-                        <MenuItem Header="Today">
+                        <MenuItem Header="Today" Click="TodayLogItem_Click">
                             <MenuItem.Icon>
                                 <iconPacks:PackIconMaterial
                                     Kind="CalendarToday" Margin="3"/>
@@ -218,7 +218,8 @@
                                 Kind="Settings" Margin="3"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Close" Click="MenuClose_Click">
+                    <MenuItem Header="Close"
+                              Click="MenuClose_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconJamIcons 
                                 Kind="CloseRectangleF" Margin="3"

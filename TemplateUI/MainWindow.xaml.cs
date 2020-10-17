@@ -1,6 +1,6 @@
-﻿using MahApps.Metro.Behaviors;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace TemplateUI
             FillComboBoxes();
             TemplatePreviewTab.IsEnabled = false;
             ContactNameBox.Focus();
-            
+
 
         }
 
@@ -154,7 +154,7 @@ namespace TemplateUI
                 if (el.GetType() == typeof(RadioButton))
                     ((RadioButton)(el)).IsChecked = false;
             }
-           
+
         }
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
@@ -320,6 +320,14 @@ namespace TemplateUI
         private void MenuClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private async void TodayLogItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (LogWriter.LaunchTodaysLogFile() == 0)
+            {
+                await this.ShowMessageAsync("Log file not found", "Please verify the log is in the 'Case History' Folder");
+            }
         }
     }
 }

@@ -37,11 +37,15 @@
             result += !string.IsNullOrEmpty(IssueSummary) ? $"Issue Summary:  {IssueSummary}\n\n" : null;
             result += !string.IsNullOrEmpty(IssueDetails) ? $"Issue Details:\n{IssueDetails}\n\n" : null;
 
-            string[] tempSteps = TroubleShootingSteps.Split('\n');
-            TroubleShootingSteps = "";
-            foreach (string s in tempSteps)
+            if (!string.IsNullOrEmpty(TroubleShootingSteps))
             {
-                TroubleShootingSteps += $"\u2022 {s}\n";
+                string[] tempSteps = TroubleShootingSteps.Split('\n');
+                TroubleShootingSteps = "";
+                foreach (string s in tempSteps)
+                {
+                    TroubleShootingSteps += $"\u2022 {s}\n";
+                }
+
             }
             result += !string.IsNullOrEmpty(TroubleShootingSteps) ? $"Troubleshooting Steps:\n{TroubleShootingSteps}\n" : null;
             result += !string.IsNullOrEmpty(ResolutionDetails) ? $"Resolution Details:\n{ResolutionDetails}\n\n" : null;
