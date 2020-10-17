@@ -181,7 +181,8 @@
                                 Kind="FilePlus" Margin="3"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Duplicate Window" Click="DuplicateWindow_Click">
+                    <MenuItem Header="Duplicate Window" 
+                              Click="DuplicateWindow_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 
                                 Kind="Copy" Margin="3"/>
@@ -217,7 +218,7 @@
                                 Kind="Settings" Margin="3"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Close">
+                    <MenuItem Header="Close" Click="MenuClose_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconJamIcons 
                                 Kind="CloseRectangleF" Margin="3"
