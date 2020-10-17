@@ -275,8 +275,7 @@
                                                  Grid.Column="1"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Center"
-                                                 MouseDown="EasterEggImage_Click"
-                                                 />
+                                                 MouseDown="EasterEggImage_Click"/>
                     
                     <!--Contact name and phone number sections-->
                     <TextBlock Text="Contact Name"

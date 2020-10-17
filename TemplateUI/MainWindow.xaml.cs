@@ -367,7 +367,7 @@ namespace TemplateUI
 
         private void EasterEggImage_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            MessageBox.Show("Easter Egg", "Listen Here you little shit");
+            new EasterEggWindow().ShowDialog();
         }
     }
 }
