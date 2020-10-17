@@ -587,15 +587,16 @@
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="7"
                                      GroupName="OSgroup"
-                                     Margin="5" Padding="10"
+                                     Margin="10,5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="8/8.1"
                                      GroupName="OSgroup"
-                                     Margin="5" Padding="10"
+                                     Margin="10,5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="10"
+                        <RadioButton x:Name="Win10Radio"
+                                     Content="10"
                                      GroupName="OSgroup"
-                                     Margin="5" Padding="10"
+                                     Margin="10,5" Padding="10"
                                      Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2008"
                                      GroupName="OSgroup"
@@ -624,13 +625,15 @@
                                 Grid.Column="2" Grid.Row="5"
                                 Orientation="Horizontal"
                                 Margin="3,10,3,3">
+                        
                         <RadioButton Content="Home"
                                      GroupName="EditionGroup"
-                                     Margin="10" Padding="3"
+                                     Margin="10,5" Padding="10"
                                      Checked="EditionRadioButton_Checked"/>
-                        <RadioButton Content="Pro"
+                        <RadioButton x:Name="ProRadio"
+                                     Content="Pro"
                                      GroupName="EditionGroup"
-                                     Margin="10" Padding="3" 
+                                     Margin="10,5" Padding="10" 
                                      Checked="EditionRadioButton_Checked"/>
                     </StackPanel>
 
@@ -646,11 +649,12 @@
 
                         <RadioButton Content="x86"
                                      GroupName="ArchitectureGroup"
-                                     Margin="10" Padding="3" 
+                                     Margin="10,5" Padding="10" 
                                      Checked="ArchRadioButton_Checked"/>
-                        <RadioButton Content="x64"
+                        <RadioButton x:Name="x64Radio"
+                                     Content="x64"
                                      GroupName="ArchitectureGroup"
-                                     Margin="10" Padding="3"
+                                     Margin="10,5" Padding="10"
                                      Checked="ArchRadioButton_Checked"/>
                     </StackPanel>
 
@@ -677,7 +681,7 @@
 
                         <Button Grid.Column="3" Grid.Row="3"
                                 Style="{StaticResource MahApps.Styles.Button.Square}"
-                                Margin="10">
+                                Margin="10" Click="Win10Pro64_Click">
                             <Button.Content>
                                 <TextBlock Text="Win 10 Pro x64"
                                            Margin="3"/>

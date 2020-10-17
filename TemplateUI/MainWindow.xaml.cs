@@ -3,6 +3,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using TemplateUI.Logic;
@@ -341,8 +342,16 @@ namespace TemplateUI
         {
             if (LogWriter.OpenLogFolder() == 0)
             {
-                await this.ShowMessageAsync("'CaseHistory' folder not found", $"Please verify the location of the 'CaseHistory' Folder.\nIt should be in:\n'{System.IO.Directory.GetCurrentDirectory()}'");
+                await this.ShowMessageAsync("'CaseHistory' folder not found", $"Please verify the location of the 'CaseHistory' Folder.\n" +
+                    $"It should be in:\n'{System.IO.Directory.GetCurrentDirectory()}'");
             }
+        }
+
+        private void Win10Pro64_Click(object sender, RoutedEventArgs e)
+        {
+            Win10Radio.IsChecked = true;
+            ProRadio.IsChecked = true;
+            x64Radio.IsChecked = true;
         }
     }
 }
