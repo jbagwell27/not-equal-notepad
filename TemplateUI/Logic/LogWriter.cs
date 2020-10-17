@@ -9,7 +9,7 @@ namespace TemplateUI.Logic
         public static void CreateTodaysLog()
         {
 
-            
+
         }
         public static void AddLogEntry(string logEntry)
         {
@@ -47,7 +47,7 @@ namespace TemplateUI.Logic
         public static int LaunchPreviousDayLogFile()
         {
             DateTime yesterday = DateTime.Now.AddDays(-1);
-            
+
             if (DateTime.Now.DayOfWeek == DayOfWeek.Monday)
             {
                 yesterday = DateTime.Now.AddDays(-3);
@@ -60,6 +60,18 @@ namespace TemplateUI.Logic
             else
             {
                 Process.Start("", yesterdaysLog);
+            }
+            return 1;
+        }
+        public static int OpenLogFolder()
+        {
+            if (!Directory.Exists("CaseHistory"))
+            {
+                return 0;
+            }
+            else
+            {
+                Process.Start("explorer.exe", $@"{Directory.GetCurrentDirectory()}\CaseHistory");
             }
             return 1;
         }

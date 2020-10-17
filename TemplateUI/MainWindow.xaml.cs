@@ -1,6 +1,5 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -326,7 +325,23 @@ namespace TemplateUI
         {
             if (LogWriter.LaunchTodaysLogFile() == 0)
             {
-                await this.ShowMessageAsync("Log file not found", "Please verify the log is in the 'Case History' Folder");
+                await this.ShowMessageAsync("Log file not found", "Please verify the log is in the 'CaseHistory' Folder");
+            }
+        }
+
+        private async void PreviousDayLogItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (LogWriter.LaunchPreviousDayLogFile() == 0)
+            {
+                await this.ShowMessageAsync("Log file not found", "Please verify the log is in the 'CaseHistory' Folder");
+            }
+        }
+
+        private async void OpenLogFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (LogWriter.OpenLogFolder() == 0)
+            {
+                await this.ShowMessageAsync("'CaseHistory' folder not found", $"Please verify the location of the 'CaseHistory' Folder.\nIt should be in:\n'{System.IO.Directory.GetCurrentDirectory()}'");
             }
         }
     }
