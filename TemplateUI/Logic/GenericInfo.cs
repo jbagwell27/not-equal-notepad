@@ -34,9 +34,16 @@
             result += !string.IsNullOrEmpty(PhoneNumber) ? $"Phone Number:  {PhoneNumber}\n" : null;
             result += !string.IsNullOrEmpty(EmailAddress) ? $"Email:  {EmailAddress}\n" : null;
             result += !string.IsNullOrEmpty(CaseNumber) ? $"Case #:  {CaseNumber}\n\n" : null;
-            result += !string.IsNullOrEmpty(IssueSummary) ? $"Problem Description:\n{IssueSummary}\n\n" : null;
-            result += !string.IsNullOrEmpty(IssueDetails) ? $"Problem Details:\n{IssueDetails}\n\n" : null;
-            result += !string.IsNullOrEmpty(TroubleShootingSteps) ? $"Troubleshooting Steps:\n{TroubleShootingSteps}\n\n" : null;
+            result += !string.IsNullOrEmpty(IssueSummary) ? $"Issue Summary:  {IssueSummary}\n\n" : null;
+            result += !string.IsNullOrEmpty(IssueDetails) ? $"Issue Details:\n{IssueDetails}\n\n" : null;
+
+            string[] tempSteps = TroubleShootingSteps.Split('\n');
+            TroubleShootingSteps = "";
+            foreach (string s in tempSteps)
+            {
+                TroubleShootingSteps += $"\u2022 {s}\n";
+            }
+            result += !string.IsNullOrEmpty(TroubleShootingSteps) ? $"Troubleshooting Steps:\n{TroubleShootingSteps}\n" : null;
             result += !string.IsNullOrEmpty(ResolutionDetails) ? $"Resolution Details:\n{ResolutionDetails}\n\n" : null;
 
             return result;

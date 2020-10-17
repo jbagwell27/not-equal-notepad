@@ -208,8 +208,8 @@ namespace TemplateUI
 
         private async void AddComputerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) ||
-                string.IsNullOrEmpty(WindowsEdition) || string.IsNullOrEmpty(OSArchitecture))
+            if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) || string.IsNullOrEmpty(OSArchitecture) ||
+                (string.IsNullOrEmpty(WindowsEdition) && EditionPanel.IsEnabled))
             {
                 await this.ShowMessageAsync("Some fields are empty.", "Please fill out all available fields.");
             }
@@ -220,6 +220,61 @@ namespace TemplateUI
             }
         }
 
+        private void CopyDescription_Click(object sender, RoutedEventArgs e)
+        {
+            string result = "";
+            if (string.IsNullOrEmpty(IssueDetailsBox.Text))
+                result = $"{IssueSummaryBox.Text} \n Sessions:\n";
+            else
+                result = $"{IssueDetailsBox.Text} \n Sessions:\n";
+            foreach (Computer cp in RemoteSessionListBox.Items)
+            {
+                result += $"{cp}\n";
+            }
+            ClipboardService.SetText(result);
+        }
 
+        private void CopyTroubleshootSteps_Click(object sender, RoutedEventArgs e)
+        {
+            string result = "";
+            foreach (string s in TroubleshootStepsBox.Text.Split('\n'))
+            {
+                result += $"\u2022 {s}";
+            }
+            ClipboardService.SetText(result);
+        }
+
+        private async void ClearComputerList_Click(object sender, RoutedEventArgs e)
+        {
+            var settings = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = "Yes",
+                NegativeButtonText = "No",
+            };
+            var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                RemoteSessionListBox.Items.Clear();
+            }
+        }
+
+        private void CopyComputerName_Click(object sender, RoutedEventArgs e)
+        {
+            if (RemoteSessionListBox.SelectedItem != null)
+            {
+                ClipboardService.SetText(((Computer)(RemoteSessionListBox.SelectedItem)).Name);
+            }
+        }
+
+        private void RemoveSingleComputer_Click(object sender, RoutedEventArgs e)
+        {
+            if (RemoteSessionListBox.SelectedItem != null)
+            {
+                RemoteSessionListBox.Items.RemoveAt(RemoteSessionListBox.SelectedIndex);
+            }
+
+
+        }
     }
 }
