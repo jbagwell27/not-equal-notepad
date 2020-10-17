@@ -29,13 +29,13 @@
         {
             string result = "-----Environment-----\n\n";
 
-            result += Imaging != null && Imaging != string.Empty ? $"Imaging Version:  {Imaging}\n" : null;
-            result += PMS != null && PMS != string.Empty ? $"PMS Version:  {PMS}\n" : null;
-            result += Bridge != null && Bridge != string.Empty ? $"Integrator Version:  {Bridge}\n" : null;
-            result += DatabasePath != null ? $"Database Path:  {DatabasePath}\n" : null;
-            result += DeviceType != null && DeviceType != string.Empty ? $"Device:  {DeviceType}\n" : null;
-            result += SerialNumber != null ? $"SN:  {SerialNumber}\n" : null;
-            result += Driver != null && Driver != string.Empty ? $"Driver:  {Driver}\n" : null;
+            result += !string.IsNullOrEmpty(Imaging) ? $"Imaging Version:  {Imaging}\n" : null;
+            result += !string.IsNullOrEmpty(PMS) ? $"PMS Version:  {PMS}\n" : null;
+            result += !string.IsNullOrEmpty(Bridge) ? $"Integrator Version:  {Bridge}\n" : null;
+            result += !string.IsNullOrEmpty(DatabasePath) ? $"Database Path:  {DatabasePath}\n" : null;
+            result += !string.IsNullOrEmpty(DeviceType) ? $"Device:  {DeviceType}\n" : null;
+            result += !string.IsNullOrEmpty(SerialNumber) ? $"SN:  {SerialNumber}\n" : null;
+            result += !string.IsNullOrEmpty(Driver) ? $"Driver:  {Driver}\n" : null;
 
             return result;
         }

@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,18 +17,22 @@ namespace TemplateUI
     public partial class MainWindow : MetroWindow
     {
 
-        GenericInfo Ginfo;
-        ProductInfo Pinfo;
-        ProductReader Preader;
-        LogWriter Lwriter;
+        private GenericInfo Ginfo;
+        private ProductInfo Pinfo;
+        private ProductReader Preader;
+        private List<Computer> RemoteSessions;
+        private string OSVersion;
+        private string WindowsEdition;
+        private string OSArchitecture;
+
         public MainWindow()
         {
             InitializeComponent();
 
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
-            Lwriter = new LogWriter();
             Preader = new ProductReader();
+            RemoteSessions = new List<Computer>();
 
             //Initial setup process.
             FillComboBoxes();
@@ -52,25 +57,25 @@ namespace TemplateUI
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            Ginfo.ContactName = ContactNameBox.Text != string.Empty ? ContactNameBox.Text : null;
-            Ginfo.PhoneNumber = PhoneNumberBox.Text != string.Empty ? PhoneNumberBox.Text : null;
-            Ginfo.EmailAddress = EmailAddressBox.Text != string.Empty ? EmailAddressBox.Text : null;
-            Ginfo.CaseNumber = CaseNumberBox.Text != string.Empty ? CaseNumberBox.Text : null;
-            Ginfo.IssueSummary = IssueSummaryBox.Text != string.Empty ? IssueSummaryBox.Text : null;
-            Ginfo.IssueDetails = IssueDetailsBox.Text != string.Empty ? IssueDetailsBox.Text : null;
-            Ginfo.TroubleShootingSteps = TroubleshootStepsBox.Text != string.Empty ? TroubleshootStepsBox.Text : null;
-            Ginfo.ResolutionDetails = ResolutionBox.Text != string.Empty ? ResolutionBox.Text : null;
+            Ginfo.ContactName = !string.IsNullOrEmpty(ContactNameBox.Text) ? ContactNameBox.Text : null;
+            Ginfo.PhoneNumber = !string.IsNullOrEmpty(PhoneNumberBox.Text) ? PhoneNumberBox.Text : null;
+            Ginfo.EmailAddress = !string.IsNullOrEmpty(EmailAddressBox.Text) ? EmailAddressBox.Text : null;
+            Ginfo.CaseNumber = !string.IsNullOrEmpty(CaseNumberBox.Text) ? CaseNumberBox.Text : null;
+            Ginfo.IssueSummary = !string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
+            Ginfo.IssueDetails = !string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
+            Ginfo.TroubleShootingSteps = !string.IsNullOrEmpty(TroubleshootStepsBox.Text) ? TroubleshootStepsBox.Text : null;
+            Ginfo.ResolutionDetails = !string.IsNullOrEmpty(ResolutionBox.Text) ? ResolutionBox.Text : null;
 
-            Pinfo.Imaging = ImagingVersionBox.SelectedItem?.ToString(); 
+            Pinfo.Imaging = ImagingVersionBox.SelectedItem?.ToString();
             Pinfo.PMS = PMSVersionBox.SelectedItem?.ToString();
             Pinfo.Bridge = BridgeVersionBox.SelectedItem?.ToString();
-            Pinfo.DatabasePath = DatabasePathBox.Text != string.Empty ? DatabasePathBox.Text : null;
+            Pinfo.DatabasePath = !string.IsNullOrEmpty(DatabasePathBox.Text) ? DatabasePathBox.Text : null;
             Pinfo.DeviceType = DeviceTypeBox.SelectedItem?.ToString();
-            Pinfo.SerialNumber = SerialNumberBox.Text != string.Empty ? SerialNumberBox.Text : null;
+            Pinfo.SerialNumber = !string.IsNullOrEmpty(SerialNumberBox.Text) ? SerialNumberBox.Text : null;
             Pinfo.Driver = DriverVersionBox.SelectedItem?.ToString();
 
             string templateString = Ginfo.ToString() + Pinfo.ToString();
-            Lwriter.AddLogEntry(templateString);
+            LogWriter.AddLogEntry(templateString);
             TemplatePreviewTab.IsEnabled = true;
             TemplatePreviewBox.Text = templateString;
 
@@ -144,6 +149,49 @@ namespace TemplateUI
                 Application.Current.Shutdown();
             }
         }
+
+        private void OSRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton ck = sender as RadioButton;
+
+            if (ck.Content.ToString().Contains("Server"))
+            {
+                WindowsEditionPanel.IsEnabled = false;
+            }
+            else
+            {
+                WindowsEditionPanel.IsEnabled = true;
+            }
+            this.OSVersion = ck.Content.ToString();
+        }
+        private void EditionRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton ck = sender as RadioButton;
+            WindowsEdition = ck.Content.ToString();
+        }
+        private void ArchRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton ck = sender as RadioButton;
+            OSArchitecture = ck.Content.ToString();
+        }
+
+
+        private async void AddComputerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) || 
+                string.IsNullOrEmpty(WindowsEdition) || string.IsNullOrEmpty(OSArchitecture))
+            {
+                await this.ShowMessageAsync("Some fields are empty.", "Please fill out all available fields.");
+            }
+            Computer cp = new Computer();
+            cp.Name = ComputerNameBox.Text;
+            cp.OSVersion = OSVersion;
+            cp.Edition = WindowsEdition;
+            cp.Architecture = OSArchitecture;
+
+
+        }
+
 
     }
 }

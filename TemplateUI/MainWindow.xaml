@@ -577,28 +577,36 @@
 
                         <RadioButton Content="XP"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="7"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="8/8.1"
                                      GroupName="OSgroup"
-                                     Margin="3" Padding="3"/>
+                                     Margin="3" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="10"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2008"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2012"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2016"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                         <RadioButton Content="Server 2019"
                                      GroupName="OSgroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="OSRadioButton_Checked"/>
                     </WrapPanel>
 
                     <!--Windows Edition section-->
@@ -612,10 +620,12 @@
                                 Margin="3,10,3,3">
                         <RadioButton Content="Home"
                                      GroupName="EditionGroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="EditionRadioButton_Checked"/>
                         <RadioButton Content="Pro"
                                      GroupName="EditionGroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3" 
+                                     Checked="EditionRadioButton_Checked"/>
                     </StackPanel>
 
                     <!--System Architecture-->
@@ -630,10 +640,12 @@
 
                         <RadioButton Content="x86"
                                      GroupName="ArchitectureGroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3" 
+                                     Checked="ArchRadioButton_Checked"/>
                         <RadioButton Content="x64"
                                      GroupName="ArchitectureGroup"
-                                     Margin="10" Padding="3"/>
+                                     Margin="10" Padding="3"
+                                     Checked="ArchRadioButton_Checked"/>
                     </StackPanel>
 
                    
@@ -660,7 +672,7 @@
                         </Button>
                         <Button Grid.Column="3" Grid.Row="3"
                                 Margin="10"
-                                Style="{StaticResource MahApps.Styles.Button.Square.Accent}">
+                                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Click="AddComputerButton_Click">
                             <Button.Content>
                                 <TextBlock Text="Add Computer to List"
                                            Margin="3"/>
