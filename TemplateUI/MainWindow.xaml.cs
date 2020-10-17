@@ -302,6 +302,19 @@ namespace TemplateUI
             newWindow.Show();
         }
 
-       
+        private void DuplicateWindow_Click(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new MainWindow();
+            newWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            newWindow.ContactNameBox.Text = this.ContactNameBox.Text;
+            newWindow.PhoneNumberBox.Text = this.PhoneNumberBox.Text;
+            newWindow.EmailAddressBox.Text = this.EmailAddressBox.Text;
+            newWindow.ImagingVersionBox.SelectedIndex = this.ImagingVersionBox.SelectedIndex;
+            newWindow.PMSVersionBox.SelectedIndex = this.PMSVersionBox.SelectedIndex;
+            newWindow.BridgeVersionBox.SelectedIndex = this.BridgeVersionBox.SelectedIndex;
+            newWindow.DatabasePathBox.Text = this.DatabasePathBox.Text;
+
+            newWindow.Show();
+        }
     }
 }

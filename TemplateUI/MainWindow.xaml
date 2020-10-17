@@ -181,7 +181,7 @@
                                 Kind="FilePlus" Margin="3"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Duplicate Window">
+                    <MenuItem Header="Duplicate Window" Click="DuplicateWindow_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 
                                 Kind="Copy" Margin="3"/>
