@@ -6,10 +6,15 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:markup="clr-namespace:MahApps.Metro.Markup;assembly=MahApps.Metro"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="About" Height="250" Width="500"
-                 ResizeMode="NoResize">
+                 ResizeMode="NoResize"
+                 FontFamily="{Binding Source={x:Static properties:Settings.Default},
+    Path=FontFamily}"
+                 FontSize="{Binding Source={x:Static properties:Settings.Default},
+    Path=FontSize}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>

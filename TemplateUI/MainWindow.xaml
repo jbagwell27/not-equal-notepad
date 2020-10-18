@@ -6,10 +6,15 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:markup="clr-namespace:MahApps.Metro.Markup;assembly=MahApps.Metro"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="Template Creator" Height="520" Width="960"
-                 SaveWindowPosition="True" Closing="MainWindow_Closing">
+                 SaveWindowPosition="True" Closing="MainWindow_Closing"
+                 FontFamily="{Binding Source={x:Static properties:Settings.Default},
+    Path=FontFamily}"
+                 FontSize="{Binding Source={x:Static properties:Settings.Default}, 
+    Path=FontSize}">
     <mah:MetroWindow.Resources>
         <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
             <Setter Property="Template">
@@ -280,6 +285,9 @@
                         <Button.Content>
                             <iconPacks:PackIconRemixIcon Kind="ContactsLine"/>
                         </Button.Content>
+                        <Button.ToolTip>
+                            <TextBlock Text="Click me! 😈"/>
+                        </Button.ToolTip>
                         
                     </Button>
                     
@@ -328,6 +336,8 @@
                                 Click="CopyToClipboard_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy to Clipboard"
+                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
+                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -336,6 +346,8 @@
                                 Click="ClearDataButton_Click">
                             <Button.Content>
                                 <TextBlock Text="Clear Data"
+                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
+                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -345,6 +357,8 @@
                                 Click="CopyDescription_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy Description"
+                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
+                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -354,6 +368,8 @@
                                 Click="CopyTroubleshootSteps_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy Troubleshooting Steps"
+                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
+                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -451,9 +467,7 @@
                         <ComboBox x:Name="DeviceTypeBox"
                               Grid.Column="2"
                               IsEditable="False"
-                              Margin="3" Padding="3"
-                              Style="{DynamicResource theComboBox}"
-                              ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                              Margin="3" Padding="3"/>
 
                         <!--SN box-->
                         <TextBlock Text="Serial Number"
@@ -472,9 +486,7 @@
                         <ComboBox x:Name="DriverVersionBox"
                               Grid.Column="6"
                               IsEditable="False"
-                              Margin="3" Padding="3"
-                              Style="{DynamicResource theComboBox}"
-                              ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
+                              Margin="3" Padding="3"/>
                     </Grid>
 
                     <Grid x:Name="SoftwareInfoGrid" Grid.Row="2">

@@ -63,9 +63,9 @@ namespace TemplateUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] RockRoll {
+        internal static byte[] RickRoll {
             get {
-                object obj = ResourceManager.GetObject("RockRoll", resourceCulture);
+                object obj = ResourceManager.GetObject("RickRoll", resourceCulture);
                 return ((byte[])(obj));
             }
         }

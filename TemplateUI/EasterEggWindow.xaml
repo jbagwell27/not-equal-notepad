@@ -6,11 +6,16 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:markup="clr-namespace:MahApps.Metro.Markup;assembly=MahApps.Metro"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:gif="http://wpfanimatedgif.codeplex.com"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="HA!! GOT 'EM!!" Height="250" Width="250"
-                 Background="Black" ResizeMode="NoResize">
+                 Background="Black" ResizeMode="NoResize"
+                 FontFamily="{Binding Source={x:Static properties:Settings.Default},
+    Path=FontFamily}"
+                 FontSize="{Binding Source={x:Static properties:Settings.Default},
+    Path=FontSize}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -25,7 +30,7 @@
 
         <Image x:Name="EasterEggImage"
                Grid.Column="1" Grid.Row="1"
-               gif:ImageBehavior.AnimatedSource="/RockRoll.gif"/>
+               gif:ImageBehavior.AnimatedSource="pack://application:,,,/Resources/RickRoll.gif"/>
         <TextBlock Text="You lost The Game!!"
                    Grid.Column="1" Grid.Row="2"
                    HorizontalAlignment="Center"
