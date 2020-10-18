@@ -375,5 +375,12 @@ namespace TemplateUI
             aw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             aw.ShowDialog();
         }
+
+        private void PreferencesItem_Click(object sender, RoutedEventArgs e)
+        {
+            PreferencesWindow pw = new PreferencesWindow();
+            pw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            pw.ShowDialog();
+        }
     }
 }

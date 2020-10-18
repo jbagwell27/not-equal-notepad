@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <Resource Include="Resources\RockRoll.gif" />
-    <Resource Include="RockRoll.gif" />
   </ItemGroup>
 
   <ItemGroup>

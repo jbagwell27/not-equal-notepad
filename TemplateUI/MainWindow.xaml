@@ -213,7 +213,8 @@
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="Preferences">
+                    <MenuItem Header="Preferences"
+                              Click="PreferencesItem_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 
                                 Kind="Settings" Margin="3"/>
