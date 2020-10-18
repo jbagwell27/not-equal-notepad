@@ -3,8 +3,8 @@ using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 using TemplateUI.Logic;
 using TextCopy;
@@ -356,7 +356,7 @@ namespace TemplateUI
             x64Radio.IsChecked = true;
         }
 
-        private void SelectAllTriple_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void SelectAllTriple_Click(object sender, MouseButtonEventArgs e)
         {
             TextBox tb = sender as TextBox;
             if (e.ClickCount ==3)
@@ -365,9 +365,15 @@ namespace TemplateUI
             }
         }
 
-        private void EasterEggImage_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void EasterEggImage_Click(object sender, RoutedEventArgs e)
         {
             new EasterEggWindow().ShowDialog();
+        }
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aw = new AboutWindow();
+            aw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            aw.ShowDialog();
         }
     }
 }

@@ -233,7 +233,8 @@
     </mah:MetroWindow.LeftWindowCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button ToolTip="About this app">
+            <Button ToolTip="About this app" 
+                    Click="AboutButton_Click">
                 <Button.Content>
                     <iconPacks:PackIconEntypo Kind="Info" />
                 </Button.Content>
@@ -269,13 +270,17 @@
                         <RowDefinition Height=".3*"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
-                    
-                    
-                    <iconPacks:PackIconRemixIcon Kind="ContactsLine"
-                                                 Grid.Column="1"
-                                                 HorizontalAlignment="Left"
-                                                 VerticalAlignment="Center"
-                                                 MouseDown="EasterEggImage_Click"/>
+
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Click="EasterEggImage_Click">
+                        <Button.Content>
+                            <iconPacks:PackIconRemixIcon Kind="ContactsLine"/>
+                        </Button.Content>
+                        
+                    </Button>
                     
                     <!--Contact name and phone number sections-->
                     <TextBlock Text="Contact Name"
