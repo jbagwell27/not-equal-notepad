@@ -15,159 +15,6 @@
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
     Path=FontSize}">
-    <mah:MetroWindow.Resources>
-        <Style x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="32" />
-                            </Grid.ColumnDefinitions>
-                            <Border x:Name="Border"
-                                    Grid.ColumnSpan="2"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1" />
-                            <Path x:Name="Arrow"
-                                  Grid.Column="1"    
-                                  Fill="{TemplateBinding Foreground}"
-                                  Stroke="{TemplateBinding Foreground}"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Data="M 0 0 L 4 4 L 8 0 Z" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
-            <Border x:Name="PART_ContentHost" Focusable="True" />
-        </ControlTemplate>
-
-        <Style x:Key="theComboBox" TargetType="{x:Type ComboBox}">
-            <Setter Property="Foreground" Value="#333" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="SnapsToDevicePixels" Value="true"/>
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-            <Setter Property="Template">
-                <Setter.Value>
-
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <ToggleButton
-                                Name="ToggleButton"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                Background="{TemplateBinding Background}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Style="{StaticResource ComboBoxToggleButton}"
-                                Grid.Column="2"
-                                Focusable="false"
-                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
-                                ClickMode="Press"/>
-
-                            <ContentPresenter
-                                Name="ContentSite"
-                                IsHitTestVisible="False"
-                                Content="{TemplateBinding SelectionBoxItem}"
-                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                Margin="5,3,30,3"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left" />
-                            <TextBox x:Name="PART_EditableTextBox"
-                                     Style="{x:Null}"
-                                     Template="{StaticResource ComboBoxTextBox}"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Center"
-                                     Margin="3,3,23,3"
-                                     Focusable="True"                               
-                                     Visibility="Hidden"
-                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
-
-                            <Popup 
-                                Name="Popup"
-                                Placement="Bottom"
-                                IsOpen="{TemplateBinding IsDropDownOpen}"
-                                AllowsTransparency="True"
-                                Focusable="False"
-                                PopupAnimation="Slide">
-                                <Grid
-                                    Name="DropDown"
-                                    SnapsToDevicePixels="True"              
-                                    MinWidth="{TemplateBinding ActualWidth}"
-                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                    <Border
-                                        x:Name="DropDownBorder"
-                                        Background="White"
-                                        BorderThickness="1"
-                                        BorderBrush="LightGray"
-                                    />
-                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
-                                    </ScrollViewer>
-                                </Grid>
-                            </Popup>
-
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="HasItems" Value="false">
-                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
-                            </Trigger>
-                            <Trigger Property="IsGrouping" Value="true">
-                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
-                            </Trigger>
-                            <Trigger Property="IsEditable" Value="true">
-                                <Setter Property="IsTabStop" Value="false"/>
-                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
-                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Background" Value="#707070"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="theComboBoxItem" TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBoxItem">
-                        <Border
-                            Name="Border"
-                            Padding="5"
-                            BorderThickness="2,0,0,0"
-                            CornerRadius="0"
-                            Background="Transparent"
-                            BorderBrush="Transparent">
-                            <TextBlock TextAlignment="Left">
-                                
-                                <ContentPresenter />
-                            </TextBlock>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsHighlighted" Value="true">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#525050"/>
-                                <Setter TargetName="Border" Property="Background" Value="#3393DF"/>
-                                <Setter Property="Foreground" Value="White" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </mah:MetroWindow.Resources>
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <mah:DropDownButton x:Name="MenuButton" ToolTip="Menu Options">
@@ -277,19 +124,11 @@
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="1"
-                            Background="Transparent"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Click="EasterEggImage_Click">
-                        <Button.Content>
-                            <iconPacks:PackIconRemixIcon Kind="ContactsLine"/>
-                        </Button.Content>
-                        <Button.ToolTip>
-                            <TextBlock Text="Click me! 😈"/>
-                        </Button.ToolTip>
-                        
-                    </Button>
+                    <iconPacks:PackIconRemixIcon Grid.Column="1"
+                                                 Kind="ContactsLine" ToolTip="Click me! 😈"
+                                                 MouseDown="EasterEggImage_Click"
+                                                 Margin="0,2,0,0"/>
+
                     
                     <!--Contact name and phone number sections-->
                     <TextBlock Text="Contact Name"
@@ -515,10 +354,8 @@
                         <ComboBox x:Name="ImagingVersionBox"
                                   Grid.Column="1" Grid.Row="1"
                                   Height="27"
-                                  Padding="3"
-                                  Style="{DynamicResource theComboBox}"
-                                  ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
-                        
+                                  Padding="3"/>
+
                         <TextBlock Text="PMS"
                                    Grid.Column="1" Grid.Row="2"
                                    VerticalAlignment="Bottom"
@@ -526,10 +363,8 @@
                         <ComboBox x:Name="PMSVersionBox"
                                   Grid.Column="1" Grid.Row="3"
                                   Height="27"
-                                  Padding="3"
-                                  Style="{DynamicResource theComboBox}"
-                                  ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
-                        
+                                  Padding="3"/>
+
                         <TextBlock Text="Bridge Version"
                                    Grid.Column="1" Grid.Row="4"
                                    VerticalAlignment="Bottom"
@@ -537,10 +372,8 @@
                         <ComboBox x:Name="BridgeVersionBox"
                                   Grid.Column="1" Grid.Row="5"
                                   Height="27"
-                                  Padding="3"
-                                  Style="{DynamicResource theComboBox}"
-                                  ItemContainerStyle="{DynamicResource theComboBoxItem}"/>
-                        
+                                  Padding="3"/>
+
                         <!--DB path-->
                         <TextBlock Text="Database Path"
                                    Grid.Column="3" Grid.Row="0"
@@ -554,7 +387,8 @@
                         <mah:ToggleSwitch x:Name="RMASwitch"
                                           Header="RMA Tab"
                                           Grid.Column="3" Grid.Row="2"
-                                          VerticalAlignment="Bottom"/>
+                                          VerticalAlignment="Bottom"
+                                          ToolTip="Does nothing but is fun to flip :P"/>
 
                     </Grid>
                 </Grid>

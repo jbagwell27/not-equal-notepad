@@ -364,11 +364,6 @@ namespace TemplateUI
                 tb.SelectAll();
             }
         }
-
-        private void EasterEggImage_Click(object sender, RoutedEventArgs e)
-        {
-            new EasterEggWindow().ShowDialog();
-        }
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow aw = new AboutWindow();
@@ -381,6 +376,11 @@ namespace TemplateUI
             PreferencesWindow pw = new PreferencesWindow();
             pw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             pw.ShowDialog();
+        }
+
+        private void EasterEggImage_Click(object sender, MouseButtonEventArgs e)
+        {
+            new EasterEggWindow().ShowDialog();
         }
     }
 }
