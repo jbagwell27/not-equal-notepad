@@ -125,7 +125,7 @@
                     </Grid.RowDefinitions>
 
                     <iconPacks:PackIconRemixIcon Grid.Column="1"
-                                                 Kind="ContactsLine" ToolTip="Click me! 😈"
+                                                 Kind="ContactsFill" ToolTip="Click me! 😈"
                                                  MouseDown="EasterEggImage_Click"
                                                  Margin="0,2,0,0"/>
 

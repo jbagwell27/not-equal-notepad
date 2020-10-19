@@ -1,6 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using System.Windows;
 using System.Drawing.Text;
+using MahApps.Metro.Controls.Dialogs;
+using ControlzEx.Theming;
 
 namespace TemplateUI
 {
@@ -9,18 +11,34 @@ namespace TemplateUI
     /// </summary>
     public partial class PreferencesWindow : MetroWindow
     {
+        private bool DarkModeSwitchEventTrigger;
         public PreferencesWindow()
         {
             InitializeComponent();
+            if (Properties.Settings.Default.IsDarkMode)
+            {
+                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
+                DarkModeToggleSwitch.IsOn = true;
+            }
+
+            else
+            {
+                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
+                DarkModeToggleSwitch.IsOn = false;
+            }
             FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
             foreach (var item in Properties.Settings.Default.FontFamilyList)
                 FontFamilyComboBox.Items.Add(item);
             NumericUpDownBox.Value = Properties.Settings.Default.FontSize;
         }
 
-        private void PreferencesSave_Click(object sender, RoutedEventArgs e)
+        private async void PreferencesSave_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
+            if (DarkModeSwitchEventTrigger)
+            {
+                await this.ShowMessageAsync("Dark Mode Changed","You will need to restart to see the theme changes");
+            }
             this.Close();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -40,6 +58,7 @@ namespace TemplateUI
                 }
             }
             Properties.Settings.Default.FontSize = (int)(NumericUpDownBox.Value);
+            
 
             Properties.Settings.Default.Save();
         }
@@ -54,6 +73,20 @@ namespace TemplateUI
                 }
             }
             return false;
+        }
+
+        private void DarkMode_Toggled(object sender, RoutedEventArgs e)
+        {
+            DarkModeSwitchEventTrigger = true;
+            if (DarkModeToggleSwitch.IsOn)
+            {
+                Properties.Settings.Default.IsDarkMode = true;
+            }
+            else
+            {
+                Properties.Settings.Default.IsDarkMode = false;
+            }
+            Properties.Settings.Default.Save();
         }
     }
 }

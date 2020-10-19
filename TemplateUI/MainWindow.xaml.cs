@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using TemplateUI.Logic;
 using TextCopy;
+using ControlzEx.Theming;
 
 namespace TemplateUI
 {
@@ -27,7 +28,10 @@ namespace TemplateUI
         public MainWindow()
         {
             InitializeComponent();
-
+            if (Properties.Settings.Default.IsDarkMode)
+                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
+            else
+                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             Preader = new ProductReader();

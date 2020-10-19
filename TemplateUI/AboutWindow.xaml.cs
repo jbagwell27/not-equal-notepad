@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using System.Diagnostics;
 
 namespace TemplateUI
@@ -11,6 +12,10 @@ namespace TemplateUI
         public AboutWindow()
         {
             InitializeComponent();
+            if (Properties.Settings.Default.IsDarkMode)
+                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
+            else
+                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
