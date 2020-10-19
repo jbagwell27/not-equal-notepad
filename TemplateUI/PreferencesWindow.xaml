@@ -15,6 +15,16 @@
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
     Path=FontSize}">
+    <mah:MetroWindow.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+        </Style>
+    </mah:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -68,7 +78,7 @@
                           Toggled="DarkMode_Toggled"/>
         <TextBlock Text="**Restart required"
                    Grid.Column="2" Grid.Row="4"
-                   Foreground="Red"
+                   Foreground="Black"
                    Margin="-5,-7,0,0"/>
 
         <TextBlock Text="Add Entries"

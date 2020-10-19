@@ -15,6 +15,16 @@
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
     Path=FontSize}">
+    <mah:MetroWindow.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+        </Style>
+    </mah:MetroWindow.Resources>
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
             <mah:DropDownButton x:Name="MenuButton" ToolTip="Menu Options">
