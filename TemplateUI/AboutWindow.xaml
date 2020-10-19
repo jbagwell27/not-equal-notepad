@@ -10,7 +10,7 @@
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="About" Height="250" Width="500"
-                 ResizeMode="NoResize"
+                 ResizeMode="NoResize" SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},

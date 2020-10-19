@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using ControlzEx.Theming;
+﻿using ControlzEx.Theming;
 using MahApps.Metro.Controls;
+using System.Windows;
 
 namespace TemplateUI
 {

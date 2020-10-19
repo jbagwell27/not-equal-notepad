@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Interop;
 
 namespace TemplateUI.Logic
 {
@@ -70,7 +69,7 @@ namespace TemplateUI.Logic
             foreach (string item in array)
                 DriverVersions.Add(item);
         }
-        
+
         public void AddEntry(string product, string value)
         {
             var list = JsonConvert.DeserializeObject<List<Imaging>>(TemplateFile);

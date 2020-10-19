@@ -10,6 +10,7 @@
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="Preferences" Height="300" Width="600"
+                 SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
@@ -126,6 +127,19 @@
                 </Button.Content>
             </Button>
         </Grid>
+
+        <Button Grid.Column="2" Grid.Row="5"
+                Style="{StaticResource MahApps.Styles.Button.Square}"
+                VerticalAlignment="Bottom"
+                Margin="3" Padding="3"
+                Click="ApplyButton_Click">
+            <Button.Content>
+                <TextBlock Text="Apply"
+                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
+                    Path=FontFamily}"
+                           Margin="3"/>
+            </Button.Content>
+        </Button>
 
         <Button Grid.Column="4" Grid.Row="4"
                 Grid.ColumnSpan="2"

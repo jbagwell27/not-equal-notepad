@@ -1,8 +1,8 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows;
-using System.Drawing.Text;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using ControlzEx.Theming;
+using System.Drawing.Text;
+using System.Windows;
 
 namespace TemplateUI
 {
@@ -37,13 +37,18 @@ namespace TemplateUI
             SaveSettings();
             if (DarkModeSwitchEventTrigger)
             {
-                await this.ShowMessageAsync("Dark Mode Changed","You will need to restart to see the theme changes");
+                await this.ShowMessageAsync("Dark Mode Changed", "You will need to restart to see the theme changes");
             }
+
             this.Close();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettings();
         }
 
         private void SaveSettings()
@@ -58,7 +63,8 @@ namespace TemplateUI
                 }
             }
             Properties.Settings.Default.FontSize = (int)(NumericUpDownBox.Value);
-            
+
+
 
             Properties.Settings.Default.Save();
         }

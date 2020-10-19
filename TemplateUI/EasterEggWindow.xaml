@@ -11,11 +11,9 @@
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="HA!! GOT 'EM!!" Height="250" Width="250"
-                 Background="Black" ResizeMode="NoResize"
+                 Background="Black" ResizeMode="NoResize" SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
-    Path=FontFamily}"
-                 FontSize="{Binding Source={x:Static properties:Settings.Default},
-    Path=FontSize}">
+    Path=FontFamily}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>

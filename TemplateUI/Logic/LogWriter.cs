@@ -6,28 +6,24 @@ namespace TemplateUI.Logic
 {
     static class LogWriter
     {
+        public static string TodaysLog = $@"CaseHistory\{DateTime.Today.Year}.{DateTime.Today.Month}.{DateTime.Today.Day}.log";
         public static void CreateTodaysLog()
         {
-
-
-        }
-        public static void AddLogEntry(string logEntry)
-        {
-            string todaysLog = $@"CaseHistory\{DateTime.Today.Year}.{DateTime.Today.Month}.{DateTime.Today.Day}.log";
-
             if (!Directory.Exists("CaseHistory"))
             {
                 Directory.CreateDirectory("CaseHistory");
             }
-            if (!File.Exists(todaysLog))
+            if (!File.Exists(TodaysLog))
             {
-                File.Create(todaysLog);
+                File.Create(TodaysLog);
             }
-
+        }
+        public static void AddLogEntry(string logEntry)
+        {
             string result = $"---------------{DateTime.Now.ToShortTimeString()}---------------\n" +
                 $"{logEntry}\n\n";
 
-            File.AppendAllText(todaysLog, result);
+            File.AppendAllText(TodaysLog, result);
         }
 
         public static int LaunchTodaysLogFile()

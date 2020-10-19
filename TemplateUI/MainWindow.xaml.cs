@@ -1,14 +1,14 @@
-﻿using MahApps.Metro.Controls;
+﻿using ControlzEx.Theming;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TemplateUI.Logic;
 using TextCopy;
-using ControlzEx.Theming;
 
 namespace TemplateUI
 {
@@ -35,6 +35,7 @@ namespace TemplateUI
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             Preader = new ProductReader();
+            LogWriter.CreateTodaysLog();
 
             //Initial setup process.
             FillComboBoxes();
@@ -242,6 +243,13 @@ namespace TemplateUI
             }
         }
 
+        private void CopyIssue_Click(object sender, RoutedEventArgs e)
+        {
+            string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
+            string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
+            ClipboardService.SetText($"{summary} \n {details}");
+        }
+
         private void CopyDescription_Click(object sender, RoutedEventArgs e)
         {
             string result = "";
@@ -249,12 +257,14 @@ namespace TemplateUI
                 result = $"{IssueSummaryBox.Text}\n";
             else
                 result = $"{IssueDetailsBox.Text}\n";
+           
             if (!RemoteSessionListBox.Items.IsEmpty)
                 result += "Sessions:\n";
             foreach (Computer cp in RemoteSessionListBox.Items)
             {
                 result += $"{cp}\n";
             }
+            
             ClipboardService.SetText(result);
         }
 
@@ -363,7 +373,7 @@ namespace TemplateUI
         private void SelectAllTriple_Click(object sender, MouseButtonEventArgs e)
         {
             TextBox tb = sender as TextBox;
-            if (e.ClickCount ==3)
+            if (e.ClickCount == 3)
             {
                 tb.SelectAll();
             }
