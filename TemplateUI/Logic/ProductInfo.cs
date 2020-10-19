@@ -27,7 +27,7 @@
 
         public override string ToString()
         {
-            string result = "-----Environment-----\n\n";
+            string result = "";
 
             result += !string.IsNullOrEmpty(Imaging) ? $"Imaging Version:  {Imaging}\n" : null;
             result += !string.IsNullOrEmpty(PMS) ? $"PMS Version:  {PMS}\n" : null;

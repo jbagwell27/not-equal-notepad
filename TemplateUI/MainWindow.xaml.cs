@@ -22,7 +22,7 @@ namespace TemplateUI
         private ProductInfo Pinfo;
         private ProductReader Preader;
         private string OSVersion;
-        private string WindowsEdition;
+        private string OSEdition;
         private string OSArchitecture;
 
         public MainWindow()
@@ -87,7 +87,9 @@ namespace TemplateUI
                     computerList += $"{cp}\n";
                 }
             }
-            string templateString = $"{Ginfo}{Pinfo}\n{computerList}";
+            string templateString = $"{Ginfo}\n" +
+                $"---------- Environment----------\n\n" +
+                $"{Pinfo}\n{computerList}";
 
             LogWriter.AddLogEntry(templateString);
             TemplatePreviewTab.IsEnabled = true;
@@ -159,6 +161,9 @@ namespace TemplateUI
                 if (el.GetType() == typeof(RadioButton))
                     ((RadioButton)(el)).IsChecked = false;
             }
+            OSVersion = null;
+            OSArchitecture = null;
+            OSEdition = null;
 
         }
 
@@ -220,7 +225,7 @@ namespace TemplateUI
         private void EditionRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
-            WindowsEdition = ck.Content.ToString();
+            OSEdition = ck.Content.ToString();
         }
         private void ArchRadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -232,13 +237,13 @@ namespace TemplateUI
         private async void AddComputerButton_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) || string.IsNullOrEmpty(OSArchitecture) ||
-                (string.IsNullOrEmpty(WindowsEdition) && EditionPanel.IsEnabled))
+                (string.IsNullOrEmpty(OSEdition) && EditionPanel.IsEnabled))
             {
                 await this.ShowMessageAsync("Some fields are empty.", "Please fill out all available fields.");
             }
             else
             {
-                RemoteSessionListBox.Items.Add(new Computer(ComputerNameBox.Text, OSVersion, WindowsEdition, OSArchitecture));
+                RemoteSessionListBox.Items.Add(new Computer(ComputerNameBox.Text, OSVersion, OSEdition, OSArchitecture));
                 ClearRemoteSessionScreen();
             }
         }

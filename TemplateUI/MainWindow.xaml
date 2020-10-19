@@ -24,6 +24,19 @@
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
         </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+        </Style>
+        <Style TargetType="{x:Type mah:ToggleSwitch}">
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+        </Style>
     </mah:MetroWindow.Resources>
     <mah:MetroWindow.LeftWindowCommands>
         <mah:WindowCommands>
@@ -114,10 +127,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width=".25*"/>
                         <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width=".3*"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
@@ -126,11 +139,11 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height=".3*"/>
+                        <RowDefinition Height=".5*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height=".3*"/>
+                        <RowDefinition Height=".5*"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
 
@@ -146,7 +159,7 @@
                                Margin="3" Padding="3"/>
                     <TextBox x:Name="ContactNameBox"
                              Grid.Column="2" Grid.Row="1"
-                             Width="150"
+                             Width="auto"
                              Margin="3" Padding="3"/>
 
                     <TextBlock Text="Phone Number"
@@ -154,7 +167,7 @@
                                Margin="3" Padding="3"/>
                     <TextBox x:Name="PhoneNumberBox"
                              Grid.Column="2" Grid.Row="2"
-                             Width="150"
+                             Width="auto"
                              Margin="3" Padding="3"/>
                     
                     <!--Case number and email fields-->
@@ -163,7 +176,7 @@
                                Margin="50,3,3,3" Padding="3"/>
                     <TextBox x:Name="CaseNumberBox"
                              Grid.Column="4" Grid.Row="1"
-                             Width="150"
+                             Width="auto"
                              Margin="3" Padding="3" 
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
@@ -172,22 +185,20 @@
                                Margin="50,3,3,3" Padding="3"/>
                     <TextBox x:Name="EmailAddressBox"
                              Grid.Column="4" Grid.Row="2"
-                             Width="150"
+                             Width="auto"
                              Margin="3" Padding="3"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <!--Right Aligned buttons-->
                     <StackPanel x:Name="RightAlignedButtonPanel"
                                 Grid.Column="6" Grid.Row="1"
-                                Grid.RowSpan="6">
+                                Grid.RowSpan="8">
                         <Button Margin="20" Padding="3"
                                 ToolTip="Copies both Summary and Details"
                                 Style="{DynamicResource MahApps.Styles.Button.Square}"
                                 Click="CopyIssue_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy Issue"
-                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
-                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -197,8 +208,6 @@
                                 Click="CopyDescription_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy Issue and Sessions"
-                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
-                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -208,8 +217,6 @@
                                 Click="CopyTroubleshootSteps_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy Troubleshooting Steps"
-                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
-                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -218,8 +225,6 @@
                                 Click="ClearDataButton_Click">
                             <Button.Content>
                                 <TextBlock Text="Clear Data"
-                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
-                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -228,8 +233,6 @@
                                 Click="CopyToClipboard_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy to Clipboard"
-                                           FontFamily="{Binding Source={x:Static properties:Settings.Default},
-                                    Path=FontFamily}"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -245,7 +248,7 @@
                              Grid.ColumnSpan="4"
                              SpellCheck.IsEnabled="True"
                              Margin="3,10,3,3" Padding="3"
-                             mah:TextBoxHelper.Watermark="Summary of the issue"
+                             ToolTip="Summary of the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <TextBlock Text="Issue Details"
@@ -256,9 +259,8 @@
                              Grid.ColumnSpan="4"
                              AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
-                             VerticalScrollBarVisibility="Auto"
                              Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="(Optional) More details of the issue"
+                             ToolTip="(Optional) More details of the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                     <!--Troubleshooting Steps Field-->
@@ -273,7 +275,7 @@
                              SpellCheck.IsEnabled="True"
                              VerticalScrollBarVisibility="Auto"
                              Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"
+                             ToolTip="All steps taken towards resolution"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <!--Resolution Details Field-->
@@ -287,7 +289,7 @@
                              AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
                              Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"
+                             ToolTip="The final step taken that resolved the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                 </Grid>
@@ -422,10 +424,9 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width=".75*"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -451,7 +452,7 @@
                     
                     <TextBox x:Name="ComputerNameBox"
                              Grid.Column="2" Grid.Row="1"
-                             Width="150" HorizontalAlignment="Left"
+                             Width="auto"
                              Margin="3" Padding="3"/>
 
                     <!--Operating system Group-->
@@ -548,7 +549,7 @@
                              Grid.Column="4" Grid.Row="3"
                              Grid.ColumnSpan="2" Grid.RowSpan="6" 
                              BorderThickness="1" BorderBrush="LightGray"
-                             Margin="3,3,3,3" Padding="3">
+                             Margin="3" Padding="3">
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Remove Item" 
@@ -568,7 +569,7 @@
                                 Margin="10" Click="Win10Pro64_Click">
                             <Button.Content>
                                 <TextBlock Text="Win 10 Pro x64"
-                                           Margin="3"/>
+                                           Margin="3" />
                             </Button.Content>
                         </Button>
                         <Button Grid.Column="3" Grid.Row="3"
