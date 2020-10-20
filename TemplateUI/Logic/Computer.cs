@@ -20,7 +20,7 @@
         public override string ToString()
         {
             string result = $"{Name} | Windows {OSVersion} | ";
-            result += string.IsNullOrEmpty(Edition) ? $"{Edition} | " : null;
+            result += !string.IsNullOrEmpty(Edition) ? $"{Edition} | " : null;
             result += $"{Architecture}";
             return result;
         }

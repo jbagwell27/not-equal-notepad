@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using TemplateUI.Logic;
 using TextCopy;
 
@@ -17,7 +18,6 @@ namespace TemplateUI
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-
         private GenericInfo Ginfo;
         private ProductInfo Pinfo;
         private ProductReader Preader;
@@ -45,9 +45,26 @@ namespace TemplateUI
         private void SetTheme()
         {
             if (Properties.Settings.Default.IsDarkMode)
+
                 ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
             else
                 ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
+
+            foreach (UIElement el in DeviceInfoGrid.Children)
+            {
+                if (el.GetType() == typeof(ComboBox))
+                {
+
+                }
+            }
+            foreach (UIElement el in SoftwareInfoGrid.Children)
+            {
+                if (el.GetType() == typeof(ComboBox))
+                {
+                    ((ComboBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+                    ((ComboBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                }
+            }
         }
 
         private void FillComboBoxes()
@@ -88,12 +105,10 @@ namespace TemplateUI
             {
                 computerList = "Remote Sessions:\n";
                 foreach (Computer cp in RemoteSessionListBox.Items)
-                {
                     computerList += $"{cp}\n";
-                }
             }
             string templateString = $"{Ginfo}\n" +
-                $"---------- Environment----------\n\n" +
+                "---------- Environment----------\n\n" +
                 $"{Pinfo}\n{computerList}";
 
             LogWriter.AddLogEntry(templateString);
@@ -108,15 +123,13 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "No",
-                NegativeButtonText = "Yes",
+                AffirmativeButtonText = "Yes",
+                NegativeButtonText = "No",
             };
             var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-            if (result == MessageDialogResult.Negative)
+            if (result == MessageDialogResult.Affirmative)
             {
-
-
                 foreach (UIElement el in GenericInfoGrid.Children)
                 {
                     if (el.GetType() == typeof(TextBox))
@@ -169,6 +182,7 @@ namespace TemplateUI
             OSVersion = null;
             OSArchitecture = null;
             OSEdition = null;
+            EditionPanel.IsEnabled = true;
 
         }
 
@@ -184,11 +198,11 @@ namespace TemplateUI
             //I switched up the affirmative and negative buttons as a cheap way to change button colors
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "No",
-                NegativeButtonText = "Yes",
+                AffirmativeButtonText = "Yes",
+                NegativeButtonText = "No",
             };
             MessageDialogResult result = await this.ShowMessageAsync("Are you sure want to exit?", "No information will be saved.", MessageDialogStyle.AffirmativeAndNegative, settings);
-            if (result == MessageDialogResult.Negative)
+            if (result == MessageDialogResult.Affirmative)
             {
                 int count = 0;
                 foreach (Window win in Application.Current.Windows)
@@ -213,26 +227,35 @@ namespace TemplateUI
         private void OSRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
+            string wsValue = ck.Name.Replace("Radio", "").Replace("Win","");
+            string servValue = ck.Name.Replace("Radio", "").Replace("Server","Server 20");
 
-            if (ck.Content.ToString().Contains("Server"))
+            if (ck.Name.Contains("Server"))
             {
                 EditionPanel.IsEnabled = false;
+                foreach (UIElement el in EditionPanel.Children)
+                {
+                    RadioButton rb = el as RadioButton;
+                    rb.IsChecked = false;
+                    this.OSEdition = null;
+                }
+                this.OSVersion = servValue;
             }
             else
             {
                 EditionPanel.IsEnabled = true;
+                this.OSVersion = wsValue;
             }
-            this.OSVersion = ck.Content.ToString();
         }
         private void EditionRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
-            OSEdition = ck.Content.ToString();
+            OSEdition = ck.Name.Replace("Radio", "");
         }
         private void ArchRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
-            OSArchitecture = ck.Content.ToString();
+            OSArchitecture = ck.Name.Replace("Radio", "");
         }
 
 
@@ -252,9 +275,9 @@ namespace TemplateUI
 
         private void CopyIssue_Click(object sender, RoutedEventArgs e)
         {
-            //string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
-            //string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
-            //ClipboardService.SetText($"{summary} \n {details}");
+            string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
+            string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
+            ClipboardService.SetText($"{summary} \n {details}");
         }
 
         private void CopyDescription_Click(object sender, RoutedEventArgs e)
@@ -264,14 +287,14 @@ namespace TemplateUI
                 result = $"{IssueSummaryBox.Text}\n";
             else
                 result = $"{IssueDetailsBox.Text}\n";
-           
+
             if (!RemoteSessionListBox.Items.IsEmpty)
                 result += "Sessions:\n";
             foreach (Computer cp in RemoteSessionListBox.Items)
             {
                 result += $"{cp}\n";
             }
-            
+
             ClipboardService.SetText(result);
         }
 
@@ -289,12 +312,12 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "No",
-                NegativeButtonText = "Yes",
+                AffirmativeButtonText = "Yes",
+                NegativeButtonText = "No",
             };
             var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-            if (result == MessageDialogResult.Negative)
+            if (result == MessageDialogResult.Affirmative)
             {
                 RemoteSessionListBox.Items.Clear();
             }
@@ -397,6 +420,8 @@ namespace TemplateUI
             PreferencesWindow pw = new PreferencesWindow();
             pw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             pw.ShowDialog();
+            SetTheme();
+
         }
 
         private void EasterEggImage_Click(object sender, MouseButtonEventArgs e)

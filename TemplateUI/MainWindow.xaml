@@ -17,15 +17,7 @@
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
                         Path=FontSize}">
     <mah:MetroWindow.Resources>
-        <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="FontFamily"
-                    Value="{Binding Source={x:Static properties:Settings.Default},
-                Path=FontFamily}"/>
-            <Setter Property="FontSize"
-                    Value="{Binding Source={x:Static properties:Settings.Default}, 
-                Path=FontSize}"/>
-        </Style>
-        <Style TargetType="{x:Type RadioButton}">
+        <Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
@@ -45,6 +37,9 @@
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
         </Style>
         <Style TargetType="{x:Type mah:ToggleSwitch}">
             <Setter Property="FontSize"
@@ -267,10 +262,13 @@
                              Margin="3,10,3,3" Padding="3"
                              ToolTip="Summary of the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
-                    
-                    <TextBlock Text="Issue Details"
-                               Grid.Column="1" Grid.Row="4"
-                               Margin="3"/>
+
+                    <TextBlock Grid.Column="1" Grid.Row="4"
+                               Margin="3">
+                        Issue Details
+                        <LineBreak/>
+                        (Optional)
+                    </TextBlock>
                     <TextBox x:Name="IssueDetailsBox"
                              Grid.Column="2" Grid.Row="4"
                              Grid.ColumnSpan="4"
@@ -337,16 +335,19 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="5"/>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
                         <!--Device Combobox List section-->
                         <TextBlock Text="Device Type"
                                Grid.Column="1"
                                    HorizontalAlignment="Right"
-                               Margin="3" Padding="3"/>
+                               Margin="3,0" Padding="3"/>
                         <ComboBox x:Name="DeviceTypeBox"
                               Grid.Column="2"
                               IsEditable="False"
-                              Margin="3" Padding="3"/>
+                              Margin="3,0" Padding="3"/>
 
                         <!--SN box-->
                         <TextBlock Text="Serial Number"
@@ -355,17 +356,17 @@
                                Margin="50,3,3,3" Padding="3"/>
                         <TextBox x:Name="SerialNumberBox"
                              Grid.Column="4"
-                             Margin="3" Padding="3"/>
+                             Margin="3,0" Padding="3"/>
 
                         <!--Driver Section-->
                         <TextBlock Text="Driver Version"
                                Grid.Column="5"
                                    HorizontalAlignment="Right"
-                               Margin="50,3,3,3" Padding="3"/>
+                               Margin="50,0,3,0" Padding="3"/>
                         <ComboBox x:Name="DriverVersionBox"
                               Grid.Column="6"
                               IsEditable="False"
-                              Margin="3" Padding="3"/>
+                              Margin="3,0" Padding="3"/>
                     </Grid>
 
                     <Grid x:Name="SoftwareInfoGrid" Grid.Row="2">
@@ -483,39 +484,62 @@
                                Orientation="Horizontal"
                                Margin="3,10,3,3">
 
-                        <RadioButton Content="XP"
-                                     GroupName="OSgroup"
+                        <RadioButton x:Name="WinXPRadio"
                                      Margin="5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="7"
-                                     GroupName="OSgroup"
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="XP"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="Win7Radio"
                                      Margin="10,5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="8/8.1"
-                                     GroupName="OSgroup"
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="7"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="Win8Radio"
                                      Margin="10,5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="8/8.1"/>
+                            </RadioButton.Content>
+                        </RadioButton>
                         <RadioButton x:Name="Win10Radio"
-                                     Content="10"
-                                     GroupName="OSgroup"
                                      Margin="10,5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="Server 2008"
-                                     GroupName="OSgroup"
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="10"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="Server08Radio"
                                      Margin="5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="Server 2012"
-                                     GroupName="OSgroup"
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="Server 2008"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="Server12Radio"
                                      Margin="5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="Server 2016"
-                                     GroupName="OSgroup"
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="Server 2012"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="Server16Radio"
                                      Margin="5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
-                        <RadioButton Content="Server 2019"
-                                     GroupName="OSgroup"
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="Server 2016"/>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton x:Name="Server19Radio"
                                      Margin="5" Padding="10"
-                                     Checked="OSRadioButton_Checked"/>
+                                     Checked="OSRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="Server 2019"/>
+                            </RadioButton.Content>
+                        </RadioButton>
                     </WrapPanel>
 
                     <!--Windows Edition section-->
@@ -527,16 +551,21 @@
                                 Grid.Column="2" Grid.Row="5"
                                 Orientation="Horizontal"
                                 Margin="3,10,3,3">
-                        
-                        <RadioButton Content="Home"
-                                     GroupName="EditionGroup"
+
+                        <RadioButton x:Name="HomeRadio"
                                      Margin="10,5" Padding="10"
-                                     Checked="EditionRadioButton_Checked"/>
+                                     Checked="EditionRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="Home"/>
+                            </RadioButton.Content>
+                        </RadioButton>
                         <RadioButton x:Name="ProRadio"
-                                     Content="Pro"
-                                     GroupName="EditionGroup"
                                      Margin="10,5" Padding="10" 
-                                     Checked="EditionRadioButton_Checked"/>
+                                     Checked="EditionRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="Pro"/>
+                            </RadioButton.Content>
+                        </RadioButton>
                     </StackPanel>
 
                     <!--System Architecture-->
@@ -549,15 +578,20 @@
                                 Orientation="Horizontal"
                                 Margin="3,10,3,3">
 
-                        <RadioButton Content="x86"
-                                     GroupName="ArchitectureGroup"
+                        <RadioButton x:Name="x86Radio"
                                      Margin="10,5" Padding="10" 
-                                     Checked="ArchRadioButton_Checked"/>
+                                     Checked="ArchRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="x86"/>
+                            </RadioButton.Content>
+                        </RadioButton>
                         <RadioButton x:Name="x64Radio"
-                                     Content="x64"
-                                     GroupName="ArchitectureGroup"
                                      Margin="10,5" Padding="10"
-                                     Checked="ArchRadioButton_Checked"/>
+                                     Checked="ArchRadioButton_Checked">
+                            <RadioButton.Content>
+                                <TextBlock Text="x64"/>
+                            </RadioButton.Content>
+                        </RadioButton>
                     </StackPanel>
 
 
@@ -594,7 +628,7 @@
                                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
                                 Click="AddComputerButton_Click">
                             <Button.Content>
-                                <TextBlock Text="Add Computer to List"
+                                <TextBlock Text="Add Computer"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -602,7 +636,7 @@
                                 Margin="10,50,10,10"
                                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Click="ClearComputerList_Click">
                             <Button.Content>
-                                <TextBlock Text="Clear Computer List"
+                                <TextBlock Text="Clear List"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>

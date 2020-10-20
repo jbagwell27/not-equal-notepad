@@ -16,7 +16,23 @@
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
     Path=FontSize}">
     <mah:MetroWindow.Resources>
+        <Style TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+        </Style>
         <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+        </Style>
+        <Style TargetType="{x:Type mah:NumericUpDown}">
             <Setter Property="FontSize"
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
                 Path=FontSize}"/>
@@ -28,6 +44,9 @@
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
         </Style>
         <Style TargetType="{x:Type mah:ToggleSwitch}">
             <Setter Property="FontSize"
@@ -78,7 +97,7 @@
                    Grid.Column="1" Grid.Row="2"
                    Margin="3" Padding="3"/>
         
-        <mah:NumericUpDown x:Name="NumericUpDownBox"
+        <mah:NumericUpDown x:Name="FontSizeSelectorBox"
                            Grid.Column="2" Grid.Row="2"
                            Minimum="8" Maximum="32"
                            Margin="3" Padding="3"
@@ -105,50 +124,69 @@
                    Grid.Column="2" Grid.Row="5"
                    Grid.RowSpan="2">
             <RadioButton x:Name="RedRadio"
-                         Content="Red"
                          GroupName="AccentColorGroup"
                          Margin="5" Padding="5" 
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Red"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="OrangeRadio"
-                         Content="Orange"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Orange"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="YellowRadio"
-                         Content="Yellow"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Yellow"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="GreenRadio"
-                         Content="Green"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Green"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="BlueRadio"
-                         Content="Blue"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Blue"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="PurpleRadio"
-                         Content="Purple"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Purple"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="PinkRadio"
-                         Content="Pink"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Pink"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="MagentaRadio"
-                         Content="Magenta"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Magenta"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="CyanRadio"
-                         Content="Cyan"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked"/>
+                         Checked="ThemeColorRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Cyan"/>
+                </RadioButton.Content>
+            </RadioButton>
         </WrapPanel>
 
         <TextBlock Text="Add Entries"

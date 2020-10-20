@@ -48,7 +48,7 @@
 
             }
             result += !string.IsNullOrEmpty(TroubleShootingSteps) ? $"Troubleshooting Steps:\n{TroubleShootingSteps}\n" : null;
-            result += !string.IsNullOrEmpty(ResolutionDetails) ? $"Resolution Details:\n{ResolutionDetails}\n\n" : null;
+            result += !string.IsNullOrEmpty(ResolutionDetails) ? $"Resolution Details:\n{ResolutionDetails}\n" : null;
 
             return result;
         }

@@ -4,6 +4,7 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Drawing.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace TemplateUI
 {
@@ -12,18 +13,15 @@ namespace TemplateUI
     /// </summary>
     public partial class PreferencesWindow : MetroWindow
     {
-        private bool DarkModeSwitchEventTrigger;
         public PreferencesWindow()
         {
             InitializeComponent();
             SetTheme();
-            FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
-            foreach (var item in Properties.Settings.Default.FontFamilyList)
-                FontFamilyComboBox.Items.Add(item);
-            NumericUpDownBox.Value = Properties.Settings.Default.FontSize;
+            
         }
         private void SetTheme()
         {
+
             if (Properties.Settings.Default.IsDarkMode)
             {
                 DarkModeToggleSwitch.IsOn = true;
@@ -34,49 +32,26 @@ namespace TemplateUI
                 DarkModeToggleSwitch.IsOn = false;
                 ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
             }
-            switch (Properties.Settings.Default.Theme)
-            {
-                case "Red":
-                    RedRadio.IsChecked = true;
-                        break;
-                case "Orange":
-                    OrangeRadio.IsChecked = true;
-                    break;
-                case "Yellow":
-                    YellowRadio.IsChecked = true;
-                    break;
-                case "Green":
-                    GreenRadio.IsChecked = true;
-                    break;
-                case "Blue":
-                    BlueRadio.IsChecked = true;
-                    break;
-                case "Purple":
-                    PurpleRadio.IsChecked = true;
-                    break;
-                case "Pink":
-                    PinkRadio.IsChecked = true;
-                    break;
-                case "Magenta":
-                    MagentaRadio.IsChecked = true;
-                    break;
-                case "Cyan":
-                    CyanRadio.IsChecked = true;
-                    break;
-                default:
-                    break;
-            }
 
+            foreach (UIElement el in AccentColorPanel.Children)
+            {
+                RadioButton rb = el as RadioButton;
+                string value = rb.Name.Replace("Radio", "");
+                if (Properties.Settings.Default.Theme == value)
+                {
+                    rb.IsChecked = true;
+                }
+            FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
+            foreach (var item in Properties.Settings.Default.FontFamilyList)
+                FontFamilyComboBox.Items.Add(item);
+            FontSizeSelectorBox.Value = Properties.Settings.Default.FontSize;
+            StyleExtraElements();
+            }
         }
 
-        private async void PreferencesSave_Click(object sender, RoutedEventArgs e)
+        private void PreferencesSave_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
-            if (DarkModeSwitchEventTrigger)
-            {
-                await this.ShowMessageAsync("Dark Mode Changed", "You will need to restart to see the theme changes");
-            }
-
             this.Close();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -99,11 +74,15 @@ namespace TemplateUI
                     Properties.Settings.Default.FontFamilyList.Add(FontFamilyComboBox.Text);
                 }
             }
-            Properties.Settings.Default.FontSize = (int)(NumericUpDownBox.Value);
-
-
-
+            Properties.Settings.Default.FontSize = (int)(FontSizeSelectorBox.Value);
+            StyleExtraElements();
             Properties.Settings.Default.Save();
+        }
+
+        private void StyleExtraElements()
+        {
+            FontFamilyComboBox.FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+            FontFamilyComboBox.FontSize = Properties.Settings.Default.FontSize;
         }
 
         private bool IsValidFont(string fontFamilyName)
@@ -120,7 +99,6 @@ namespace TemplateUI
 
         private void DarkMode_Toggled(object sender, RoutedEventArgs e)
         {
-            DarkModeSwitchEventTrigger = true;
             if (DarkModeToggleSwitch.IsOn)
             {
                 Properties.Settings.Default.IsDarkMode = true;
@@ -129,13 +107,12 @@ namespace TemplateUI
             {
                 Properties.Settings.Default.IsDarkMode = false;
             }
-            Properties.Settings.Default.Save();
         }
 
         private void ThemeColorRadio_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
-            Properties.Settings.Default.Theme = rb.Content.ToString();
+            Properties.Settings.Default.Theme = rb.Name.Replace("Radio", "");
         }
     }
 }
