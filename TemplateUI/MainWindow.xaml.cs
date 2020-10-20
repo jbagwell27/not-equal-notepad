@@ -28,10 +28,7 @@ namespace TemplateUI
         public MainWindow()
         {
             InitializeComponent();
-            if (Properties.Settings.Default.IsDarkMode)
-                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
-            else
-                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
+            SetTheme();
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             Preader = new ProductReader();
@@ -43,6 +40,14 @@ namespace TemplateUI
             ContactNameBox.Focus();
 
 
+        }
+
+        private void SetTheme()
+        {
+            if (Properties.Settings.Default.IsDarkMode)
+                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
+            else
+                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
         }
 
         private void FillComboBoxes()
@@ -103,12 +108,12 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
             };
             var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-            if (result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Negative)
             {
 
 
@@ -176,17 +181,14 @@ namespace TemplateUI
         }
         private async void DialogsBeforeExit()
         {
+            //I switched up the affirmative and negative buttons as a cheap way to change button colors
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
             };
             MessageDialogResult result = await this.ShowMessageAsync("Are you sure want to exit?", "No information will be saved.", MessageDialogStyle.AffirmativeAndNegative, settings);
             if (result == MessageDialogResult.Negative)
-            {
-                return;
-            }
-            else
             {
                 int count = 0;
                 foreach (Window win in Application.Current.Windows)
@@ -250,9 +252,9 @@ namespace TemplateUI
 
         private void CopyIssue_Click(object sender, RoutedEventArgs e)
         {
-            string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
-            string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
-            ClipboardService.SetText($"{summary} \n {details}");
+            //string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
+            //string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
+            //ClipboardService.SetText($"{summary} \n {details}");
         }
 
         private void CopyDescription_Click(object sender, RoutedEventArgs e)
@@ -287,12 +289,12 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
             };
             var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-            if (result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Negative)
             {
                 RemoteSessionListBox.Items.Clear();
             }

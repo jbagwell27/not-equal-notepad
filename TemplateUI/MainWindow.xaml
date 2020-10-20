@@ -7,22 +7,39 @@
                  xmlns:markup="clr-namespace:MahApps.Metro.Markup;assembly=MahApps.Metro"
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:properties="clr-namespace:TemplateUI.Properties"
+                 xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
                  Title="Template Creator" Height="520" Width="960"
                  SaveWindowPosition="True" Closing="MainWindow_Closing"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
-    Path=FontFamily}"
+                        Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
-    Path=FontSize}">
+                        Path=FontSize}">
     <mah:MetroWindow.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="FontSize"
-                    Value="{Binding Source={x:Static properties:Settings.Default}, 
-                Path=FontSize}"/>
+        <Style TargetType="{x:Type ComboBox}">
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+        </Style>
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="FontFamily"
+                    Value="{Binding Source={x:Static properties:Settings.Default},
+                Path=FontFamily}"/>
+            <Setter Property="FontSize"
+                    Value="{Binding Source={x:Static properties:Settings.Default}, 
+                Path=FontSize}"/>
         </Style>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily"
@@ -405,7 +422,7 @@
                         <TextBox x:Name="DatabasePathBox"
                                  Grid.Column="3" Grid.Row="1"
                                  Padding="3"
-                                 Height="27"/>
+                                 PreviewMouseDown="SelectAllTriple_Click"/>
 
                         <mah:ToggleSwitch x:Name="RMASwitch"
                                           Header="RMA Tab"
@@ -574,7 +591,8 @@
                         </Button>
                         <Button Grid.Column="3" Grid.Row="3"
                                 Margin="10"
-                                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Click="AddComputerButton_Click">
+                                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
+                                Click="AddComputerButton_Click">
                             <Button.Content>
                                 <TextBlock Text="Add Computer to List"
                                            Margin="3"/>
@@ -588,7 +606,7 @@
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
-                    
+
                     </StackPanel>
 
                 </Grid>
@@ -624,7 +642,6 @@
            
             
         </TabControl>
-        
     </Grid>
     
 </mah:MetroWindow>

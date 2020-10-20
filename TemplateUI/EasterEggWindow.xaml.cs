@@ -12,11 +12,16 @@ namespace TemplateUI
         public EasterEggWindow()
         {
             InitializeComponent();
-            if (Properties.Settings.Default.IsDarkMode)
-                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
-            else
-                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
+            SetTheme();
             this.WindowStartupLocation = WindowStartupLocation.Manual;
+        }
+
+        private void SetTheme()
+        {
+            if (Properties.Settings.Default.IsDarkMode)
+                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
+            else
+                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
         }
     }
 }

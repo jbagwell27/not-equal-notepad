@@ -9,7 +9,7 @@
                  xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="Preferences" Height="300" Width="650"
+                 Title="Preferences" Height="350" Width="650"
                  SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
@@ -53,7 +53,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
@@ -82,17 +84,72 @@
                            Margin="3" Padding="3"
                            HorizontalAlignment="Left"/>
 
+            <TextBlock Text="Theme Settings (Restart Required)"
+                       FontWeight="SemiBold"
+                       Grid.Column="1" Grid.Row="3"
+                       Grid.ColumnSpan="2"
+                       VerticalAlignment="Bottom"
+                       Margin="3,20,3,0"/>
         <TextBlock Text="Dark Mode"
-                   Grid.Column="1" Grid.Row="3"
+                   Grid.Column="1" Grid.Row="4"
                    Margin="3" Padding="3"/>
         <mah:ToggleSwitch x:Name="DarkModeToggleSwitch"
-                          Grid.Column="2" Grid.Row="3"
-                          Margin="3"
+                          Grid.Column="2" Grid.Row="4"
+                          Margin="3,0"
                           Toggled="DarkMode_Toggled"/>
-        <TextBlock Text="**Restart required"
-                   Grid.Column="2" Grid.Row="4"
-                   Foreground="Black"
-                   Margin="-5,-7,0,0"/>
+
+        <TextBlock Text="Accent Color"
+                   Grid.Column="1" Grid.Row="5"
+                   Margin="3" Padding="3"/>
+        <WrapPanel x:Name="AccentColorPanel"
+                   Grid.Column="2" Grid.Row="5"
+                   Grid.RowSpan="2">
+            <RadioButton x:Name="RedRadio"
+                         Content="Red"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5" 
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="OrangeRadio"
+                         Content="Orange"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="YellowRadio"
+                         Content="Yellow"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="GreenRadio"
+                         Content="Green"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="BlueRadio"
+                         Content="Blue"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="PurpleRadio"
+                         Content="Purple"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="PinkRadio"
+                         Content="Pink"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="MagentaRadio"
+                         Content="Magenta"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+            <RadioButton x:Name="CyanRadio"
+                         Content="Cyan"
+                         GroupName="AccentColorGroup"
+                         Margin="5" Padding="5"
+                         Checked="ThemeColorRadio_Checked"/>
+        </WrapPanel>
 
         <TextBlock Text="Add Entries"
                    Grid.Column="4" Grid.Row="1"
@@ -151,7 +208,7 @@
             </Button>
         </Grid>
 
-        <Button Grid.Column="2" Grid.Row="5"
+        <Button Grid.Column="2" Grid.Row="7"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Bottom"
                 Margin="3" Padding="3"
@@ -162,7 +219,7 @@
             </Button.Content>
         </Button>
 
-        <Button Grid.Column="5" Grid.Row="4"
+        <Button Grid.Column="5" Grid.Row="6"
                 Grid.ColumnSpan="2"
                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                 VerticalAlignment="Bottom"
@@ -173,7 +230,7 @@
                            Margin="3"/>
             </Button.Content>
         </Button>
-        <Button Grid.Column="5" Grid.Row="5"
+        <Button Grid.Column="5" Grid.Row="7"
                 Grid.ColumnSpan="2"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Bottom"

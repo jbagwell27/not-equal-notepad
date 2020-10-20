@@ -12,10 +12,14 @@ namespace TemplateUI
         public AboutWindow()
         {
             InitializeComponent();
+            SetTheme();
+        }
+        private void SetTheme()
+        {
             if (Properties.Settings.Default.IsDarkMode)
-                ThemeManager.Current.ChangeTheme(this, "Dark.Blue");
+                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
             else
-                ThemeManager.Current.ChangeTheme(this, "Light.Blue");
+                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
