@@ -29,7 +29,6 @@ namespace TemplateUI
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             LogWriter.CreateTodaysLog();
-            Properties.Settings.Default.Reset();
             //Initial setup process.
             FillComboBoxes();
 
