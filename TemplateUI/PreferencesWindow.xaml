@@ -14,7 +14,8 @@
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
-    Path=FontSize}">
+    Path=FontSize}"
+                 Closing="PreferenceWindow_Closing">
     <mah:MetroWindow.Resources>
         <!--Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontSize"

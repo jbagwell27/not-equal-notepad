@@ -12,7 +12,8 @@ namespace TemplateUI.Logic
             }
             catch (FileNotFoundException)
             {
-                throw;
+                File.AppendAllText(@"Logic\Imaging.csv", Properties.Resources.Imaging);
+                return Properties.Resources.Imaging.Split(',');
             }
         }
         public static string[] GetPMS()
@@ -23,7 +24,8 @@ namespace TemplateUI.Logic
             }
             catch (FileNotFoundException)
             {
-                throw;
+                File.AppendAllText(@"Logic\PMS.csv", Properties.Resources.PMS);
+                return Properties.Resources.PMS.Split(',');
             }
         }
         public static string[] GetBridges()
@@ -33,8 +35,9 @@ namespace TemplateUI.Logic
                 return File.ReadAllText(@"Logic\Bridges.csv").Split(',');
             }
             catch (FileNotFoundException)
-            {
-                throw;
+            { 
+                File.AppendAllText(@"Logic\Bridges.csv", Properties.Resources.Bridges);
+                return Properties.Resources.Bridges.Split(',');
             }
         }
         public static string[] GetDevices()
@@ -45,7 +48,8 @@ namespace TemplateUI.Logic
             }
             catch (FileNotFoundException)
             {
-                throw;
+                File.AppendAllText(@"Logic\Devices.csv", Properties.Resources.Devices);
+                return Properties.Resources.Devices.Split(',');
             }
         }
         public static string[] GetDrivers()
@@ -56,15 +60,12 @@ namespace TemplateUI.Logic
             }
             catch (FileNotFoundException)
             {
-                throw;
+                File.AppendAllText(@"Logic\Drivers.csv", Properties.Resources.Drivers);
+                return Properties.Resources.Drivers.Split(',');
             }
         }
         public static void AddEntry(string product, string value)
         {
-            if (!File.Exists($@"Logic\{product}.csv"))
-            {
-                File.Create($@"Logic\{product}.csv");
-            }
             File.AppendAllText($@"Logic\{product}.csv", $"{value},");
         }
     }

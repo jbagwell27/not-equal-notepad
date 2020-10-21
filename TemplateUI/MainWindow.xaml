@@ -343,7 +343,7 @@
                         <ComboBox x:Name="DevicesBox"
                               Grid.Column="2"
                               IsEditable="False"
-                              Margin="3,0" Padding="3"/>
+                              Margin="3" Padding="3"/>
 
                         <!--SN box-->
                         <TextBlock Text="Serial Number"
@@ -352,7 +352,7 @@
                                Margin="50,3,3,3" Padding="3"/>
                         <TextBox x:Name="SerialNumberBox"
                              Grid.Column="4"
-                             Margin="3,0" Padding="3"/>
+                             Margin="3" Padding="3"/>
 
                         <!--Driver Section-->
                         <TextBlock Text="Driver Version"
@@ -362,7 +362,7 @@
                         <ComboBox x:Name="DriversBox"
                               Grid.Column="6"
                               IsEditable="False"
-                              Margin="3,0" Padding="3"/>
+                              Margin="3" Padding="3"/>
                     </Grid>
 
                     <Grid x:Name="SoftwareInfoGrid" Grid.Row="2">

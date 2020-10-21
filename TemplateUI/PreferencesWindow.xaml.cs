@@ -177,6 +177,13 @@ namespace TemplateUI
                 AddProductEntry_Click(sender, e);
             }
         }
+
+        private void PreferenceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SetThemeElements(CurrentSettings);
+            NewSettings = GetTemporarySettings();
+            SaveSettings(NewSettings);
+        }
     }
 
     public class TemplateUISettings

@@ -95,8 +95,6 @@ namespace TemplateUI
 
         private void FillComboBoxes()
         {
-            try
-            {
                 foreach (var item in ProductReader.GetImaging())
                     ImagingBox.Items.Add(item);
                 foreach (var item in ProductReader.GetPMS())
@@ -107,14 +105,6 @@ namespace TemplateUI
                     DevicesBox.Items.Add(item);
                 foreach (var item in ProductReader.GetDrivers())
                     DriversBox.Items.Add(item);
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("FileNotFoundException thrown. Please verify that the following files are in the Logic folder:\n" +
-                    "Imaging.csv, PMS.csv, Bridges.csv, Devices.csv, Drivers.csv.\n\nThey don't have to have stuff in them, they just need to exist. " +
-                    "You can add the information to them through Preferences", "Ya dun goof'd");
-                Application.Current.Shutdown();
-            }
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)

@@ -11,32 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Logic\Bridges.csv" />
-    <None Remove="Logic\Devices.csv" />
-    <None Remove="Logic\Drivers.csv" />
-    <None Remove="Logic\Imaging.csv" />
-    <None Remove="Logic\PMS.csv" />
     <None Remove="Products.json" />
+    <None Remove="Resources\Bridges.csv" />
+    <None Remove="Resources\Devices.csv" />
+    <None Remove="Resources\Drivers.csv" />
+    <None Remove="Resources\Imaging.csv" />
+    <None Remove="Resources\PMS.csv" />
     <None Remove="Resources\RickRoll.gif" />
     <None Remove="RockRoll.gif" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Logic\Bridges.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Logic\Devices.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Logic\Drivers.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Logic\Imaging.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Logic\PMS.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +34,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Bridges.csv" />
+    <Resource Include="Resources\Devices.csv" />
+    <Resource Include="Resources\Drivers.csv" />
+    <Resource Include="Resources\Imaging.csv" />
+    <Resource Include="Resources\PMS.csv" />
     <Resource Include="Resources\RickRoll.gif" />
   </ItemGroup>
 

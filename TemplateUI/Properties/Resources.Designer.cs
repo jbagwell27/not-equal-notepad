@@ -61,6 +61,51 @@ namespace TemplateUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  2.x,3.0.x,3.1.1,3.1.2,3.1.3,3.2.1,3.2.2,3.2.3,Premium 1.0.1,Premium 1.1.0,.
+        /// </summary>
+        internal static string Bridges {
+            get {
+                return ResourceManager.GetString("Bridges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Titanium,Platinum,KaVo IXS,GXS-700,DEXcam 1-4,DEXcam 4HD,CariVu,3rd Party,.
+        /// </summary>
+        internal static string Devices {
+            get {
+                return ResourceManager.GetString("Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9,DTX Bridge,.
+        /// </summary>
+        internal static string Drivers {
+            get {
+                return ResourceManager.GetString("Drivers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 9.0.x,9.1.x,9.2.x,9.3.x,9.4.0,9.4.1,9.4.2,9.4.3,9.4.4,9.4.5,9.4.6,9.4.8,9.4.9,9.5.0,10.0.x,10.1.0,10.1.1,10.1.2,10.1.3,10.1.6,11,DX Image,3rd Party,.
+        /// </summary>
+        internal static string Imaging {
+            get {
+                return ResourceManager.GetString("Imaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dentrix,Dentrix Ascend,Eaglesoft,Easy Dental,SoftDent,Practiceworks,OpenDental,AbelDent,.
+        /// </summary>
+        internal static string PMS {
+            get {
+                return ResourceManager.GetString("PMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] RickRoll {
