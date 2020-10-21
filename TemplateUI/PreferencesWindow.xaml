@@ -16,22 +16,14 @@
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
     Path=FontSize}">
     <mah:MetroWindow.Resources>
-        <Style TargetType="{x:Type ComboBoxItem}">
+        <!--Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontSize"
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
                 Path=FontSize}"/>
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
-        </Style>
-        <Style TargetType="{x:Type TextBox}">
-            <Setter Property="FontSize"
-                    Value="{Binding Source={x:Static properties:Settings.Default}, 
-                Path=FontSize}"/>
-            <Setter Property="FontFamily"
-                    Value="{Binding Source={x:Static properties:Settings.Default},
-                Path=FontFamily}"/>
-        </Style>
+        </-->
         <Style TargetType="{x:Type mah:NumericUpDown}">
             <Setter Property="FontSize"
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
@@ -129,7 +121,6 @@
                    Grid.Column="2" Grid.Row="5"
                    Grid.RowSpan="2">
             <RadioButton x:Name="RedRadio"
-                         GroupName="AccentColorGroup"
                          Margin="5" Padding="5" 
                          Checked="ThemeColorRadio_Checked">
                 <RadioButton.Content>
@@ -210,25 +201,29 @@
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="PMSRadio"
-                         Margin="3" Padding="5">
+                         Margin="3" Padding="5"
+                         Checked="ProductRadio_Checked">
                 <RadioButton.Content>
                     <TextBlock Text="PMS"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="BridgesRadio"
-                         Margin="3" Padding="5">
+                         Margin="3" Padding="5"
+                         Checked="ProductRadio_Checked">
                 <RadioButton.Content>
                     <TextBlock Text="Bridges"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="DevicesRadio"
-                         Margin="3" Padding="5">
+                         Margin="3" Padding="5"
+                         Checked="ProductRadio_Checked">
                 <RadioButton.Content>
                     <TextBlock Text="Devices"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="DriversRadio"
-                         Margin="3" Padding="5">
+                         Margin="3" Padding="5"
+                         Checked="ProductRadio_Checked">
                 <RadioButton.Content>
                     <TextBlock Text="Drivers"/>
                 </RadioButton.Content>
@@ -245,9 +240,13 @@
             </Grid.ColumnDefinitions>
                 <TextBox x:Name="DataEntryBox"
                          Grid.Column="0"
-                         Margin="3,3,0,3" Padding="3"/>
+                         Margin="3,3,0,3" Padding="3"
+                         BorderThickness="1,1,0,1"
+                         KeyDown="DataEntryBox_KeyDown"/>
                 <Button Grid.Column="1"
-                        Margin="0,3,3,3" Padding="3" Click="AddProductEntry_Click">
+                        Margin="3,3,3,3" Padding="3" 
+                        BorderThickness="1"
+                        Click="AddProductEntry_Click">
                 <Button.Content>
                     <TextBlock Text="Add"/>
                 </Button.Content>

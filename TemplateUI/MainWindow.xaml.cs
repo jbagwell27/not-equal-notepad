@@ -29,13 +29,13 @@ namespace TemplateUI
         public MainWindow()
         {
             InitializeComponent();
-            SetTheme();
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             LogWriter.CreateTodaysLog();
 
             //Initial setup process.
             FillComboBoxes();
+            SetTheme();
             TemplatePreviewTab.IsEnabled = false;
             ContactNameBox.Focus();
 
@@ -107,7 +107,7 @@ namespace TemplateUI
                 foreach (var item in ProductReader.GetDevices())
                     DevicesBox.Items.Add(item);
                 foreach (var item in ProductReader.GetDrivers())
-                    DriverBox.Items.Add(item);
+                    DriversBox.Items.Add(item);
             }
             catch (FileNotFoundException)
             {
@@ -135,7 +135,7 @@ namespace TemplateUI
             Pinfo.DatabasePath = !string.IsNullOrEmpty(DatabasePathBox.Text) ? DatabasePathBox.Text : null;
             Pinfo.DeviceType = DevicesBox.SelectedItem?.ToString();
             Pinfo.SerialNumber = !string.IsNullOrEmpty(SerialNumberBox.Text) ? SerialNumberBox.Text : null;
-            Pinfo.Driver = DriverBox.SelectedItem?.ToString();
+            Pinfo.Driver = DriversBox.SelectedItem?.ToString();
 
             string computerList = "";
             if (!RemoteSessionListBox.Items.IsEmpty)
@@ -463,13 +463,25 @@ namespace TemplateUI
             pw.ShowDialog();
             SetTheme();
 
+            int devbox = DevicesBox.SelectedIndex;
+            int drivebox = DriversBox.SelectedIndex;
+            int imgbox = ImagingBox.SelectedIndex;
+            int pmsbox = PMSBox.SelectedIndex;
+            int brigbox = BridgesBox.SelectedIndex;
+
             DevicesBox.Items.Clear();
-            DriverBox.Items.Clear();
+            DriversBox.Items.Clear();
             ImagingBox.Items.Clear();
             PMSBox.Items.Clear();
             BridgesBox.Items.Clear();
-
+            
             FillComboBoxes();
+
+            DevicesBox.SelectedIndex = devbox;
+            DriversBox.SelectedIndex = drivebox;
+            ImagingBox.SelectedIndex = imgbox;
+            PMSBox.SelectedIndex = pmsbox;
+            BridgesBox.SelectedIndex = brigbox;
         }
 
         private void EasterEggImage_Click(object sender, MouseButtonEventArgs e)

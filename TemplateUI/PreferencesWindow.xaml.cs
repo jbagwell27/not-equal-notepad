@@ -16,13 +16,16 @@ namespace TemplateUI
     public partial class PreferencesWindow : MetroWindow
     {
         string Product;
+        public bool EntryAddPressed { get; set; }
         public PreferencesWindow()
         {
             InitializeComponent();
+            EntryAddPressed = true;
             SetTheme();
             FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
             foreach (var item in Properties.Settings.Default.FontFamilyList)
                 FontFamilyComboBox.Items.Add(item);
+           
 
         }
         private void SetTheme()
@@ -103,6 +106,8 @@ namespace TemplateUI
         {
             FontFamilyComboBox.FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
             FontFamilyComboBox.FontSize = Properties.Settings.Default.FontSize;
+            DataEntryBox.FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+            DataEntryBox.FontSize = Properties.Settings.Default.FontSize;
         }
 
         private bool IsValidFont(string fontFamilyName)
@@ -139,15 +144,12 @@ namespace TemplateUI
         {
             if (string.IsNullOrEmpty(Product) || string.IsNullOrEmpty(DataEntryBox.Text))
             {
-                MessageBox.Show(Product);
-                MessageBox.Show(DataEntryBox.Text);
                 await this.ShowMessageAsync("Try again, Sport", "One or more fields are empty");
             }
             else
             {
+                EntryAddPressed = true;
                 ProductReader.AddEntry(Product, DataEntryBox.Text);
-                DataEntryBox.Text = "Successfully added";
-                Thread.Sleep(2000);
                 DataEntryBox.Clear();
             }
         }
@@ -156,6 +158,14 @@ namespace TemplateUI
         {
             RadioButton rb = sender as RadioButton;
             Product = rb.Name.Replace("Radio", "");
+        }
+
+        private void DataEntryBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                AddProductEntry_Click(sender, e);
+            }
         }
     }
 }
