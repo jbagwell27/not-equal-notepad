@@ -2,9 +2,11 @@
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Drawing.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TemplateUI.Logic;
 
 namespace TemplateUI
 {
@@ -13,6 +15,7 @@ namespace TemplateUI
     /// </summary>
     public partial class PreferencesWindow : MetroWindow
     {
+        string Product;
         public PreferencesWindow()
         {
             InitializeComponent();
@@ -44,9 +47,9 @@ namespace TemplateUI
                 {
                     rb.IsChecked = true;
                 }
-            
-            FontSizeSelectorBox.Value = Properties.Settings.Default.FontSize;
-            StyleExtraElements();
+
+                FontSizeSelectorBox.Value = Properties.Settings.Default.FontSize;
+                StyleExtraElements();
             }
         }
 
@@ -130,6 +133,29 @@ namespace TemplateUI
         {
             RadioButton rb = sender as RadioButton;
             Properties.Settings.Default.Theme = rb.Name.Replace("Radio", "");
+        }
+
+        private async void AddProductEntry_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Product) || string.IsNullOrEmpty(DataEntryBox.Text))
+            {
+                MessageBox.Show(Product);
+                MessageBox.Show(DataEntryBox.Text);
+                await this.ShowMessageAsync("Try again, Sport", "One or more fields are empty");
+            }
+            else
+            {
+                ProductReader.AddEntry(Product, DataEntryBox.Text);
+                DataEntryBox.Text = "Successfully added";
+                Thread.Sleep(2000);
+                DataEntryBox.Clear();
+            }
+        }
+
+        private void ProductRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            Product = rb.Name.Replace("Radio", "");
         }
     }
 }

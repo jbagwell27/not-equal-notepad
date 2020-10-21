@@ -47,6 +47,11 @@
             <Setter Property="FontSize"
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
                 Path=FontSize}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type mah:ToggleSwitch}">
             <Setter Property="FontSize"
@@ -193,42 +198,47 @@
                    Grid.Column="4" Grid.Row="1"
                    ToolTip="Add entries to the Dropdown Lists"
                    Margin="3" Padding="3"/>
-        <WrapPanel x:Name="DataTypeCheckBoxPanel"
+        <WrapPanel x:Name="AddEntriesRadioPanel"
                    Grid.Column="5" Grid.Row="1"
                    Grid.RowSpan="2"
-                   IsEnabled="False"
-                   ToolTip="Work in Progress"
-                   ToolTipService.ShowOnDisabled="True"
                    Margin="3">
             <RadioButton x:Name="ImagingRadio"
-                         GroupName="PreferenceGroup"
-                         Content="Imaging"
-                         Margin="3" Padding="5"/>
+                         Margin="3" Padding="5"
+                         Checked="ProductRadio_Checked">
+                <RadioButton.Content>
+                    <TextBlock Text="Imaging"/>
+                </RadioButton.Content>
+            </RadioButton>
             <RadioButton x:Name="PMSRadio"
-                         GroupName="PreferenceGroup"
-                         Content="PMS"
-                         Margin="3" Padding="5"/>
-            <RadioButton x:Name="BrdgeRadio"
-                         GroupName="PreferenceGroup"
-                         Content="Bridge"
-                         Margin="3" Padding="5"/>
-            <RadioButton x:Name="DeviceRadio"
-                         GroupName="PreferenceGroup"
-                         Content="Device"
-                         Margin="3" Padding="5"/>
-            <RadioButton x:Name="DriverRadio"
-                         GroupName="PreferenceGroup"
-                         Content="Driver"
-                         Margin="3" Padding="5"/>
+                         Margin="3" Padding="5">
+                <RadioButton.Content>
+                    <TextBlock Text="PMS"/>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton x:Name="BridgesRadio"
+                         Margin="3" Padding="5">
+                <RadioButton.Content>
+                    <TextBlock Text="Bridges"/>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton x:Name="DevicesRadio"
+                         Margin="3" Padding="5">
+                <RadioButton.Content>
+                    <TextBlock Text="Devices"/>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton x:Name="DriversRadio"
+                         Margin="3" Padding="5">
+                <RadioButton.Content>
+                    <TextBlock Text="Drivers"/>
+                </RadioButton.Content>
+            </RadioButton>
         </WrapPanel>
 
         <TextBlock Text="Data Entry"
                    Grid.Column="4" Grid.Row="3"
                    Margin="3" Padding="3"/>
-        <Grid Grid.Column="5" Grid.Row="3"
-              IsEnabled="False"
-              ToolTip="Work in Progress"
-              ToolTipService.ShowOnDisabled="True">
+        <Grid Grid.Column="5" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -237,11 +247,9 @@
                          Grid.Column="0"
                          Margin="3,3,0,3" Padding="3"/>
                 <Button Grid.Column="1"
-                        Margin="0,3,3,3" Padding="3">
+                        Margin="0,3,3,3" Padding="3" Click="AddProductEntry_Click">
                 <Button.Content>
-                    <TextBlock Text="Add"
-                               FontFamily="{Binding Source={x:Static properties:Settings.Default},
-                                    Path=FontFamily}"/>
+                    <TextBlock Text="Add"/>
                 </Button.Content>
             </Button>
         </Grid>

@@ -2,10 +2,12 @@
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using TemplateUI.Logic;
@@ -20,7 +22,6 @@ namespace TemplateUI
     {
         private GenericInfo Ginfo;
         private ProductInfo Pinfo;
-        private ProductReader Preader;
         private string OSVersion;
         private string OSEdition;
         private string OSArchitecture;
@@ -31,7 +32,6 @@ namespace TemplateUI
             SetTheme();
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
-            Preader = new ProductReader();
             LogWriter.CreateTodaysLog();
 
             //Initial setup process.
@@ -96,16 +96,26 @@ namespace TemplateUI
 
         private void FillComboBoxes()
         {
-            foreach (var item in Preader.ImagingVersions)
-                ImagingVersionBox.Items.Add(item);
-            foreach (var item in Preader.PMSVersions)
-                PMSVersionBox.Items.Add(item);
-            foreach (var item in Preader.BridgeVersions)
-                BridgeVersionBox.Items.Add(item);
-            foreach (var item in Preader.DeviceTypes)
-                DeviceTypeBox.Items.Add(item);
-            foreach (var item in Preader.DriverVersions)
-                DriverVersionBox.Items.Add(item);
+            try
+            {
+                foreach (var item in ProductReader.GetImaging())
+                    ImagingBox.Items.Add(item);
+                foreach (var item in ProductReader.GetPMS())
+                    PMSBox.Items.Add(item);
+                foreach (var item in ProductReader.GetBridges())
+                    BridgesBox.Items.Add(item);
+                foreach (var item in ProductReader.GetDevices())
+                    DevicesBox.Items.Add(item);
+                foreach (var item in ProductReader.GetDrivers())
+                    DriverBox.Items.Add(item);
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("FileNotFoundException thrown. Please verify that the following files are in the Logic folder:\n" +
+                    "Imaging.csv, PMS.csv, Bridges.csv, Devices.csv, Drivers.csv.\n\nThey don't have to have stuff in them, they just need to exist. " +
+                    "You can add the information to them through Preferences", "Ya dun goof'd");
+                Application.Current.Shutdown();
+            }
         }
 
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
@@ -119,13 +129,13 @@ namespace TemplateUI
             Ginfo.TroubleShootingSteps = !string.IsNullOrEmpty(TroubleshootStepsBox.Text) ? TroubleshootStepsBox.Text : null;
             Ginfo.ResolutionDetails = !string.IsNullOrEmpty(ResolutionBox.Text) ? ResolutionBox.Text : null;
 
-            Pinfo.Imaging = ImagingVersionBox.SelectedItem?.ToString();
-            Pinfo.PMS = PMSVersionBox.SelectedItem?.ToString();
-            Pinfo.Bridge = BridgeVersionBox.SelectedItem?.ToString();
+            Pinfo.Imaging = ImagingBox.SelectedItem?.ToString();
+            Pinfo.PMS = PMSBox.SelectedItem?.ToString();
+            Pinfo.Bridge = BridgesBox.SelectedItem?.ToString();
             Pinfo.DatabasePath = !string.IsNullOrEmpty(DatabasePathBox.Text) ? DatabasePathBox.Text : null;
-            Pinfo.DeviceType = DeviceTypeBox.SelectedItem?.ToString();
+            Pinfo.DeviceType = DevicesBox.SelectedItem?.ToString();
             Pinfo.SerialNumber = !string.IsNullOrEmpty(SerialNumberBox.Text) ? SerialNumberBox.Text : null;
-            Pinfo.Driver = DriverVersionBox.SelectedItem?.ToString();
+            Pinfo.Driver = DriverBox.SelectedItem?.ToString();
 
             string computerList = "";
             if (!RemoteSessionListBox.Items.IsEmpty)
@@ -188,6 +198,41 @@ namespace TemplateUI
                 ContactNameBox.Focus();
             }
 
+        }
+        private void CopyIssue_Click(object sender, RoutedEventArgs e)
+        {
+            string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
+            string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
+            ClipboardService.SetText($"{summary} \n {details}");
+        }
+
+        private void CopyDescription_Click(object sender, RoutedEventArgs e)
+        {
+            string result;
+
+            if (string.IsNullOrEmpty(IssueDetailsBox.Text))
+                result = $"{IssueSummaryBox.Text}\n";
+            else
+                result = $"{IssueDetailsBox.Text}\n";
+
+            if (!RemoteSessionListBox.Items.IsEmpty)
+                result += "Sessions:\n";
+            foreach (Computer cp in RemoteSessionListBox.Items)
+            {
+                result += $"{cp}\n";
+            }
+
+            ClipboardService.SetText(result);
+        }
+
+        private void CopyTroubleshootSteps_Click(object sender, RoutedEventArgs e)
+        {
+            string result = "";
+            foreach (string s in TroubleshootStepsBox.Text.Split('\n'))
+            {
+                result += $"\u2022 {s}";
+            }
+            ClipboardService.SetText(result);
         }
 
         private void ClearRemoteSessionScreen()
@@ -256,8 +301,8 @@ namespace TemplateUI
         private void OSRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
-            string wsValue = ck.Name.Replace("Radio", "").Replace("Win","");
-            string servValue = ck.Name.Replace("Radio", "").Replace("Server","Server 20");
+            string wsValue = ck.Name.Replace("Radio", "").Replace("Win", "");
+            string servValue = ck.Name.Replace("Radio", "").Replace("Server", "Server 20");
 
             if (ck.Name.Contains("Server"))
             {
@@ -302,41 +347,7 @@ namespace TemplateUI
             }
         }
 
-        private void CopyIssue_Click(object sender, RoutedEventArgs e)
-        {
-            string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
-            string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
-            ClipboardService.SetText($"{summary} \n {details}");
-        }
-
-        private void CopyDescription_Click(object sender, RoutedEventArgs e)
-        {
-            string result;
-
-            if (string.IsNullOrEmpty(IssueDetailsBox.Text))
-               result = $"{IssueSummaryBox.Text}\n";
-            else
-               result = $"{IssueDetailsBox.Text}\n";
-
-            if (!RemoteSessionListBox.Items.IsEmpty)
-                result += "Sessions:\n";
-            foreach (Computer cp in RemoteSessionListBox.Items)
-            {
-                result += $"{cp}\n";
-            }
-
-            ClipboardService.SetText(result);
-        }
-
-        private void CopyTroubleshootSteps_Click(object sender, RoutedEventArgs e)
-        {
-            string result = "";
-            foreach (string s in TroubleshootStepsBox.Text.Split('\n'))
-            {
-                result += $"\u2022 {s}";
-            }
-            ClipboardService.SetText(result);
-        }
+        
 
         private async void ClearComputerList_Click(object sender, RoutedEventArgs e)
         {
@@ -385,9 +396,9 @@ namespace TemplateUI
             newWindow.ContactNameBox.Text = this.ContactNameBox.Text;
             newWindow.PhoneNumberBox.Text = this.PhoneNumberBox.Text;
             newWindow.EmailAddressBox.Text = this.EmailAddressBox.Text;
-            newWindow.ImagingVersionBox.SelectedIndex = this.ImagingVersionBox.SelectedIndex;
-            newWindow.PMSVersionBox.SelectedIndex = this.PMSVersionBox.SelectedIndex;
-            newWindow.BridgeVersionBox.SelectedIndex = this.BridgeVersionBox.SelectedIndex;
+            newWindow.ImagingBox.SelectedIndex = this.ImagingBox.SelectedIndex;
+            newWindow.PMSBox.SelectedIndex = this.PMSBox.SelectedIndex;
+            newWindow.BridgesBox.SelectedIndex = this.BridgesBox.SelectedIndex;
             newWindow.DatabasePathBox.Text = this.DatabasePathBox.Text;
 
             newWindow.Show();
@@ -452,6 +463,13 @@ namespace TemplateUI
             pw.ShowDialog();
             SetTheme();
 
+            DevicesBox.Items.Clear();
+            DriverBox.Items.Clear();
+            ImagingBox.Items.Clear();
+            PMSBox.Items.Clear();
+            BridgesBox.Items.Clear();
+
+            FillComboBoxes();
         }
 
         private void EasterEggImage_Click(object sender, MouseButtonEventArgs e)

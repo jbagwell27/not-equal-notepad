@@ -40,6 +40,11 @@
             <Setter Property="FontSize"
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
                 Path=FontSize}"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type mah:ToggleSwitch}">
             <Setter Property="FontSize"
@@ -206,20 +211,20 @@
                                 Grid.Column="6" Grid.Row="1"
                                 Grid.RowSpan="8">
                         <Button Margin="20" Padding="3"
-                                ToolTip="Copies both Summary and Details"
-                                Style="{DynamicResource MahApps.Styles.Button.Square}"
-                                Click="CopyIssue_Click">
-                            <Button.Content>
-                                <TextBlock Text="Copy Issue"
-                                           Margin="3"/>
-                            </Button.Content>
-                        </Button>
-                        <Button Margin="20" Padding="3"
                                 ToolTip="Prioritizes the issue details. Includes the computer environment"
                                 Style="{DynamicResource MahApps.Styles.Button.Square}"
                                 Click="CopyDescription_Click">
                             <Button.Content>
                                 <TextBlock Text="Copy Issue and Sessions"
+                                           Margin="3"/>
+                            </Button.Content>
+                        </Button>
+                        <Button Margin="20" Padding="3"
+                                ToolTip="Copies both Summary and Details"
+                                Style="{DynamicResource MahApps.Styles.Button.Square}"
+                                Click="CopyIssue_Click">
+                            <Button.Content>
+                                <TextBlock Text="Copy Entire Issue"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
@@ -240,7 +245,7 @@
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
-                        <Button Margin="20" Padding="3"
+                        <Button x:Name="CopyButton" Margin="20" Padding="3"
                                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                 Click="CopyToClipboard_Click">
                             <Button.Content>
@@ -248,6 +253,7 @@
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
+                            
                     </StackPanel>
                     
                     <!--Problem info fields-->
@@ -343,8 +349,8 @@
                         <TextBlock Text="Device Type"
                                Grid.Column="1"
                                    HorizontalAlignment="Right"
-                               Margin="3,0" Padding="3"/>
-                        <ComboBox x:Name="DeviceTypeBox"
+                               Margin="3" Padding="3"/>
+                        <ComboBox x:Name="DevicesBox"
                               Grid.Column="2"
                               IsEditable="False"
                               Margin="3,0" Padding="3"/>
@@ -363,7 +369,7 @@
                                Grid.Column="5"
                                    HorizontalAlignment="Right"
                                Margin="50,0,3,0" Padding="3"/>
-                        <ComboBox x:Name="DriverVersionBox"
+                        <ComboBox x:Name="DriverBox"
                               Grid.Column="6"
                               IsEditable="False"
                               Margin="3,0" Padding="3"/>
@@ -392,7 +398,7 @@
                                    Grid.Column="1" Grid.Row="0"
                                    VerticalAlignment="Bottom"
                                    Margin="3" Padding="3"/>
-                        <ComboBox x:Name="ImagingVersionBox"
+                        <ComboBox x:Name="ImagingBox"
                                   Grid.Column="1" Grid.Row="1"
                                   Height="27"
                                   Padding="3"/>
@@ -401,7 +407,7 @@
                                    Grid.Column="1" Grid.Row="2"
                                    VerticalAlignment="Bottom"
                                    Margin="3" Padding="3"/>
-                        <ComboBox x:Name="PMSVersionBox"
+                        <ComboBox x:Name="PMSBox"
                                   Grid.Column="1" Grid.Row="3"
                                   Height="27"
                                   Padding="3"/>
@@ -410,7 +416,7 @@
                                    Grid.Column="1" Grid.Row="4"
                                    VerticalAlignment="Bottom"
                                    Margin="3" Padding="3"/>
-                        <ComboBox x:Name="BridgeVersionBox"
+                        <ComboBox x:Name="BridgesBox"
                                   Grid.Column="1" Grid.Row="5"
                                   Height="27"
                                   Padding="3"/>
@@ -435,8 +441,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width=".75*"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="25"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
@@ -604,37 +610,35 @@
                         </ListBox.ContextMenu>
                     </ListBox>
 
-                    <StackPanel Grid.Column="3" Grid.Row="2"
-                                Margin="10"
-                                Grid.RowSpan="2">
-
-                        <Button Grid.Column="3" Grid.Row="3"
+                    <Grid Grid.Column="4" Grid.Row="1"
+                          Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                VerticalAlignment="Top"
+                                Margin="10" 
                                 Style="{StaticResource MahApps.Styles.Button.Square}"
-                                Margin="10" Click="Win10Pro64_Click">
+                                Click="Win10Pro64_Click">
                             <Button.Content>
                                 <TextBlock Text="Win 10 Pro x64"
                                            Margin="3" />
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="3" Grid.Row="3"
+                        <Button Grid.Column="0"
+                                VerticalAlignment="Bottom"
                                 Margin="10"
                                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}" 
                                 Click="AddComputerButton_Click">
                             <Button.Content>
-                                <TextBlock Text="Add Computer"
-                                           Margin="3"/>
-                            </Button.Content>
-                        </Button>
-                        <Button Grid.Column="3" Grid.Row="3"
-                                Margin="10,50,10,10"
-                                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Click="ClearComputerList_Click">
-                            <Button.Content>
-                                <TextBlock Text="Clear List"
+                                <TextBlock Text="Add Computer to List"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
 
-                    </StackPanel>
+                    </Grid>
 
                 </Grid>
 
