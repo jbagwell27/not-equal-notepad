@@ -2,7 +2,6 @@
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Drawing.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -15,61 +14,76 @@ namespace TemplateUI
     /// </summary>
     public partial class PreferencesWindow : MetroWindow
     {
-        string Product;
+        public TemplateUISettings CurrentSettings;
+        public TemplateUISettings NewSettings { get; set; }
+        public bool canceled = false;
         public bool EntryAddPressed { get; set; }
         public PreferencesWindow()
         {
+            CurrentSettings = new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
+                Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily);
+            NewSettings = new TemplateUISettings();
             InitializeComponent();
-            EntryAddPressed = true;
-            SetTheme();
-            FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
+            EntryAddPressed = false;
+            SetThemeElements(CurrentSettings);
+            FontFamilyComboBox.Text = IsValidFont(CurrentSettings.FontFamily) ? CurrentSettings.FontFamily : "Segoe UI";
             foreach (var item in Properties.Settings.Default.FontFamilyList)
                 FontFamilyComboBox.Items.Add(item);
-           
+
 
         }
-        private void SetTheme()
-        {
 
-            if (Properties.Settings.Default.IsDarkMode)
+        private void SetThemeElements(TemplateUISettings setting)
+        {
+            if (setting.IsDarkMode)
             {
                 DarkModeToggleSwitch.IsOn = true;
-                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
+                ThemeManager.Current.ChangeTheme(this, $"Dark.{setting.Color}");
             }
             else
             {
                 DarkModeToggleSwitch.IsOn = false;
-                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
+                ThemeManager.Current.ChangeTheme(this, $"Light.{setting.Color}");
             }
 
             foreach (UIElement el in AccentColorPanel.Children)
             {
                 RadioButton rb = el as RadioButton;
                 string value = rb.Name.Replace("Radio", "");
-                if (Properties.Settings.Default.Theme == value)
+                if (setting.Color == value)
                 {
                     rb.IsChecked = true;
                 }
 
-                FontSizeSelectorBox.Value = Properties.Settings.Default.FontSize;
-                StyleExtraElements();
             }
-        }
+            FontFamilyComboBox.Text = setting.FontFamily;
+            FontSizeSelectorBox.Value = setting.FontSize;
 
+            FontFamilyComboBox.FontFamily = new FontFamily(setting.FontFamily);
+            FontFamilyComboBox.FontSize = setting.FontSize;
+
+            DataEntryBox.FontFamily = new FontFamily(setting.FontFamily);
+            DataEntryBox.FontSize = setting.FontSize;
+        }
         private void PreferencesSave_Click(object sender, RoutedEventArgs e)
         {
-            SaveSettings();
-            SetTheme();
+            NewSettings = GetTemporarySettings();
+            SetThemeElements(NewSettings);
+            SaveSettings(NewSettings);
             this.Close();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            SetThemeElements(CurrentSettings);
+            NewSettings = GetTemporarySettings();
+            SaveSettings(NewSettings);
             this.Close();
         }
+        
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveSettings();
-            SetTheme();
+            SetThemeElements(GetTemporarySettings());
+            SaveSettings(GetTemporarySettings());
         }
         private async void RestoreDefaults_Click(object sender, RoutedEventArgs e)
         {
@@ -82,34 +96,44 @@ namespace TemplateUI
             if (result == MessageDialogResult.Negative)
             {
                 Properties.Settings.Default.Reset();
-                SetTheme();
+                SetThemeElements(new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
+                    Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily));
             }
         }
-
-        private void SaveSettings()
+        private TemplateUISettings GetTemporarySettings()
         {
-            if (!string.IsNullOrEmpty(FontFamilyComboBox.Text))
+            TemplateUISettings tempSettings = new TemplateUISettings();
+            tempSettings.FontFamily = FontFamilyComboBox.Text;
+            tempSettings.FontSize = (int)FontSizeSelectorBox.Value;
+            tempSettings.IsDarkMode = DarkModeToggleSwitch.IsOn;
+
+            foreach (UIElement el in AccentColorPanel.Children)
             {
-                Properties.Settings.Default.FontFamily = FontFamilyComboBox.Text;
-                if (IsValidFont(FontFamilyComboBox.Text)
-                    && !Properties.Settings.Default.FontFamilyList.Contains(FontFamilyComboBox.Text))
+                RadioButton rb = el as RadioButton;
+                if (rb.IsChecked.Value)
                 {
-                    Properties.Settings.Default.FontFamilyList.Add(FontFamilyComboBox.Text);
+                    tempSettings.Color = rb.Name.Replace("Radio", "");
                 }
             }
-            Properties.Settings.Default.FontSize = (int)(FontSizeSelectorBox.Value);
-            StyleExtraElements();
+            return tempSettings;
+        }
+        private void SaveSettings(TemplateUISettings settings)
+        {
+            //saves font family
+            Properties.Settings.Default.FontFamily = settings.FontFamily;
+
+            //checks if it is real, and adds it to the family list
+            if (IsValidFont(settings.FontFamily)
+                && !Properties.Settings.Default.FontFamilyList.Contains(settings.FontFamily))
+            {
+                Properties.Settings.Default.FontFamilyList.Add(settings.FontFamily);
+            }
+
+            Properties.Settings.Default.FontSize = settings.FontSize;
+            Properties.Settings.Default.Color = settings.Color;
+            Properties.Settings.Default.IsDarkMode = settings.IsDarkMode;
             Properties.Settings.Default.Save();
         }
-
-        private void StyleExtraElements()
-        {
-            FontFamilyComboBox.FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-            FontFamilyComboBox.FontSize = Properties.Settings.Default.FontSize;
-            DataEntryBox.FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-            DataEntryBox.FontSize = Properties.Settings.Default.FontSize;
-        }
-
         private bool IsValidFont(string fontFamilyName)
         {
             foreach (var item in new InstalledFontCollection().Families)
@@ -122,42 +146,28 @@ namespace TemplateUI
             return false;
         }
 
-        private void DarkMode_Toggled(object sender, RoutedEventArgs e)
-        {
-            if (DarkModeToggleSwitch.IsOn)
-            {
-                Properties.Settings.Default.IsDarkMode = true;
-            }
-            else
-            {
-                Properties.Settings.Default.IsDarkMode = false;
-            }
-        }
-
-        private void ThemeColorRadio_Checked(object sender, RoutedEventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            Properties.Settings.Default.Theme = rb.Name.Replace("Radio", "");
-        }
-
         private async void AddProductEntry_Click(object sender, RoutedEventArgs e)
         {
+            string Product = null;
+            foreach (UIElement item in DataEntriesRadioPanel.Children)
+            {
+                RadioButton rb = item as RadioButton;
+                if (rb.IsChecked.Value)
+                {
+                    Product = rb.Name.Replace("Radio", "");
+                }
+            }
+
             if (string.IsNullOrEmpty(Product) || string.IsNullOrEmpty(DataEntryBox.Text))
             {
                 await this.ShowMessageAsync("Try again, Sport", "One or more fields are empty");
             }
             else
             {
-                EntryAddPressed = true;
                 ProductReader.AddEntry(Product, DataEntryBox.Text);
                 DataEntryBox.Clear();
+                EntryAddPressed = true;
             }
-        }
-
-        private void ProductRadio_Checked(object sender, RoutedEventArgs e)
-        {
-            RadioButton rb = sender as RadioButton;
-            Product = rb.Name.Replace("Radio", "");
         }
 
         private void DataEntryBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -166,6 +176,29 @@ namespace TemplateUI
             {
                 AddProductEntry_Click(sender, e);
             }
+        }
+    }
+
+    public class TemplateUISettings
+    {
+        public string Color { get; set; }
+        public bool IsDarkMode { get; set; }
+        public int FontSize { get; set; }
+        public string FontFamily { get; set; }
+        public TemplateUISettings(string color, bool isdark, int fontsize, string fontfamily)
+        {
+            Color = color;
+            IsDarkMode = isdark;
+            FontSize = fontsize;
+            FontFamily = fontfamily;
+        }
+        public TemplateUISettings()
+        {
+
+        }
+        public bool hasNullValues()
+        {
+            return Color == null || FontSize == 0 || FontFamily == null;
         }
     }
 }

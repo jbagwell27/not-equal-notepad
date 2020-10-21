@@ -17,9 +17,9 @@ namespace TemplateUI
         private void SetTheme()
         {
             if (Properties.Settings.Default.IsDarkMode)
-                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
+                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Color}");
             else
-                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
+                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Color}");
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)

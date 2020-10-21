@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using TemplateUI.Logic;
@@ -22,9 +21,7 @@ namespace TemplateUI
     {
         private GenericInfo Ginfo;
         private ProductInfo Pinfo;
-        private string OSVersion;
-        private string OSEdition;
-        private string OSArchitecture;
+
 
         public MainWindow()
         {
@@ -32,64 +29,67 @@ namespace TemplateUI
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             LogWriter.CreateTodaysLog();
-
+            Properties.Settings.Default.Reset();
             //Initial setup process.
             FillComboBoxes();
-            SetTheme();
+
+            SetTheme(new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
+                Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily));
+
             TemplatePreviewTab.IsEnabled = false;
             ContactNameBox.Focus();
 
 
         }
 
-        private void SetTheme()
+        private void SetTheme(TemplateUISettings settings)
         {
-            if (Properties.Settings.Default.IsDarkMode)
+            if (settings.IsDarkMode)
 
-                ThemeManager.Current.ChangeTheme(this, $"Dark.{Properties.Settings.Default.Theme}");
+                ThemeManager.Current.ChangeTheme(this, $"Dark.{settings.Color}");
             else
-                ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
+                ThemeManager.Current.ChangeTheme(this, $"Light.{settings.Color}");
 
             foreach (UIElement el in GenericInfoGrid.Children)
             {
                 if (el.GetType() == typeof(TextBox))
                 {
-                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                    ((TextBox)(el)).FontFamily = new FontFamily(settings.FontFamily);
+                    ((TextBox)(el)).FontSize = settings.FontSize;
                 }
             }
             foreach (UIElement el in DeviceInfoGrid.Children)
             {
                 if (el.GetType() == typeof(ComboBox))
                 {
-                    ((ComboBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-                    ((ComboBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                    ((ComboBox)(el)).FontFamily = new FontFamily(settings.FontFamily);
+                    ((ComboBox)(el)).FontSize = settings.FontSize;
                 }
                 if (el.GetType() == typeof(TextBox))
                 {
-                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                    ((TextBox)(el)).FontFamily = new FontFamily(settings.FontFamily);
+                    ((TextBox)(el)).FontSize = settings.FontSize;
                 }
             }
             foreach (UIElement el in SoftwareInfoGrid.Children)
             {
                 if (el.GetType() == typeof(ComboBox))
                 {
-                    ((ComboBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-                    ((ComboBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                    ((ComboBox)(el)).FontFamily = new FontFamily(settings.FontFamily);
+                    ((ComboBox)(el)).FontSize = settings.FontSize;
                 }
                 if (el.GetType() == typeof(TextBox))
                 {
-                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                    ((TextBox)(el)).FontFamily = new FontFamily(settings.FontFamily);
+                    ((TextBox)(el)).FontSize = settings.FontSize;
                 }
             }
             foreach (UIElement el in RemoteSessionsGrid.Children)
             {
                 if (el.GetType() == typeof(TextBox))
                 {
-                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
-                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                    ((TextBox)(el)).FontFamily = new FontFamily(settings.FontFamily);
+                    ((TextBox)(el)).FontSize = settings.FontSize;
                 }
             }
         }
@@ -194,7 +194,6 @@ namespace TemplateUI
                 TemplatePreviewTab.IsEnabled = false;
                 GenericInfoTab.IsSelected = true;
 
-                Thread.Sleep(1000);
                 ContactNameBox.Focus();
             }
 
@@ -253,9 +252,6 @@ namespace TemplateUI
                 if (el.GetType() == typeof(RadioButton))
                     ((RadioButton)(el)).IsChecked = false;
             }
-            OSVersion = null;
-            OSArchitecture = null;
-            OSEdition = null;
             EditionPanel.IsEnabled = true;
 
         }
@@ -301,8 +297,6 @@ namespace TemplateUI
         private void OSRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton ck = sender as RadioButton;
-            string wsValue = ck.Name.Replace("Radio", "").Replace("Win", "");
-            string servValue = ck.Name.Replace("Radio", "").Replace("Server", "Server 20");
 
             if (ck.Name.Contains("Server"))
             {
@@ -311,30 +305,52 @@ namespace TemplateUI
                 {
                     RadioButton rb = el as RadioButton;
                     rb.IsChecked = false;
-                    this.OSEdition = null;
                 }
-                this.OSVersion = servValue;
             }
             else
             {
                 EditionPanel.IsEnabled = true;
-                this.OSVersion = wsValue;
             }
         }
         private void EditionRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            RadioButton ck = sender as RadioButton;
-            OSEdition = ck.Name.Replace("Radio", "");
         }
         private void ArchRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            RadioButton ck = sender as RadioButton;
-            OSArchitecture = ck.Name.Replace("Radio", "");
         }
 
 
         private async void AddComputerButton_Click(object sender, RoutedEventArgs e)
         {
+            string OSVersion = null;
+            string OSEdition = null;
+            string OSArchitecture = null;
+
+            foreach (UIElement item in OSPanel.Children)
+            {
+                RadioButton rb = item as RadioButton;
+                if (rb.IsChecked.Value)
+                {
+                    OSVersion = rb.Name.Replace("Radio", "").Replace("Server", "Server 20");
+                }
+            }
+            foreach (UIElement item in EditionPanel.Children)
+            {
+                RadioButton rb = item as RadioButton;
+                if (rb.IsChecked.Value)
+                {
+                    OSEdition = rb.Name.Replace("Radio", "");
+                }
+            }
+            foreach (UIElement item in ArchitecturePanel.Children)
+            {
+                RadioButton rb = item as RadioButton;
+                if (rb.IsChecked.Value)
+                {
+                    OSArchitecture = rb.Name.Replace("Radio", "");
+                }
+            }
+
             if (string.IsNullOrEmpty(ComputerNameBox.Text) || string.IsNullOrEmpty(OSVersion) || string.IsNullOrEmpty(OSArchitecture) ||
                 (string.IsNullOrEmpty(OSEdition) && EditionPanel.IsEnabled))
             {
@@ -347,7 +363,7 @@ namespace TemplateUI
             }
         }
 
-        
+
 
         private async void ClearComputerList_Click(object sender, RoutedEventArgs e)
         {
@@ -461,8 +477,16 @@ namespace TemplateUI
             PreferencesWindow pw = new PreferencesWindow();
             pw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             pw.ShowDialog();
-            SetTheme();
+            SetTheme(pw.NewSettings);
+            
+            if (pw.EntryAddPressed)
+            {
+                UpdateDropDowns();
+            }
+        }
 
+        private void UpdateDropDowns()
+        {
             int devbox = DevicesBox.SelectedIndex;
             int drivebox = DriversBox.SelectedIndex;
             int imgbox = ImagingBox.SelectedIndex;
@@ -474,7 +498,7 @@ namespace TemplateUI
             ImagingBox.Items.Clear();
             PMSBox.Items.Clear();
             BridgesBox.Items.Clear();
-            
+
             FillComboBoxes();
 
             DevicesBox.SelectedIndex = devbox;

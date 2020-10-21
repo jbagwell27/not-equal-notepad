@@ -111,8 +111,7 @@
                    Margin="3" Padding="3"/>
         <mah:ToggleSwitch x:Name="DarkModeToggleSwitch"
                           Grid.Column="2" Grid.Row="4"
-                          Margin="3,0"
-                          Toggled="DarkMode_Toggled"/>
+                          Margin="3,0"/>
 
         <TextBlock Text="Accent Color"
                    Grid.Column="1" Grid.Row="5"
@@ -121,64 +120,55 @@
                    Grid.Column="2" Grid.Row="5"
                    Grid.RowSpan="2">
             <RadioButton x:Name="RedRadio"
-                         Margin="5" Padding="5" 
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Red"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="OrangeRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Orange"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="YellowRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Yellow"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="GreenRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Green"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="BlueRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Blue"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="PurpleRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Purple"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="PinkRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Pink"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="MagentaRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Magenta"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="CyanRadio"
-                         Margin="5" Padding="5"
-                         Checked="ThemeColorRadio_Checked">
+                         Margin="5" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Cyan"/>
                 </RadioButton.Content>
@@ -189,41 +179,36 @@
                    Grid.Column="4" Grid.Row="1"
                    ToolTip="Add entries to the Dropdown Lists"
                    Margin="3" Padding="3"/>
-        <WrapPanel x:Name="AddEntriesRadioPanel"
+        <WrapPanel x:Name="DataEntriesRadioPanel"
                    Grid.Column="5" Grid.Row="1"
                    Grid.RowSpan="2"
                    Margin="3">
             <RadioButton x:Name="ImagingRadio"
-                         Margin="3" Padding="5"
-                         Checked="ProductRadio_Checked">
+                         Margin="3" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Imaging"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="PMSRadio"
-                         Margin="3" Padding="5"
-                         Checked="ProductRadio_Checked">
+                         Margin="3" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="PMS"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="BridgesRadio"
-                         Margin="3" Padding="5"
-                         Checked="ProductRadio_Checked">
+                         Margin="3" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Bridges"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="DevicesRadio"
-                         Margin="3" Padding="5"
-                         Checked="ProductRadio_Checked">
+                         Margin="3" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Devices"/>
                 </RadioButton.Content>
             </RadioButton>
             <RadioButton x:Name="DriversRadio"
-                         Margin="3" Padding="5"
-                         Checked="ProductRadio_Checked">
+                         Margin="3" Padding="5">
                 <RadioButton.Content>
                     <TextBlock Text="Drivers"/>
                 </RadioButton.Content>
@@ -240,12 +225,12 @@
             </Grid.ColumnDefinitions>
                 <TextBox x:Name="DataEntryBox"
                          Grid.Column="0"
-                         Margin="3,3,0,3" Padding="3"
+                         Margin="3,3,-2,3" Padding="3"
                          BorderThickness="1,1,0,1"
                          KeyDown="DataEntryBox_KeyDown"/>
                 <Button Grid.Column="1"
                         Margin="3,3,3,3" Padding="3" 
-                        BorderThickness="1"
+                        BorderThickness="0,1,1,1"
                         Click="AddProductEntry_Click">
                 <Button.Content>
                     <TextBlock Text="Add"/>

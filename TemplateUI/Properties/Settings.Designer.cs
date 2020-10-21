@@ -76,12 +76,12 @@ namespace TemplateUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
-        public string Theme {
+        public string Color {
             get {
-                return ((string)(this["Theme"]));
+                return ((string)(this["Color"]));
             }
             set {
-                this["Theme"] = value;
+                this["Color"] = value;
             }
         }
     }
