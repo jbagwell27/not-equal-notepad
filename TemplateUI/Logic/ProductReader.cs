@@ -1,92 +1,32 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace TemplateUI.Logic
 {
-    class ProductReader
+    static class ProductReader
     {
-        public List<string> ImagingVersions { get; }
-        public List<string> PMSVersions { get; }
-        public List<string> BridgeVersions { get; }
-        public List<string> DeviceTypes { get; }
-        public List<string> DriverVersions { get; }
-
-        private readonly string TemplateFile;
-        public ProductReader()
+        public static string[] GetImaging()
         {
-            TemplateFile = new StreamReader(@"Logic\Products.json").ReadToEnd();
-            ImagingVersions = new List<string>();
-            PMSVersions = new List<string>();
-            BridgeVersions = new List<string>();
-            DeviceTypes = new List<string>();
-            DriverVersions = new List<string>();
-            FillImaging();
-            FillPMS();
-            FillBridge();
-            FillDevice();
-            FillDriver();
+            return File.ReadAllText(@"Logic\Imaging.csv").Split(',');
         }
-
-        private void FillImaging()
+        public static string[] GetPMS()
         {
-            JToken token = JToken.Parse(TemplateFile);
-            string list = token.SelectToken("Imaging").ToString();
-            dynamic array = JsonConvert.DeserializeObject(list);
-            foreach (string item in array)
-                ImagingVersions.Add(item);
+            return File.ReadAllText(@"Logic\PMS.csv").Split(',');
         }
-        private void FillPMS()
+        public static string[] GetBridges()
         {
-            JToken token = JToken.Parse(TemplateFile);
-            string list = token.SelectToken("PMS").ToString();
-            dynamic array = JsonConvert.DeserializeObject(list);
-            foreach (string item in array)
-                PMSVersions.Add(item);
+            return File.ReadAllText(@"Logic\Bridge.csv").Split(',');
         }
-        private void FillBridge()
+        private static string[] GetDevices()
         {
-            JToken token = JToken.Parse(TemplateFile);
-            string list = token.SelectToken("Bridge").ToString();
-            dynamic array = JsonConvert.DeserializeObject(list);
-            foreach (string item in array)
-                BridgeVersions.Add(item);
+            return File.ReadAllText(@"Logic\Devices.csv").Split(',');
         }
-        private void FillDevice()
+        private static string[] GetDrivers()
         {
-            JToken token = JToken.Parse(TemplateFile);
-            string list = token.SelectToken("Device").ToString();
-            dynamic array = JsonConvert.DeserializeObject(list);
-            foreach (string item in array)
-                DeviceTypes.Add(item);
+            return File.ReadAllText(@"Logic\Drivers.csv").Split(',');
         }
-        private void FillDriver()
+        public static void AddEntry(string product, string value)
         {
-            JToken token = JToken.Parse(TemplateFile);
-            string list = token.SelectToken("Driver").ToString();
-            dynamic array = JsonConvert.DeserializeObject(list);
-            foreach (string item in array)
-                DriverVersions.Add(item);
-        }
-
-        public void AddEntry(string product, string value)
-        {
-            var list = JsonConvert.DeserializeObject<List<Imaging>>(TemplateFile);
-            list.Add(new Imaging("Imaging", value));
-            var convertedJson = JsonConvert.SerializeObject(list, Formatting.Indented);
+            File.AppendAllText($@"Logic\{product}.csv", value);
         }
     }
-
-    class Imaging
-    {
-        string Program;
-        string Version;
-        public Imaging(string program, string version)
-        {
-            Program = program;
-            Version = version;
-        }
-    }
-
 }
