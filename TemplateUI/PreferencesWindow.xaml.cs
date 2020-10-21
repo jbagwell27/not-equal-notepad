@@ -17,7 +17,10 @@ namespace TemplateUI
         {
             InitializeComponent();
             SetTheme();
-            
+            FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
+            foreach (var item in Properties.Settings.Default.FontFamilyList)
+                FontFamilyComboBox.Items.Add(item);
+
         }
         private void SetTheme()
         {
@@ -41,9 +44,7 @@ namespace TemplateUI
                 {
                     rb.IsChecked = true;
                 }
-            FontFamilyComboBox.Text = IsValidFont(Properties.Settings.Default.FontFamily) ? Properties.Settings.Default.FontFamily : "Segoe UI";
-            foreach (var item in Properties.Settings.Default.FontFamilyList)
-                FontFamilyComboBox.Items.Add(item);
+            
             FontSizeSelectorBox.Value = Properties.Settings.Default.FontSize;
             StyleExtraElements();
             }
@@ -52,6 +53,7 @@ namespace TemplateUI
         private void PreferencesSave_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
+            SetTheme();
             this.Close();
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -61,6 +63,21 @@ namespace TemplateUI
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
+            SetTheme();
+        }
+        private async void RestoreDefaults_Click(object sender, RoutedEventArgs e)
+        {
+            var settings = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
+            };
+            var result = await this.ShowMessageAsync("Are you sure?", "This will reset all saved settings and restore to default", MessageDialogStyle.AffirmativeAndNegative, settings);
+            if (result == MessageDialogResult.Negative)
+            {
+                Properties.Settings.Default.Reset();
+                SetTheme();
+            }
         }
 
         private void SaveSettings()

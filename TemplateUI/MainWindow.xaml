@@ -25,14 +25,14 @@
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
                 Path=FontSize}"/>
         </Style>
-        <Style TargetType="{x:Type TextBox}">
+        <!--Style TargetType="{x:Type TextBox}">
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
                 Path=FontFamily}"/>
             <Setter Property="FontSize"
                     Value="{Binding Source={x:Static properties:Settings.Default}, 
                 Path=FontSize}"/>
-        </Style>
+        </-->
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
@@ -260,7 +260,7 @@
                              Grid.ColumnSpan="4"
                              SpellCheck.IsEnabled="True"
                              Margin="3,10,3,3" Padding="3"
-                             ToolTip="Summary of the issue"
+                             mah:TextBoxHelper.Watermark="Summary of the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                     <TextBlock Grid.Column="1" Grid.Row="4"
@@ -275,7 +275,7 @@
                              AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
                              Margin="3" Padding="3"
-                             ToolTip="(Optional) More details of the issue"
+                             mah:TextBoxHelper.Watermark="(Optional) More details of the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                     <!--Troubleshooting Steps Field-->
@@ -290,7 +290,7 @@
                              SpellCheck.IsEnabled="True"
                              VerticalScrollBarVisibility="Auto"
                              Margin="3" Padding="3"
-                             ToolTip="All steps taken towards resolution"
+                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
                     <!--Resolution Details Field-->
@@ -304,7 +304,7 @@
                              AcceptsReturn="True" TextWrapping="Wrap"
                              SpellCheck.IsEnabled="True"
                              Margin="3" Padding="3"
-                             ToolTip="The final step taken that resolved the issue"
+                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                 </Grid>
@@ -424,13 +424,6 @@
                                  Grid.Column="3" Grid.Row="1"
                                  Padding="3"
                                  PreviewMouseDown="SelectAllTriple_Click"/>
-
-                        <mah:ToggleSwitch x:Name="RMASwitch"
-                                          Header="RMA Tab"
-                                          Grid.Column="3" Grid.Row="2"
-                                          VerticalAlignment="Bottom"
-                                          ToolTip="Does nothing but is fun to flip :P"/>
-
                     </Grid>
                 </Grid>
 
@@ -438,7 +431,7 @@
 
             <TabItem x:Name="RemoteSessionsTab"
                      Header="Remote Sessions">
-                <Grid>
+                <Grid x:Name="RemoteSessionsGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
                         <ColumnDefinition Width="auto"/>

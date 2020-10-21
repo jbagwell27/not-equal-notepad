@@ -9,7 +9,7 @@
                  xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="Preferences" Height="350" Width="650"
+                 Title="Preferences" Height="400" Width="700"
                  SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
@@ -103,7 +103,7 @@
                            Margin="3" Padding="3"
                            HorizontalAlignment="Left"/>
 
-            <TextBlock Text="Theme Settings (Restart Required)"
+            <TextBlock Text="Theme Settings"
                        FontWeight="SemiBold"
                        Grid.Column="1" Grid.Row="3"
                        Grid.ColumnSpan="2"
@@ -256,6 +256,17 @@
                            Margin="3"/>
             </Button.Content>
         </Button>
+        <Button Grid.Column="1" Grid.Row="7"
+                Style="{StaticResource MahApps.Styles.Button.Square}"
+                VerticalAlignment="Bottom"
+                Margin="3" Padding="3"
+                Click="RestoreDefaults_Click">
+            <Button.Content>
+                <TextBlock Text="Restore Default"
+                           Margin="3"/>
+            </Button.Content>
+        </Button>
+        
 
         <Button Grid.Column="5" Grid.Row="6"
                 Grid.ColumnSpan="2"

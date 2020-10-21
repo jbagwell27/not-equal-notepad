@@ -50,11 +50,25 @@ namespace TemplateUI
             else
                 ThemeManager.Current.ChangeTheme(this, $"Light.{Properties.Settings.Default.Theme}");
 
+            foreach (UIElement el in GenericInfoGrid.Children)
+            {
+                if (el.GetType() == typeof(TextBox))
+                {
+                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                }
+            }
             foreach (UIElement el in DeviceInfoGrid.Children)
             {
                 if (el.GetType() == typeof(ComboBox))
                 {
-
+                    ((ComboBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+                    ((ComboBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                }
+                if (el.GetType() == typeof(TextBox))
+                {
+                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
                 }
             }
             foreach (UIElement el in SoftwareInfoGrid.Children)
@@ -63,6 +77,19 @@ namespace TemplateUI
                 {
                     ((ComboBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
                     ((ComboBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                }
+                if (el.GetType() == typeof(TextBox))
+                {
+                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
+                }
+            }
+            foreach (UIElement el in RemoteSessionsGrid.Children)
+            {
+                if (el.GetType() == typeof(TextBox))
+                {
+                    ((TextBox)(el)).FontFamily = new FontFamily(Properties.Settings.Default.FontFamily);
+                    ((TextBox)(el)).FontSize = Properties.Settings.Default.FontSize;
                 }
             }
         }
@@ -123,12 +150,12 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
             };
             var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-            if (result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Negative)
             {
                 foreach (UIElement el in GenericInfoGrid.Children)
                 {
@@ -156,6 +183,8 @@ namespace TemplateUI
                 TemplatePreviewBox.Clear();
                 TemplatePreviewTab.IsEnabled = false;
                 GenericInfoTab.IsSelected = true;
+
+                Thread.Sleep(1000);
                 ContactNameBox.Focus();
             }
 
@@ -198,11 +227,11 @@ namespace TemplateUI
             //I switched up the affirmative and negative buttons as a cheap way to change button colors
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
             };
             MessageDialogResult result = await this.ShowMessageAsync("Are you sure want to exit?", "No information will be saved.", MessageDialogStyle.AffirmativeAndNegative, settings);
-            if (result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Negative)
             {
                 int count = 0;
                 foreach (Window win in Application.Current.Windows)
@@ -282,11 +311,12 @@ namespace TemplateUI
 
         private void CopyDescription_Click(object sender, RoutedEventArgs e)
         {
-            string result = "";
+            string result;
+
             if (string.IsNullOrEmpty(IssueDetailsBox.Text))
-                result = $"{IssueSummaryBox.Text}\n";
+               result = $"{IssueSummaryBox.Text}\n";
             else
-                result = $"{IssueDetailsBox.Text}\n";
+               result = $"{IssueDetailsBox.Text}\n";
 
             if (!RemoteSessionListBox.Items.IsEmpty)
                 result += "Sessions:\n";
@@ -312,12 +342,12 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = "Yes",
-                NegativeButtonText = "No",
+                AffirmativeButtonText = "No",
+                NegativeButtonText = "Yes",
             };
             var result = await this.ShowMessageAsync("Are you sure?", "You will be clearing everything", MessageDialogStyle.AffirmativeAndNegative, settings);
 
-            if (result == MessageDialogResult.Affirmative)
+            if (result == MessageDialogResult.Negative)
             {
                 RemoteSessionListBox.Items.Clear();
             }

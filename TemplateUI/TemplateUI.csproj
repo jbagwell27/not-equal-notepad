@@ -11,12 +11,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Logic\Bridge.csv" />
+    <None Remove="Logic\Device.csv" />
+    <None Remove="Logic\Drivers.csv" />
+    <None Remove="Logic\Imaging.csv" />
+    <None Remove="Logic\PMS.csv" />
     <None Remove="Products.json" />
     <None Remove="Resources\RickRoll.gif" />
     <None Remove="RockRoll.gif" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Logic\Bridge.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logic\Device.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logic\Drivers.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logic\Imaging.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logic\PMS.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Logic\Products.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
