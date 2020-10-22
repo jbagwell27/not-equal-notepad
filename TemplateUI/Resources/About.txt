@@ -1,0 +1,5 @@
+This is a passion project designed originally to help me take notes in my Tech support role.
+
+It takes the contents entered in the fields and sticks a template in the clipboard.
+
+There are several theme options available in the preferences.

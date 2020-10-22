@@ -14,7 +14,8 @@
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
-    Path=FontSize}">
+    Path=FontSize}" Icon="Resources/code-not-equal.ico">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -27,22 +28,24 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1">
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock x:Name="AboutText"
+                       TextWrapping="Wrap"/>
+            <TextBlock>
             This program was made possible by the use of the following packages:
+                <LineBreak/>
             <LineBreak/>
-            <LineBreak/>
-            <Hyperlink NavigateUri="https://mahapps.com/"
-                       RequestNavigate="Hyperlink_RequestNavigate">MahApps.Metro</Hyperlink>
-            <LineBreak/>
-            <Hyperlink NavigateUri="https://www.nuget.org/packages/TextCopy/"
-                       RequestNavigate="Hyperlink_RequestNavigate">TextCopy</Hyperlink>
-            <LineBreak />
-            <Hyperlink NavigateUri="https://www.newtonsoft.com/json"
-                       RequestNavigate="Hyperlink_RequestNavigate">Newtonsoft.Json</Hyperlink>
-            <LineBreak/>
-            <Hyperlink NavigateUri="https://www.nuget.org/packages/WpfAnimatedGif/"
-                       RequestNavigate="Hyperlink_RequestNavigate">WpfAnimatedGif</Hyperlink>
-        </TextBlock>
+                <Hyperlink NavigateUri="https://mahapps.com/"
+                           RequestNavigate="Hyperlink_RequestNavigate">MahApps.Metro</Hyperlink>
+                <LineBreak/>
+                <Hyperlink NavigateUri="https://www.nuget.org/packages/TextCopy/"
+                           RequestNavigate="Hyperlink_RequestNavigate">TextCopy</Hyperlink>
+                <LineBreak />
+                <Hyperlink NavigateUri="https://www.nuget.org/packages/WpfAnimatedGif/"
+                           RequestNavigate="Hyperlink_RequestNavigate">WpfAnimatedGif</Hyperlink>
+            </TextBlock>
+        </StackPanel>
         <TextBlock Text="&#169; 2020, Joshua Bagwell"
                    Grid.Column="1" Grid.Row="2"/>
     </Grid>

@@ -13,6 +13,7 @@ namespace TemplateUI
         {
             InitializeComponent();
             SetTheme();
+            AboutText.Text = Properties.Resources.About + "\n\n";
         }
         private void SetTheme()
         {

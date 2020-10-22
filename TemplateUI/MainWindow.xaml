@@ -10,12 +10,12 @@
                  xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="Template Creator" Height="520" Width="960"
+                 Title="!= Template Creator" Height="520" Width="960"
                  SaveWindowPosition="True" Closing="MainWindow_Closing"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
                         Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
-                        Path=FontSize}">
+                        Path=FontSize}" Icon="Resources/code-not-equal.ico">
     <mah:MetroWindow.Resources>
         <!--" Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontFamily"
@@ -148,19 +148,17 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height=".5*"/>
+                        <RowDefinition Height=".33*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height=".5*"/>
+                        <RowDefinition Height=".45*"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
 
-                    <iconPacks:PackIconRemixIcon Grid.Column="1"
-                                                 Kind="ContactsFill" ToolTip="Click me! 😈"
-                                                 MouseDown="EasterEggImage_Click"
-                                                 Margin="0,2,0,0"/>
-
+                    <iconPacks:PackIconVaadinIcons Kind="Edit" 
+                                                   Grid.Column="1"
+                                                   VerticalAlignment="Center"/>
                     
                     <!--Contact name and phone number sections-->
                     <TextBlock Text="Contact Name"
@@ -169,7 +167,8 @@
                     <TextBox x:Name="ContactNameBox"
                              Grid.Column="2" Grid.Row="1"
                              Width="auto"
-                             Margin="3" Padding="3"/>
+                             Margin="3" Padding="3"
+                             GotFocus="SingleLineTextBox_GotFocus"/>
 
                     <TextBlock Text="Phone Number"
                                Grid.Column="1" Grid.Row="2"
@@ -177,7 +176,8 @@
                     <TextBox x:Name="PhoneNumberBox"
                              Grid.Column="2" Grid.Row="2"
                              Width="auto"
-                             Margin="3" Padding="3"/>
+                             Margin="3" Padding="3"
+                             GotFocus="SingleLineTextBox_GotFocus"/>
                     
                     <!--Case number and email fields-->
                     <TextBlock Text="Case Number"
@@ -187,7 +187,8 @@
                              Grid.Column="4" Grid.Row="1"
                              Width="auto"
                              Margin="3" Padding="3" 
-                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"
+                             GotFocus="SingleLineTextBox_GotFocus"/>
 
                     <TextBlock Text="Email Address"
                                Grid.Column="3" Grid.Row="2"
@@ -196,8 +197,68 @@
                              Grid.Column="4" Grid.Row="2"
                              Width="auto"
                              Margin="3" Padding="3"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"
+                             GotFocus="SingleLineTextBox_GotFocus"/>
+                    
+                    
+                    
+                    
+                    <!--Problem info fields-->
+                    <TextBlock Text="Issue Summary"
+                               Grid.Column="1" Grid.Row="3"
+                               Margin="3,10"
+                               PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
+                    <TextBox x:Name="IssueSummaryBox"
+                             Grid.Column="2" Grid.Row="3"
+                             Grid.ColumnSpan="4"
+                             SpellCheck.IsEnabled="True"
+                             Margin="3,10,3,3" Padding="3"
+                             mah:TextBoxHelper.Watermark="Summary of the issue"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"
+                             GotFocus="SingleLineTextBox_GotFocus"/>
+
+                    <TextBlock Text="Issue Details"
+                               Grid.Column="1" Grid.Row="4"
+                               Margin="3">
+                    </TextBlock>
+                    <TextBox x:Name="IssueDetailsBox"
+                             Grid.Column="2" Grid.Row="4"
+                             Grid.ColumnSpan="4"
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             SpellCheck.IsEnabled="True"
+                             Margin="3" Padding="3"
+                             mah:TextBoxHelper.Watermark="(Optional) More details of the issue"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
+
+                    <!--Troubleshooting Steps Field-->
+                    <TextBlock Text="Troubleshooting Steps"
+                               Grid.Column="1" Grid.Row="5"
+                               Grid.ColumnSpan="5"
+                               Margin="3"/>
+                    <TextBox x:Name="TroubleshootStepsBox"
+                             Grid.Column="1" Grid.Row="6"
+                             Grid.ColumnSpan="5"
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             SpellCheck.IsEnabled="True"
+                             VerticalScrollBarVisibility="Auto"
+                             Margin="3" Padding="3"
+                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"
                              PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
                     
+                    <!--Resolution Details Field-->
+                    <TextBlock Text="Resolution Details"
+                               Grid.Column="1" Grid.Row="7"
+                               Grid.ColumnSpan="5"
+                               Margin="3"/>
+                    <TextBox x:Name="ResolutionBox"
+                             Grid.Column="1" Grid.Row="8"
+                             Grid.ColumnSpan="5"
+                             AcceptsReturn="True" TextWrapping="Wrap"
+                             SpellCheck.IsEnabled="True"
+                             Margin="3" Padding="3"
+                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"
+                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
+
                     <!--Right Aligned buttons-->
                     <StackPanel x:Name="RightAlignedButtonPanel"
                                 Grid.Column="6" Grid.Row="1"
@@ -245,63 +306,8 @@
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
-                            
+
                     </StackPanel>
-                    
-                    <!--Problem info fields-->
-                    <TextBlock Text="Issue Summary"
-                               Grid.Column="1" Grid.Row="3"
-                               Margin="3,10"
-                               PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
-                    <TextBox x:Name="IssueSummaryBox"
-                             Grid.Column="2" Grid.Row="3"
-                             Grid.ColumnSpan="4"
-                             SpellCheck.IsEnabled="True"
-                             Margin="3,10,3,3" Padding="3"
-                             mah:TextBoxHelper.Watermark="Summary of the issue"
-                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
-
-                    <TextBlock Text="Issue Details"
-                               Grid.Column="1" Grid.Row="4"
-                               Margin="3">
-                    </TextBlock>
-                    <TextBox x:Name="IssueDetailsBox"
-                             Grid.Column="2" Grid.Row="4"
-                             Grid.ColumnSpan="4"
-                             AcceptsReturn="True" TextWrapping="Wrap"
-                             SpellCheck.IsEnabled="True"
-                             Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="(Optional) More details of the issue"
-                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
-
-                    <!--Troubleshooting Steps Field-->
-                    <TextBlock Text="Troubleshooting Steps"
-                               Grid.Column="1" Grid.Row="5"
-                               Grid.ColumnSpan="5"
-                               Margin="3"/>
-                    <TextBox x:Name="TroubleshootStepsBox"
-                             Grid.Column="1" Grid.Row="6"
-                             Grid.ColumnSpan="5"
-                             AcceptsReturn="True" TextWrapping="Wrap"
-                             SpellCheck.IsEnabled="True"
-                             VerticalScrollBarVisibility="Auto"
-                             Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="All steps taken towards resolution"
-                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
-                    
-                    <!--Resolution Details Field-->
-                    <TextBlock Text="Resolution Details"
-                               Grid.Column="1" Grid.Row="7"
-                               Grid.ColumnSpan="5"
-                               Margin="3"/>
-                    <TextBox x:Name="ResolutionBox"
-                             Grid.Column="1" Grid.Row="8"
-                             Grid.ColumnSpan="5"
-                             AcceptsReturn="True" TextWrapping="Wrap"
-                             SpellCheck.IsEnabled="True"
-                             Margin="3" Padding="3"
-                             mah:TextBoxHelper.Watermark="The final step taken that resolved the issue"
-                             PreviewMouseLeftButtonDown="SelectAllTriple_Click"/>
 
                 </Grid>
             </TabItem>
@@ -630,9 +636,8 @@
 
             </TabItem>
 
-            <TabItem x:Name="TemplatePreviewTab"
-                     Header="Template Preview"
-                     IsEnabled="False">
+            <TabItem x:Name="BlankFieldTab"
+                     Header="Blank Field">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="5"/>
@@ -641,6 +646,37 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                    </Grid.RowDefinitions>
+
+                    <iconPacks:PackIconUnicons Kind="DiaryAlt"
+                                               Grid.Column="1"
+                                               VerticalAlignment="Center"/>
+
+                    <TextBlock Text="This is a Clipboard dump. Any extra information you need to keep separate, goes here. Nothing will be saved."
+                               Grid.Column="1" Grid.Row="1"
+                               Margin="3" Padding="3"/>
+
+                    <TextBox x:Name="BlankField"
+                             Grid.Column="1" Grid.Row="2"
+                             Margin="0,5,0,0" Padding="3"/>
+                </Grid>
+
+            </TabItem>
+
+            <TabItem x:Name="TemplatePreviewTab"
+                     Header="Template Preview">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="5"/>
                     </Grid.RowDefinitions>
@@ -648,10 +684,14 @@
                     <iconPacks:PackIconCodicons Kind="OpenPreview" 
                                                 Grid.Column="1"
                                                 VerticalAlignment="Center"/>
+                    <TextBlock Text="Preview notes that are copied to the clipboard. They may need to be split if the character limit exceeds 2000."
+                               Grid.Column="1" Grid.Row="1"
+                               Margin="3" Padding="3"/>
 
                     <TextBox x:Name="TemplatePreviewBox"
-                             Grid.Column="1" Grid.Row="1"
-                             IsReadOnly="True"/>
+                             Grid.Column="1" Grid.Row="2"
+                             IsReadOnly="True"
+                             Margin="0,5,0,0" Padding="3"/>
 
                 </Grid>
                 

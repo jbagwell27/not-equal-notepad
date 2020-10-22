@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Products.json" />
     <None Remove="Resources\Bridges.csv" />
+    <None Remove="Resources\code-not-equal.ico" />
     <None Remove="Resources\Devices.csv" />
     <None Remove="Resources\Drivers.csv" />
     <None Remove="Resources\Imaging.csv" />
@@ -26,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro" Version="2.2.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.3.0" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.6.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="TextCopy" Version="4.2.0" />
@@ -35,6 +36,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Bridges.csv" />
+    <Resource Include="Resources\code-not-equal.ico" />
     <Resource Include="Resources\Devices.csv" />
     <Resource Include="Resources\Drivers.csv" />
     <Resource Include="Resources\Imaging.csv" />
@@ -67,10 +69,6 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UX\" />
   </ItemGroup>
 
 </Project>

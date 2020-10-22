@@ -8,11 +8,15 @@ namespace TemplateUI.Logic
         {
             try
             {
-                return File.ReadAllText(@"Logic\Imaging.csv").Split(',');
+                return File.ReadAllText(@"Resources\Imaging.csv").Split(',');
             }
-            catch (FileNotFoundException)
+            catch (System.Exception)
             {
-                File.AppendAllText(@"Logic\Imaging.csv", Properties.Resources.Imaging);
+                if (!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
+                File.AppendAllText(@"Resources\Imaging.csv", Properties.Resources.Imaging);
                 return Properties.Resources.Imaging.Split(',');
             }
         }
@@ -20,11 +24,15 @@ namespace TemplateUI.Logic
         {
             try
             {
-                return File.ReadAllText(@"Logic\PMS.csv").Split(',');
+                return File.ReadAllText(@"Resources\PMS.csv").Split(',');
             }
-            catch (FileNotFoundException)
+            catch (System.Exception)
             {
-                File.AppendAllText(@"Logic\PMS.csv", Properties.Resources.PMS);
+                if (!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
+                File.AppendAllText(@"Resources\PMS.csv", Properties.Resources.PMS);
                 return Properties.Resources.PMS.Split(',');
             }
         }
@@ -32,11 +40,15 @@ namespace TemplateUI.Logic
         {
             try
             {
-                return File.ReadAllText(@"Logic\Bridges.csv").Split(',');
+                return File.ReadAllText(@"Resources\Bridges.csv").Split(',');
             }
-            catch (FileNotFoundException)
-            { 
-                File.AppendAllText(@"Logic\Bridges.csv", Properties.Resources.Bridges);
+            catch (System.Exception)
+            {
+                if (!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
+                File.AppendAllText(@"Resources\Bridges.csv", Properties.Resources.Bridges);
                 return Properties.Resources.Bridges.Split(',');
             }
         }
@@ -44,11 +56,15 @@ namespace TemplateUI.Logic
         {
             try
             {
-                return File.ReadAllText(@"Logic\Devices.csv").Split(',');
+                return File.ReadAllText(@"Resources\Devices.csv").Split(',');
             }
-            catch (FileNotFoundException)
+            catch (System.Exception)
             {
-                File.AppendAllText(@"Logic\Devices.csv", Properties.Resources.Devices);
+                if (!Directory.Exists("Resources"))
+                {
+                    Directory.CreateDirectory("Resources");
+                }
+                File.AppendAllText(@"Resources\Devices.csv", Properties.Resources.Devices);
                 return Properties.Resources.Devices.Split(',');
             }
         }
@@ -56,17 +72,17 @@ namespace TemplateUI.Logic
         {
             try
             {
-                return File.ReadAllText(@"Logic\Drivers.csv").Split(',');
+                return File.ReadAllText(@"Resources\Drivers.csv").Split(',');
             }
             catch (FileNotFoundException)
             {
-                File.AppendAllText(@"Logic\Drivers.csv", Properties.Resources.Drivers);
+                File.AppendAllText(@"Resources\Drivers.csv", Properties.Resources.Drivers);
                 return Properties.Resources.Drivers.Split(',');
             }
         }
         public static void AddEntry(string product, string value)
         {
-            File.AppendAllText($@"Logic\{product}.csv", $"{value},");
+            File.AppendAllText($@"Resources\{product}.csv", $"{value},");
         }
     }
 }

@@ -35,7 +35,7 @@ namespace TemplateUI
             SetTheme(new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
                 Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily));
 
-            TemplatePreviewTab.IsEnabled = false;
+            this.ShowIconOnTitleBar = false;
             ContactNameBox.Focus();
 
 
@@ -91,6 +91,10 @@ namespace TemplateUI
                     ((TextBox)(el)).FontSize = settings.FontSize;
                 }
             }
+            TemplatePreviewBox.FontFamily = new FontFamily(settings.FontFamily);
+            TemplatePreviewBox.FontSize = settings.FontSize;
+            BlankField.FontFamily = new FontFamily(settings.FontFamily);
+            BlankField.FontSize = settings.FontSize;
         }
 
         private void FillComboBoxes()
@@ -138,7 +142,6 @@ namespace TemplateUI
                 $"{Pinfo}\n{computerList}";
 
             LogWriter.AddLogEntry(templateString);
-            TemplatePreviewTab.IsEnabled = true;
             TemplatePreviewBox.Text = templateString;
 
             ClipboardService.SetText(templateString);
@@ -147,6 +150,7 @@ namespace TemplateUI
 
         private async void ClearDataButton_Click(object sender, RoutedEventArgs e)
         {
+            ContactNameBox.Focus();
             var settings = new MetroDialogSettings()
             {
                 AffirmativeButtonText = "No",
@@ -180,18 +184,17 @@ namespace TemplateUI
                 ClearRemoteSessionScreen();
                 RemoteSessionListBox.Items.Clear();
                 TemplatePreviewBox.Clear();
-                TemplatePreviewTab.IsEnabled = false;
-                GenericInfoTab.IsSelected = true;
+                BlankField.Clear();
 
-                ContactNameBox.Focus();
+                
             }
 
         }
         private void CopyIssue_Click(object sender, RoutedEventArgs e)
         {
-            string summary = string.IsNullOrEmpty(IssueSummaryBox.Text) ? IssueSummaryBox.Text : null;
-            string details = string.IsNullOrEmpty(IssueDetailsBox.Text) ? IssueDetailsBox.Text : null;
-            ClipboardService.SetText($"{summary} \n {details}");
+            string summary = IssueSummaryBox.Text;
+            string details = IssueDetailsBox.Text;
+            ClipboardService.SetText($"{summary}\n{details}");
         }
 
         private void CopyDescription_Click(object sender, RoutedEventArgs e)
@@ -320,7 +323,7 @@ namespace TemplateUI
                 RadioButton rb = item as RadioButton;
                 if (rb.IsChecked.Value)
                 {
-                    OSVersion = rb.Name.Replace("Radio", "").Replace("Server", "Server 20");
+                    OSVersion = rb.Name.Replace("Radio", "").Replace("Server", "Server 20").Replace("Win","");
                 }
             }
             foreach (UIElement item in EditionPanel.Children)
@@ -500,6 +503,16 @@ namespace TemplateUI
         private void EasterEggImage_Click(object sender, MouseButtonEventArgs e)
         {
             new EasterEggWindow().ShowDialog();
+        }
+
+        private void SingleLineTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (Keyboard.PrimaryDevice.IsKeyDown(Key.Tab))
+            {
+                tb.SelectAll();
+            }
+
         }
     }
 }

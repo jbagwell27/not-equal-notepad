@@ -30,7 +30,9 @@ namespace TemplateUI
             foreach (var item in Properties.Settings.Default.FontFamilyList)
                 FontFamilyComboBox.Items.Add(item);
 
-
+            this.ShowCloseButton = false;
+            this.ShowMaxRestoreButton = false;
+            this.ShowMinButton = false;
         }
 
         private void SetThemeElements(TemplateUISettings setting)
@@ -68,7 +70,7 @@ namespace TemplateUI
         private void PreferencesSave_Click(object sender, RoutedEventArgs e)
         {
             NewSettings = GetTemporarySettings();
-            SetThemeElements(NewSettings);
+            //SetThemeElements(NewSettings);
             SaveSettings(NewSettings);
             this.Close();
         }
@@ -178,12 +180,6 @@ namespace TemplateUI
             }
         }
 
-        private void PreferenceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            SetThemeElements(CurrentSettings);
-            NewSettings = GetTemporarySettings();
-            SaveSettings(NewSettings);
-        }
     }
 
     public class TemplateUISettings
@@ -202,10 +198,6 @@ namespace TemplateUI
         public TemplateUISettings()
         {
 
-        }
-        public bool hasNullValues()
-        {
-            return Color == null || FontSize == 0 || FontFamily == null;
         }
     }
 }

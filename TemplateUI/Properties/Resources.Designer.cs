@@ -61,11 +61,32 @@ namespace TemplateUI.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This is a passion project designed originally to help me take notes in my Tech support role.
+        ///It takes the contents entered in the fields and sticks a template in the clipboard.
+        ///There are several theme options available in the preferences..
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  2.x,3.0.x,3.1.1,3.1.2,3.1.3,3.2.1,3.2.2,3.2.3,Premium 1.0.1,Premium 1.1.0,.
         /// </summary>
         internal static string Bridges {
             get {
                 return ResourceManager.GetString("Bridges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon code_not_equal {
+            get {
+                object obj = ResourceManager.GetObject("code_not_equal", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
