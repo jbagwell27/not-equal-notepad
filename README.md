@@ -1,2 +1,3 @@
 # TemplateCreator
-A rework of the NoteGenerator Project
+
+## Notepad for tech support
