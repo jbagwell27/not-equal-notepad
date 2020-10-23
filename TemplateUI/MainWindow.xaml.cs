@@ -28,6 +28,15 @@ namespace TemplateUI
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
             LogWriter.CreateTodaysLog();
+
+            KeyBinding OpenCmdKeyBinding = new KeyBinding(
+                ApplicationCommands.New,
+                Key.R,
+                ModifierKeys.Control);
+
+            this.InputBindings.Add(OpenCmdKeyBinding);
+
+
             //Initial setup process.
             FillComboBoxes();
 
@@ -515,6 +524,19 @@ namespace TemplateUI
         private void RefreshProductList_Click(object sender, RoutedEventArgs e)
         {
             UpdateDropDowns();
+        }
+
+        private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.N)
+            {
+                NewWindow_Click(sender, e);
+                //var newWindow = new MainWindow()
+                //{
+                //    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                //};
+                //newWindow.Show();
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using System.IO;
+﻿using System.IO;
 
 namespace TemplateUI.Logic
 {
@@ -98,14 +97,14 @@ namespace TemplateUI.Logic
             }
             catch (DirectoryNotFoundException)
             {
-                    Directory.CreateDirectory("Resources");
+                Directory.CreateDirectory("Resources");
             }
 
-                File.AppendAllText(@"Resources\Imaging.csv", Properties.Resources.Imaging);
-                File.AppendAllText(@"Resources\PMS.csv", Properties.Resources.PMS);
-                File.AppendAllText(@"Resources\Bridges.csv", Properties.Resources.Bridges);
-                File.AppendAllText(@"Resources\Devices.csv", Properties.Resources.Devices);
-                File.AppendAllText(@"Resources\Drivers.csv", Properties.Resources.Drivers);
+            File.AppendAllText(@"Resources\Imaging.csv", Properties.Resources.Imaging);
+            File.AppendAllText(@"Resources\PMS.csv", Properties.Resources.PMS);
+            File.AppendAllText(@"Resources\Bridges.csv", Properties.Resources.Bridges);
+            File.AppendAllText(@"Resources\Devices.csv", Properties.Resources.Devices);
+            File.AppendAllText(@"Resources\Drivers.csv", Properties.Resources.Drivers);
         }
     }
 }

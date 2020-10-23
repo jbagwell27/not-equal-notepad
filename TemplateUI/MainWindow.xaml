@@ -15,7 +15,8 @@
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
                         Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
-                        Path=FontSize}" Icon="Resources/code-not-equal.ico">
+                        Path=FontSize}" Icon="Resources/code-not-equal.ico"
+                 KeyDown="MetroWindow_KeyDown">
     <mah:MetroWindow.Resources>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily"
@@ -47,22 +48,49 @@
                 </mah:DropDownButton.Icon>
                 <mah:DropDownButton.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type MenuItem}}"
-                           TargetType="{x:Type MenuItem}"/>
+                           TargetType="{x:Type MenuItem}">
+                        <Style.Setters>
+                            <Setter Property="Width" Value="300"/>
+                        </Style.Setters>
+                    </Style>
                 </mah:DropDownButton.ItemContainerStyle>
                 <mah:DropDownButton.Items>
-                    <MenuItem Name="NewWindow" Header="New" 
+                    <MenuItem Name="NewWindow"
                               Click="NewWindow_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 
                                 Kind="FilePlus" Margin="3"/>
                         </MenuItem.Icon>
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="New"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="Ctrl+N"
+                                           HorizontalAlignment="Right"
+                                           Foreground="gray"/>
+                            </Grid>
+                        </MenuItem.Header>
                     </MenuItem>
-                    <MenuItem Header="Duplicate Window" 
-                              Click="DuplicateWindow_Click">
+                    <MenuItem Click="DuplicateWindow_Click">
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 
                                 Kind="Copy" Margin="3"/>
                         </MenuItem.Icon>
+                        <MenuItem.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Duplicate"
+                                           HorizontalAlignment="Left"/>
+                            <TextBlock Text="Ctrl+D"
+                                           HorizontalAlignment="Right"
+                                           Foreground="gray"/>
+                        </Grid>
+                        </MenuItem.Header>
                     </MenuItem>
                     <MenuItem Header="Logs">
                         <MenuItem.Icon>
