@@ -10,21 +10,13 @@
                  xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="!= Template Creator" Height="520" Width="960"
+                 Title="!= NOTEPAD" Height="520" Width="960"
                  SaveWindowPosition="True" Closing="MainWindow_Closing"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
                         Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
                         Path=FontSize}" Icon="Resources/code-not-equal.ico">
     <mah:MetroWindow.Resources>
-        <!--" Style TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="FontFamily"
-                    Value="{Binding Source={x:Static properties:Settings.Default},
-                Path=FontFamily}"/>
-            <Setter Property="FontSize"
-                    Value="{Binding Source={x:Static properties:Settings.Default}, 
-                Path=FontSize}"/>
-        </-->
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily"
                     Value="{Binding Source={x:Static properties:Settings.Default},
@@ -343,32 +335,32 @@
 
                         <!--Device Combobox List section-->
                         <TextBlock Text="Device Type"
-                               Grid.Column="1"
+                                   Grid.Column="1"
                                    HorizontalAlignment="Right"
-                               Margin="3" Padding="3"/>
+                                   Margin="3" Padding="3"/>
                         <ComboBox x:Name="DevicesBox"
-                              Grid.Column="2"
-                              IsEditable="False"
-                              Margin="3" Padding="3"/>
-
+                                  Grid.Column="2"
+                                  IsEditable="False"
+                                  Margin="3" Padding="3"/>
+                        
                         <!--SN box-->
                         <TextBlock Text="Serial Number"
-                               Grid.Column="3"
+                                   Grid.Column="3"
                                    HorizontalAlignment="Right"
-                               Margin="50,3,3,3" Padding="3"/>
+                                   Margin="50,3,3,3" Padding="3"/>
                         <TextBox x:Name="SerialNumberBox"
-                             Grid.Column="4"
-                             Margin="3" Padding="3"/>
+                                 Grid.Column="4"
+                                 Margin="3" Padding="3"/>
 
                         <!--Driver Section-->
                         <TextBlock Text="Driver Version"
-                               Grid.Column="5"
+                                   Grid.Column="5"
                                    HorizontalAlignment="Right"
-                               Margin="50,0,3,0" Padding="3"/>
+                                   Margin="50,0,3,0" Padding="3"/>
                         <ComboBox x:Name="DriversBox"
-                              Grid.Column="6"
-                              IsEditable="False"
-                              Margin="3" Padding="3"/>
+                                  Grid.Column="6"
+                                  IsEditable="False"
+                                  Margin="3" Padding="3"/>
                     </Grid>
 
                     <Grid x:Name="SoftwareInfoGrid" Grid.Row="2">
@@ -390,6 +382,16 @@
                         </Grid.RowDefinitions>
                         
                         <!--Software Info-->
+                        <Button Grid.Column="1" Grid.Row="0"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="3,10"
+                                Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                Click="RefreshProductList_Click">
+                            <Button.Content>
+                                <iconPacks:PackIconOcticons Kind="Sync"/>
+                            </Button.Content>
+                        </Button>
                         <TextBlock Text="Imaging Version"
                                    Grid.Column="1" Grid.Row="0"
                                    VerticalAlignment="Bottom"

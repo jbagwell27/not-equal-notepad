@@ -37,8 +37,6 @@ namespace TemplateUI
 
             this.ShowIconOnTitleBar = false;
             ContactNameBox.Focus();
-
-
         }
 
         private void SetTheme(TemplateUISettings settings)
@@ -110,7 +108,6 @@ namespace TemplateUI
                 foreach (var item in ProductReader.GetDrivers())
                     DriversBox.Items.Add(item);
         }
-
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
             Ginfo.ContactName = !string.IsNullOrEmpty(ContactNameBox.Text) ? ContactNameBox.Text : null;
@@ -513,6 +510,17 @@ namespace TemplateUI
                 tb.SelectAll();
             }
 
+        }
+
+        private void RefreshProductList_Click(object sender, RoutedEventArgs e)
+        {
+            DevicesBox.Items.Clear();
+            DriversBox.Items.Clear();
+            ImagingBox.Items.Clear();
+            PMSBox.Items.Clear();
+            BridgesBox.Items.Clear();
+
+            FillComboBoxes();
         }
     }
 }

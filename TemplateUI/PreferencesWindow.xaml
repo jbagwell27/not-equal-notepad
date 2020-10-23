@@ -14,7 +14,8 @@
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
-    Path=FontSize}" Icon="Resources/code-not-equal.ico">
+    Path=FontSize}" Icon="Resources/code-not-equal.ico"
+                 ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False">
     <mah:MetroWindow.Resources>
         <!--Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontSize"

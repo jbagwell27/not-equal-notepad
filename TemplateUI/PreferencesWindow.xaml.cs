@@ -29,10 +29,6 @@ namespace TemplateUI
             FontFamilyComboBox.Text = IsValidFont(CurrentSettings.FontFamily) ? CurrentSettings.FontFamily : "Segoe UI";
             foreach (var item in Properties.Settings.Default.FontFamilyList)
                 FontFamilyComboBox.Items.Add(item);
-
-            this.ShowCloseButton = false;
-            this.ShowMaxRestoreButton = false;
-            this.ShowMinButton = false;
         }
 
         private void SetThemeElements(TemplateUISettings setting)
