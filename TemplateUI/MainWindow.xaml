@@ -79,11 +79,11 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="Duplicate Window"
-                                           HorizontalAlignment="Left"/>
+                                       HorizontalAlignment="Left"/>
                             <TextBlock Text="Ctrl+D"
                                        Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           Foreground="gray"
+                                       HorizontalAlignment="Right"
+                                       Foreground="gray"
                                        Margin="25,0,0,0"/>
                         </Grid>
                         </MenuItem.Header>
@@ -130,7 +130,16 @@
                     </MenuItem>
                     <MenuItem Click="PreferencesItem_Click">
                         <MenuItem.Header>
-                            <TextBlock Text="Preferences"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Preferences"
+                                           HorizontalAlignment="Left"/>
+                                <TextBlock Text="Ctrl+O"
+                                           HorizontalAlignment="Right"
+                                           Foreground="Gray"/>
+                            </Grid>
                         </MenuItem.Header>
                         <MenuItem.Icon>
                             <iconPacks:PackIconFeatherIcons 

@@ -536,6 +536,10 @@ namespace TemplateUI
             {
                 DuplicateWindow_Click(sender, e);
             }
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.O)
+            {
+                PreferencesItem_Click(sender, e);
+            }
         }
     }
 }
