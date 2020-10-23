@@ -249,7 +249,7 @@
                    Grid.Column="5" Grid.Row="4"
                    VerticalAlignment="Bottom"
                    Margin="3" Padding="3"/>
-        <ListBox x:Name="CurrentDataList"
+        <ListBox x:Name="DataList"
                  Grid.Column="5" Grid.Row="5"
                  Margin="3,3,3,15"
                  BorderThickness="1"
@@ -257,7 +257,7 @@
             <ListBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Remove"
-                              Click="MenuItem_Click"/>
+                              Click="RemoveItem_Click"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>

@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Windows.Controls;
 
 namespace TemplateUI.Logic
 {
@@ -68,6 +70,7 @@ namespace TemplateUI.Logic
                 return Properties.Resources.Devices.Split(',');
             }
         }
+
         public static string[] GetDrivers()
         {
             try
@@ -80,6 +83,26 @@ namespace TemplateUI.Logic
                 return Properties.Resources.Drivers.Split(',');
             }
         }
+
+        public static string[] GetProductsList(string product)
+        {
+            try
+            {
+                return File.ReadAllText($@"Resources\{product}.csv").Split(',');
+            }
+            catch (System.Exception)
+            {
+                return Properties.Resources.Drivers.Split(',');
+            }
+        }
+        public static void SetProductsList(string[] products, string productType)
+        {
+            FileStream fileStream = File.Open($@"Resources\{productType}.csv", FileMode.Open);
+            fileStream.SetLength(0);
+            fileStream.Close();
+            File.AppendAllText($@"Resources\{productType}.csv", $"{string.Join(',', products)}");
+        }
+
         public static void AddEntry(string product, string value)
         {
             File.AppendAllText($@"Resources\{product}.csv", $"{value},");

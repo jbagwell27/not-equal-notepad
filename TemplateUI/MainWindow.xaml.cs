@@ -489,7 +489,7 @@ namespace TemplateUI
             pw.ShowDialog();
             SetTheme(pw.NewSettings);
 
-            if (pw.EntryAddPressed || pw.ResetPressed)
+            if (pw.ItemAdded || pw.ItemsReset || pw.ItemRemoved)
             {
                 UpdateDropDowns();
             }

@@ -1,8 +1,8 @@
 ﻿using ControlzEx.Theming;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using System.Collections.Generic;
 using System.Drawing.Text;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,8 +17,10 @@ namespace TemplateUI
     {
         public TemplateUISettings CurrentSettings;
         public TemplateUISettings NewSettings { get; set; }
-        public bool EntryAddPressed { get; set; }
-        public bool ResetPressed { get; set; }
+        public bool ItemAdded { get; set; }
+        public bool ItemsReset { get; set; }
+        public bool ItemRemoved { get; set; }
+        private string DataRadioButton { get; set; }
         public PreferencesWindow()
         {
             CurrentSettings = new TemplateUISettings()
@@ -30,7 +32,6 @@ namespace TemplateUI
             };
             NewSettings = new TemplateUISettings();
             InitializeComponent();
-            EntryAddPressed = false;
             SetThemeElements(CurrentSettings);
             FontFamilyComboBox.Text = IsValidFont(CurrentSettings.FontFamily) ? CurrentSettings.FontFamily : "Segoe UI";
             foreach (var item in Properties.Settings.Default.FontFamilyList)
@@ -110,7 +111,7 @@ namespace TemplateUI
                     FontSize = Properties.Settings.Default.FontSize
                 });
                 ProductReader.Rebuild();
-                ResetPressed = true;
+                ItemsReset = true;
                 this.PreferencesSave_Click(sender, e);
             }
         }
@@ -181,9 +182,13 @@ namespace TemplateUI
             }
             else
             {
-                ProductReader.AddEntry(Product, DataEntryBox.Text);
+                string s = DataEntryBox.Text;
+                ProductReader.AddEntry(Product, s);
                 DataEntryBox.Clear();
-                EntryAddPressed = true;
+                RebuildDataList();
+                DataList.SelectedIndex = DataList.Items.IndexOf(s);
+                DataList.ScrollIntoView(DataList.SelectedItem);
+                ItemAdded = true;
             }
         }
 
@@ -198,17 +203,35 @@ namespace TemplateUI
         private void ProductRadio_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
-            string type = rb.Name.Replace("Radio", "");
-            CurrentDataList.Items.Clear();
-            foreach (var item in File.ReadAllText($@"Resources\{type}.csv").Split(','))
+            DataRadioButton = rb.Name.Replace("Radio", "");
+            DataList.Items.Clear();
+            foreach (var item in ProductReader.GetProductsList(DataRadioButton))
             {
-                CurrentDataList.Items.Add(item);
+                DataList.Items.Add(item);
+            }
+        }
+        private void RebuildDataList()
+        {
+            DataList.Items.Clear();
+            foreach (var item in ProductReader.GetProductsList(DataRadioButton))
+            {
+                DataList.Items.Add(item);
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (DataList.SelectedItem != null)
+            {
+                DataList.Items.Remove(DataList.SelectedItem);
+            }
+            List<string> products = new List<string>();
+            foreach (string s in DataList.Items)
+            {
+                products.Add(s);
+            }
+            ProductReader.SetProductsList(products.ToArray(), DataRadioButton);
+            ItemRemoved = true;
         }
     }
 
