@@ -528,14 +528,13 @@ namespace TemplateUI
 
         private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if(Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.N)
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.N)
             {
                 NewWindow_Click(sender, e);
-                //var newWindow = new MainWindow()
-                //{
-                //    WindowStartupLocation = WindowStartupLocation.CenterScreen
-                //};
-                //newWindow.Show();
+            }
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.D)
+            {
+                DuplicateWindow_Click(sender, e);
             }
         }
     }
