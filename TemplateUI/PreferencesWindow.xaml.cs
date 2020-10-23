@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Drawing.Text;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -194,6 +195,21 @@ namespace TemplateUI
             }
         }
 
+        private void ProductRadio_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            string type = rb.Name.Replace("Radio", "");
+            CurrentDataList.Items.Clear();
+            foreach (var item in File.ReadAllText($@"Resources\{type}.csv").Split(','))
+            {
+                CurrentDataList.Items.Add(item);
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public class TemplateUISettings
