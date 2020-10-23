@@ -2,7 +2,6 @@
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.ComponentModel;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,9 +31,14 @@ namespace TemplateUI
             //Initial setup process.
             FillComboBoxes();
 
-            SetTheme(new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
-                Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily));
+            SetTheme(new TemplateUISettings() 
+            {
+                Color = Properties.Settings.Default.Color,
+                IsDarkMode = Properties.Settings.Default.IsDarkMode,
+                FontFamily = Properties.Settings.Default.FontFamily,
+                FontSize = Properties.Settings.Default.FontSize
 
+            });
             this.ShowIconOnTitleBar = false;
             ContactNameBox.Focus();
         }
@@ -97,16 +101,16 @@ namespace TemplateUI
 
         private void FillComboBoxes()
         {
-                foreach (var item in ProductReader.GetImaging())
-                    ImagingBox.Items.Add(item);
-                foreach (var item in ProductReader.GetPMS())
-                    PMSBox.Items.Add(item);
-                foreach (var item in ProductReader.GetBridges())
-                    BridgesBox.Items.Add(item);
-                foreach (var item in ProductReader.GetDevices())
-                    DevicesBox.Items.Add(item);
-                foreach (var item in ProductReader.GetDrivers())
-                    DriversBox.Items.Add(item);
+            foreach (var item in ProductReader.GetImaging())
+                ImagingBox.Items.Add(item);
+            foreach (var item in ProductReader.GetPMS())
+                PMSBox.Items.Add(item);
+            foreach (var item in ProductReader.GetBridges())
+                BridgesBox.Items.Add(item);
+            foreach (var item in ProductReader.GetDevices())
+                DevicesBox.Items.Add(item);
+            foreach (var item in ProductReader.GetDrivers())
+                DriversBox.Items.Add(item);
         }
         private void CopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
@@ -183,7 +187,7 @@ namespace TemplateUI
                 TemplatePreviewBox.Clear();
                 BlankField.Clear();
 
-                
+
             }
 
         }
@@ -320,7 +324,7 @@ namespace TemplateUI
                 RadioButton rb = item as RadioButton;
                 if (rb.IsChecked.Value)
                 {
-                    OSVersion = rb.Name.Replace("Radio", "").Replace("Server", "Server 20").Replace("Win","");
+                    OSVersion = rb.Name.Replace("Radio", "").Replace("Server", "Server 20").Replace("Win", "");
                 }
             }
             foreach (UIElement item in EditionPanel.Children)
@@ -389,15 +393,19 @@ namespace TemplateUI
 
         private void NewWindow_Click(object sender, RoutedEventArgs e)
         {
-            var newWindow = new MainWindow();
-            newWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var newWindow = new MainWindow()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
             newWindow.Show();
         }
 
         private void DuplicateWindow_Click(object sender, RoutedEventArgs e)
         {
-            var newWindow = new MainWindow();
-            newWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var newWindow = new MainWindow()
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
             newWindow.ContactNameBox.Text = this.ContactNameBox.Text;
             newWindow.PhoneNumberBox.Text = this.PhoneNumberBox.Text;
             newWindow.EmailAddressBox.Text = this.EmailAddressBox.Text;
@@ -456,18 +464,22 @@ namespace TemplateUI
         }
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            AboutWindow aw = new AboutWindow();
-            aw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            AboutWindow aw = new AboutWindow
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
             aw.ShowDialog();
         }
 
         private void PreferencesItem_Click(object sender, RoutedEventArgs e)
         {
-            PreferencesWindow pw = new PreferencesWindow();
-            pw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            PreferencesWindow pw = new PreferencesWindow
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
             pw.ShowDialog();
             SetTheme(pw.NewSettings);
-            
+
             if (pw.EntryAddPressed)
             {
                 UpdateDropDowns();

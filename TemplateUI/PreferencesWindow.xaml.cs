@@ -20,8 +20,13 @@ namespace TemplateUI
         public bool EntryAddPressed { get; set; }
         public PreferencesWindow()
         {
-            CurrentSettings = new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
-                Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily);
+            CurrentSettings = new TemplateUISettings()
+            {
+                Color = Properties.Settings.Default.Color,
+                IsDarkMode = Properties.Settings.Default.IsDarkMode,
+                FontFamily = Properties.Settings.Default.FontFamily,
+                FontSize = Properties.Settings.Default.FontSize
+            };
             NewSettings = new TemplateUISettings();
             InitializeComponent();
             EntryAddPressed = false;
@@ -77,7 +82,7 @@ namespace TemplateUI
             SaveSettings(NewSettings);
             this.Close();
         }
-        
+
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             SetThemeElements(GetTemporarySettings());
@@ -94,16 +99,24 @@ namespace TemplateUI
             if (result == MessageDialogResult.Negative)
             {
                 Properties.Settings.Default.Reset();
-                SetThemeElements(new TemplateUISettings(Properties.Settings.Default.Color, Properties.Settings.Default.IsDarkMode,
-                    Properties.Settings.Default.FontSize, Properties.Settings.Default.FontFamily));
+                SetThemeElements(new TemplateUISettings()
+                {
+                    Color = Properties.Settings.Default.Color,
+                    IsDarkMode = Properties.Settings.Default.IsDarkMode,
+                    FontFamily = Properties.Settings.Default.FontFamily,
+                    FontSize = Properties.Settings.Default.FontSize
+                });
             }
         }
         private TemplateUISettings GetTemporarySettings()
         {
-            TemplateUISettings tempSettings = new TemplateUISettings();
-            tempSettings.FontFamily = FontFamilyComboBox.Text;
-            tempSettings.FontSize = (int)FontSizeSelectorBox.Value;
-            tempSettings.IsDarkMode = DarkModeToggleSwitch.IsOn;
+            TemplateUISettings tempSettings = new TemplateUISettings()
+            {
+                FontFamily = FontFamilyComboBox.Text,
+                FontSize = (int)FontSizeSelectorBox.Value,
+                IsDarkMode = DarkModeToggleSwitch.IsOn
+
+            };
 
             foreach (UIElement el in AccentColorPanel.Children)
             {
@@ -184,16 +197,5 @@ namespace TemplateUI
         public bool IsDarkMode { get; set; }
         public int FontSize { get; set; }
         public string FontFamily { get; set; }
-        public TemplateUISettings(string color, bool isdark, int fontsize, string fontfamily)
-        {
-            Color = color;
-            IsDarkMode = isdark;
-            FontSize = fontsize;
-            FontFamily = fontfamily;
-        }
-        public TemplateUISettings()
-        {
-
-        }
     }
 }
