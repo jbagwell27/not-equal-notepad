@@ -16,8 +16,8 @@ namespace TemplateUI
     {
         public TemplateUISettings CurrentSettings;
         public TemplateUISettings NewSettings { get; set; }
-        public bool canceled = false;
         public bool EntryAddPressed { get; set; }
+        public bool ResetPressed { get; set; }
         public PreferencesWindow()
         {
             CurrentSettings = new TemplateUISettings()
@@ -92,6 +92,8 @@ namespace TemplateUI
         {
             var settings = new MetroDialogSettings()
             {
+                //Affirmative is set to no because button theming
+
                 AffirmativeButtonText = "No",
                 NegativeButtonText = "Yes",
             };
@@ -106,6 +108,9 @@ namespace TemplateUI
                     FontFamily = Properties.Settings.Default.FontFamily,
                     FontSize = Properties.Settings.Default.FontSize
                 });
+                ProductReader.Rebuild();
+                ResetPressed = true;
+                this.PreferencesSave_Click(sender, e);
             }
         }
         private TemplateUISettings GetTemporarySettings()

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.CodeDom;
+using System.IO;
 
 namespace TemplateUI.Logic
 {
@@ -74,7 +75,7 @@ namespace TemplateUI.Logic
             {
                 return File.ReadAllText(@"Resources\Drivers.csv").Split(',');
             }
-            catch (FileNotFoundException)
+            catch (System.Exception)
             {
                 File.AppendAllText(@"Resources\Drivers.csv", Properties.Resources.Drivers);
                 return Properties.Resources.Drivers.Split(',');
@@ -83,6 +84,28 @@ namespace TemplateUI.Logic
         public static void AddEntry(string product, string value)
         {
             File.AppendAllText($@"Resources\{product}.csv", $"{value},");
+        }
+
+        public static void Rebuild()
+        {
+            try
+            {
+                File.Delete(@"Resources\Imaging.csv");
+                File.Delete(@"Resources\PMS.csv");
+                File.Delete(@"Resources\Bridges.csv");
+                File.Delete(@"Resources\Devices.csv");
+                File.Delete(@"Resources\Drivers.csv");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                    Directory.CreateDirectory("Resources");
+            }
+
+                File.AppendAllText(@"Resources\Imaging.csv", Properties.Resources.Imaging);
+                File.AppendAllText(@"Resources\PMS.csv", Properties.Resources.PMS);
+                File.AppendAllText(@"Resources\Bridges.csv", Properties.Resources.Bridges);
+                File.AppendAllText(@"Resources\Devices.csv", Properties.Resources.Devices);
+                File.AppendAllText(@"Resources\Drivers.csv", Properties.Resources.Drivers);
         }
     }
 }

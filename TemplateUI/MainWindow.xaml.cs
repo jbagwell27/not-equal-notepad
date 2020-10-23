@@ -31,7 +31,7 @@ namespace TemplateUI
             //Initial setup process.
             FillComboBoxes();
 
-            SetTheme(new TemplateUISettings() 
+            SetTheme(new TemplateUISettings()
             {
                 Color = Properties.Settings.Default.Color,
                 IsDarkMode = Properties.Settings.Default.IsDarkMode,
@@ -480,7 +480,7 @@ namespace TemplateUI
             pw.ShowDialog();
             SetTheme(pw.NewSettings);
 
-            if (pw.EntryAddPressed)
+            if (pw.EntryAddPressed || pw.ResetPressed)
             {
                 UpdateDropDowns();
             }
@@ -488,12 +488,6 @@ namespace TemplateUI
 
         private void UpdateDropDowns()
         {
-            int devbox = DevicesBox.SelectedIndex;
-            int drivebox = DriversBox.SelectedIndex;
-            int imgbox = ImagingBox.SelectedIndex;
-            int pmsbox = PMSBox.SelectedIndex;
-            int brigbox = BridgesBox.SelectedIndex;
-
             DevicesBox.Items.Clear();
             DriversBox.Items.Clear();
             ImagingBox.Items.Clear();
@@ -501,12 +495,6 @@ namespace TemplateUI
             BridgesBox.Items.Clear();
 
             FillComboBoxes();
-
-            DevicesBox.SelectedIndex = devbox;
-            DriversBox.SelectedIndex = drivebox;
-            ImagingBox.SelectedIndex = imgbox;
-            PMSBox.SelectedIndex = pmsbox;
-            BridgesBox.SelectedIndex = brigbox;
         }
 
         private void EasterEggImage_Click(object sender, MouseButtonEventArgs e)
@@ -526,13 +514,7 @@ namespace TemplateUI
 
         private void RefreshProductList_Click(object sender, RoutedEventArgs e)
         {
-            DevicesBox.Items.Clear();
-            DriversBox.Items.Clear();
-            ImagingBox.Items.Clear();
-            PMSBox.Items.Clear();
-            BridgesBox.Items.Clear();
-
-            FillComboBoxes();
+            UpdateDropDowns();
         }
     }
 }
