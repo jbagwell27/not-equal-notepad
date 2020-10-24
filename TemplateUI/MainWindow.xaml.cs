@@ -20,13 +20,25 @@ namespace TemplateUI
     {
         private GenericInfo Ginfo;
         private ProductInfo Pinfo;
-
+        private TemplateUISettings _UISettings;
+        public TemplateUISettings UISettings
+        {
+            get { return _UISettings; }
+            set { _UISettings = value; }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             Ginfo = new GenericInfo();
             Pinfo = new ProductInfo();
+            _UISettings = new TemplateUISettings()
+            {
+                Color = Properties.Settings.Default.Color,
+                IsDarkMode = Properties.Settings.Default.IsDarkMode,
+                FontFamily = Properties.Settings.Default.FontFamily,
+                FontSize = Properties.Settings.Default.FontSize
+            };
             LogWriter.CreateTodaysLog();
 
             KeyBinding OpenCmdKeyBinding = new KeyBinding(
@@ -48,12 +60,14 @@ namespace TemplateUI
                 FontSize = Properties.Settings.Default.FontSize
 
             });
-            this.ShowIconOnTitleBar = false;
+            DataContext = UISettings;
             ContactNameBox.Focus();
         }
 
         private void SetTheme(TemplateUISettings settings)
         {
+            UISettings = settings;
+            DataContext = UISettings;
             if (settings.IsDarkMode)
 
                 ThemeManager.Current.ChangeTheme(this, $"Dark.{settings.Color}");

@@ -16,7 +16,8 @@
                         Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
                         Path=FontSize}" Icon="Resources/code-not-equal.ico"
-                 KeyDown="MetroWindow_KeyDown">
+                 KeyDown="MetroWindow_KeyDown"
+                 ShowIconOnTitleBar="False">
     <mah:MetroWindow.Resources>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily"
@@ -172,6 +173,10 @@
     </mah:MetroWindow.RightWindowCommands>
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <TabControl x:Name="MainTabs">
             <TabItem x:Name="GenericInfoTab"
                      Header="Generic Info">
@@ -757,6 +762,39 @@
            
             
         </TabControl>
+        <StatusBar Grid.Row="1">
+            <StatusBarItem>
+                <StatusBarItem.Content>
+                    <TextBlock Text="{Binding FontFamily}" 
+                               FontSize="14"/>
+                </StatusBarItem.Content>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <StatusBarItem.Content>
+                    <TextBlock Text="{Binding FontSize}" 
+                               FontSize="14"/>
+                </StatusBarItem.Content>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <StatusBarItem.Content>
+                    <TextBlock Text="{Binding Color}" 
+                               FontSize="14"/>
+                </StatusBarItem.Content>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <StatusBarItem.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Dark Mode: "
+                                   FontSize="14"/>
+                        <TextBlock Text="{Binding IsDarkMode}"
+                                   FontSize="14"/>
+                    </StackPanel>
+                </StatusBarItem.Content>
+            </StatusBarItem>
+        </StatusBar>                   
     </Grid>
     
 </mah:MetroWindow>
