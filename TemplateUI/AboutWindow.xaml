@@ -9,7 +9,7 @@
                  xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="About" Height="250" Width="500"
+                 Title="About" Height="400" Width="700"
                  ResizeMode="NoResize" SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"

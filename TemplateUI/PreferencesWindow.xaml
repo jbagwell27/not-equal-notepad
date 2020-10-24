@@ -9,14 +9,14 @@
                  xmlns:properties="clr-namespace:TemplateUI.Properties"
                  xmlns:local="clr-namespace:TemplateUI"
                  mc:Ignorable="d"
-                 Title="Preferences" Height="400" Width="700"
+                 Title="PREFERENCES" Height="400" Width="700"
                  SaveWindowPosition="True"
                  FontFamily="{Binding Source={x:Static properties:Settings.Default},
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
     Path=FontSize}" Icon="Resources/code-not-equal.ico"
                  ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" ShowSystemMenu="False"
-                 Closing="PreferencesWindow_Closing">
+                 Closing="PreferencesWindow_Closing" ResizeMode="CanResizeWithGrip">
     <mah:MetroWindow.Resources>
         <!--Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontSize"
@@ -78,6 +78,19 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <Grid.Triggers>
+            <EventTrigger SourceName="ApplyButton" RoutedEvent="Button.Click">
+                <BeginStoryboard Name="ShowApplyStatus">
+                    <Storyboard>
+                        <DoubleAnimation 
+                            Storyboard.TargetName="ApplyStatus" 
+                            Storyboard.TargetProperty="Opacity" 
+                            From="1.0" To="0.0" Duration="0:0:3" 
+                            RepeatBehavior="1x" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <iconPacks:PackIconFeatherIcons 
             Grid.Column="1" Margin="0,5,0,0"
             Kind="Settings"/>
@@ -280,7 +293,8 @@
         </ListBox>
             
 
-        <Button Grid.Column="2" Grid.Row="7"
+        <Button x:Name="ApplyButton"
+                Grid.Column="2" Grid.Row="7"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Bottom"
                 Margin="5" Padding="3"
@@ -290,6 +304,7 @@
                            Margin="3"/>
             </Button.Content>
         </Button>
+        
         <Button Grid.Column="1" Grid.Row="7"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Bottom"
@@ -326,15 +341,12 @@
                    Grid.ColumnSpan="7">
             <StatusBarItem Content="How you want it to look, my dude?"
                            FontSize="14"/>
-            <StatusBarItem HorizontalAlignment="Right">
-                <Grid>
-                    <TextBlock x:Name="EntryAdded"
-                               Text="Entry Added Succssfully"
-                               Opacity="0"/>
-                    <TextBlock x:Name="EntryRemoved"
-                               Text="Entry Removed Successfully"
-                               Opacity="0"/>
-                </Grid>
+            <StatusBarItem HorizontalAlignment="Right"
+                           Margin="10,0">
+                    <TextBlock x:Name="ApplyStatus"
+                               Text="Theme Applied"
+                               Opacity="0"
+                               FontSize="14"/>
             </StatusBarItem>
 
         </StatusBar>
