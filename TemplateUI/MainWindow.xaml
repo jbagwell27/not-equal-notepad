@@ -355,6 +355,19 @@
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
+                        <StackPanel.Triggers>
+                            <EventTrigger SourceName="CopyButton" RoutedEvent="Button.Click">
+                                <BeginStoryboard Name="ShowClipboardStatus">
+                                    <Storyboard>
+                                        <DoubleAnimation 
+                                            Storyboard.TargetName="CopiedText" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            From="1.0" To="0.0" Duration="0:0:3" 
+                                            RepeatBehavior="1x" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </StackPanel.Triggers>
 
                     </StackPanel>
 
@@ -763,36 +776,45 @@
             
         </TabControl>
         <StatusBar Grid.Row="1">
-            <StatusBarItem>
-                <StatusBarItem.Content>
-                    <TextBlock Text="{Binding FontFamily}" 
-                               FontSize="14"/>
-                </StatusBarItem.Content>
+            <StatusBarItem Margin="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconEvaIcons Kind="Github" Margin="0,0,5,0"/>
+                    <TextBlock FontSize="14" VerticalAlignment="Bottom">
+                        <Hyperlink NavigateUri="https://github.com/jbagwell27"
+                                   RequestNavigate="Hyperlink_RequestNavigate" 
+                                   Foreground="White">
+                            jbagwell27
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
             </StatusBarItem>
             <Separator/>
-            <StatusBarItem>
-                <StatusBarItem.Content>
-                    <TextBlock Text="{Binding FontSize}" 
-                               FontSize="14"/>
-                </StatusBarItem.Content>
+            <StatusBarItem Margin="5,0">
+                <TextBlock Text="{Binding FontFamily}" 
+                           FontSize="14" />
             </StatusBarItem>
             <Separator/>
-            <StatusBarItem>
-                <StatusBarItem.Content>
-                    <TextBlock Text="{Binding Color}" 
-                               FontSize="14"/>
-                </StatusBarItem.Content>
+            <StatusBarItem Margin="5,0">
+                <TextBlock Text="{Binding FontSize}" 
+                           FontSize="14"/>
             </StatusBarItem>
             <Separator/>
-            <StatusBarItem>
-                <StatusBarItem.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Dark Mode: "
-                                   FontSize="14"/>
-                        <TextBlock Text="{Binding IsDarkMode}"
-                                   FontSize="14"/>
-                    </StackPanel>
-                </StatusBarItem.Content>
+            <StatusBarItem Margin="5,0">
+                <TextBlock Text="{Binding Color}" 
+                           FontSize="14"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem Margin="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Dark Mode: "
+                               FontSize="14"/>
+                    <TextBlock Text="{Binding IsDarkMode}"
+                               FontSize="14"/>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="CopiedText" Text="Text Copied"
+                           Opacity="0" FontSize="14"/>
             </StatusBarItem>
         </StatusBar>                   
     </Grid>
