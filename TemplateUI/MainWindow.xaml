@@ -16,7 +16,7 @@
                         Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default}, 
                         Path=FontSize}" Icon="Resources/code-not-equal.ico"
-                 KeyDown="MetroWindow_KeyDown"
+                 KeyDown="MetroWindow_KeyDown" ResizeMode="CanResizeWithGrip"
                  ShowIconOnTitleBar="False">
     <mah:MetroWindow.Resources>
         <Style TargetType="{x:Type TextBlock}">
@@ -778,8 +778,10 @@
         <StatusBar Grid.Row="1">
             <StatusBarItem Margin="5,0">
                 <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconEvaIcons Kind="Github" Margin="0,0,5,0"/>
-                    <TextBlock FontSize="14" VerticalAlignment="Bottom">
+                    <iconPacks:PackIconEvaIcons Kind="Github" 
+                                                Margin="0,0,5,0"/>
+                    <TextBlock FontSize="14"
+                               VerticalAlignment="Center">
                         <Hyperlink NavigateUri="https://github.com/jbagwell27"
                                    RequestNavigate="Hyperlink_RequestNavigate" 
                                    Foreground="White">
@@ -791,7 +793,7 @@
             <Separator/>
             <StatusBarItem Margin="5,0">
                 <TextBlock Text="{Binding FontFamily}" 
-                           FontSize="14" />
+                           FontSize="14"/>
             </StatusBarItem>
             <Separator/>
             <StatusBarItem Margin="5,0">
@@ -812,7 +814,8 @@
                                FontSize="14"/>
                 </StackPanel>
             </StatusBarItem>
-            <StatusBarItem HorizontalAlignment="Right">
+            <StatusBarItem HorizontalAlignment="Right"
+                           Margin="10,0">
                 <TextBlock x:Name="CopiedText" Text="Text Copied"
                            Opacity="0" FontSize="14"/>
             </StatusBarItem>

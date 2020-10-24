@@ -70,7 +70,6 @@ namespace TemplateUI
             UISettings = settings;
             DataContext = UISettings;
             if (settings.IsDarkMode)
-
                 ThemeManager.Current.ChangeTheme(this, $"Dark.{settings.Color}");
             else
                 ThemeManager.Current.ChangeTheme(this, $"Light.{settings.Color}");

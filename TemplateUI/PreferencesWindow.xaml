@@ -15,7 +15,8 @@
     Path=FontFamily}"
                  FontSize="{Binding Source={x:Static properties:Settings.Default},
     Path=FontSize}" Icon="Resources/code-not-equal.ico"
-                 ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False">
+                 ShowCloseButton="False" ShowMaxRestoreButton="False" ShowMinButton="False" ShowSystemMenu="False"
+                 Closing="PreferencesWindow_Closing">
     <mah:MetroWindow.Resources>
         <!--Style TargetType="{x:Type ComboBoxItem}">
             <Setter Property="FontSize"
@@ -74,7 +75,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="5"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <iconPacks:PackIconFeatherIcons 
@@ -236,10 +237,12 @@
                      Margin="3,3,-2,3" Padding="3"
                      BorderThickness="1,1,0,1"
                      KeyDown="DataEntryBox_KeyDown"/>
-            <Button Grid.Column="1"
-                    Margin="3,3,3,3" Padding="3" 
+            <Button x:Name="AddButton" 
+                    Grid.Column="1"
+                    Margin="3" Padding="3" 
                     BorderThickness="0,1,1,1"
-                    Click="AddProductEntry_Click">
+                    Click="AddProductEntry_Click"
+                    IsDefault="True">
                 <Button.Content>
                     <TextBlock Text="Add"/>
                 </Button.Content>
@@ -255,17 +258,32 @@
                  BorderThickness="1"
                  BorderBrush="LightGray">
             <ListBox.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Remove"
-                              Click="RemoveItem_Click"/>
+                <ContextMenu x:Name="RemoveContextMenu">
+                        <!--ContextMenu.Triggers>
+                            <EventTrigger SourceName="RemoveMenuItem" RoutedEvent="MenuItem.Click">
+                                <BeginStoryboard Name="EntryRemovedStatus">
+                                <Storyboard>
+                                    <DoubleAnimation 
+                                Storyboard.TargetName="EntryRemoved" 
+                                Storyboard.TargetProperty="Opacity" 
+                                From="1.0" To="0.0" Duration="0:0:3" 
+                                RepeatBehavior="1x" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        </-->
+                    <MenuItem x:Name="RemoveMenuItem" Header="Remove"
+                              Click="RemoveItem_Click">
+                    </MenuItem>
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>
+            
 
         <Button Grid.Column="2" Grid.Row="7"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Bottom"
-                Margin="3" Padding="3"
+                Margin="5" Padding="3"
                 Click="ApplyButton_Click">
             <Button.Content>
                 <TextBlock Text="Apply"
@@ -275,7 +293,7 @@
         <Button Grid.Column="1" Grid.Row="7"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Bottom"
-                Margin="3" Padding="3"
+                Margin="5" Padding="3"
                 Click="RestoreDefaults_Click">
             <Button.Content>
                 <TextBlock Text="Restore Default"
@@ -287,24 +305,39 @@
         <Button Grid.Column="5" Grid.Row="6"
                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                 VerticalAlignment="Bottom"
-                Margin="3" Padding="3" 
+                Margin="3,5" Padding="3" 
                 Click="PreferencesSave_Click">
             <Button.Content>
                 <TextBlock Text="Save &amp; Close"
                            Margin="3"/>
             </Button.Content>
         </Button>
-        <Button x:Name="CloseButton"
-                Grid.Column="5" Grid.Row="7"
+        <Button Grid.Column="5" Grid.Row="7"
                 Style="{StaticResource MahApps.Styles.Button.Square}"
                 VerticalAlignment="Center"
-                Margin="5,0,1,0" Padding="3"
+                Margin="3,5" Padding="3"
                 Click="CancelButton_Click">
             <Button.Content>
                 <TextBlock Text="Cancel"
                            Margin="3"/>
             </Button.Content>
         </Button>
+        <StatusBar Grid.Column="0" Grid.Row="8"
+                   Grid.ColumnSpan="7">
+            <StatusBarItem Content="How you want it to look, my dude?"
+                           FontSize="14"/>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Grid>
+                    <TextBlock x:Name="EntryAdded"
+                               Text="Entry Added Succssfully"
+                               Opacity="0"/>
+                    <TextBlock x:Name="EntryRemoved"
+                               Text="Entry Removed Successfully"
+                               Opacity="0"/>
+                </Grid>
+            </StatusBarItem>
+
+        </StatusBar>
 
     </Grid>
 </mah:MetroWindow>

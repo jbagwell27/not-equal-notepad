@@ -20,6 +20,7 @@ namespace TemplateUI
         public bool ItemAdded { get; set; }
         public bool ItemsReset { get; set; }
         public bool ItemRemoved { get; set; }
+        private bool ClosingButtonClicked;
         private string DataRadioButton { get; set; }
         public PreferencesWindow()
         {
@@ -72,6 +73,7 @@ namespace TemplateUI
         }
         private void PreferencesSave_Click(object sender, RoutedEventArgs e)
         {
+            ClosingButtonClicked = true;
             NewSettings = GetTemporarySettings();
             //SetThemeElements(NewSettings);
             SaveSettings(NewSettings);
@@ -79,6 +81,7 @@ namespace TemplateUI
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            ClosingButtonClicked = true;
             SetThemeElements(CurrentSettings);
             NewSettings = GetTemporarySettings();
             SaveSettings(NewSettings);
@@ -232,6 +235,14 @@ namespace TemplateUI
             }
             ProductReader.SetProductsList(products.ToArray(), DataRadioButton);
             ItemRemoved = true;
+        }
+
+        private void PreferencesWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!ClosingButtonClicked)
+            {
+                e.Cancel = true;
+            }
         }
     }
 
