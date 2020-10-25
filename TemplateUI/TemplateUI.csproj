@@ -8,7 +8,7 @@
     <Version>2.0.0</Version>
     <Authors>Joshua Bagwell</Authors>
     <Product />
-    <PackageId>not-equal-notepad</PackageId>
+    <PackageId>!=Notepad</PackageId>
     <Copyright>2020, Joshua Bagwell</Copyright>
     <PackageProjectUrl>https://github.com/jbagwell27/not-equal-notepad</PackageProjectUrl>
   </PropertyGroup>
