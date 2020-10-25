@@ -48,7 +48,8 @@
         </ScrollViewer>
         <StatusBar Grid.Column="0" Grid.Row="2"
                    Grid.ColumnSpan="3">
-            <StatusBarItem>
+            <StatusBarItem FontSize="12" FontFamily="Segoe UI"
+                           Margin="5,0">
                 <StatusBarItem.Content>
                     <TextBlock Text="&#169; 2020, Joshua Bagwell"/>
                 </StatusBarItem.Content>

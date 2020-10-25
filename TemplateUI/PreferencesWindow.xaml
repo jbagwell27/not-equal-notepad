@@ -254,7 +254,7 @@
                     Grid.Column="1"
                     Margin="3" Padding="3" 
                     BorderThickness="0,1,1,1"
-                    Click="AddProductEntry_Click"
+                    PreviewMouseDown="AddProductEntry_Click"
                     IsDefault="True">
                 <Button.Content>
                     <TextBlock Text="Add"/>
@@ -272,19 +272,6 @@
                  BorderBrush="LightGray">
             <ListBox.ContextMenu>
                 <ContextMenu x:Name="RemoveContextMenu">
-                        <!--ContextMenu.Triggers>
-                            <EventTrigger SourceName="RemoveMenuItem" RoutedEvent="MenuItem.Click">
-                                <BeginStoryboard Name="EntryRemovedStatus">
-                                <Storyboard>
-                                    <DoubleAnimation 
-                                Storyboard.TargetName="EntryRemoved" 
-                                Storyboard.TargetProperty="Opacity" 
-                                From="1.0" To="0.0" Duration="0:0:3" 
-                                RepeatBehavior="1x" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        </-->
                     <MenuItem x:Name="RemoveMenuItem" Header="Remove"
                               Click="RemoveItem_Click">
                     </MenuItem>
@@ -340,13 +327,14 @@
         <StatusBar Grid.Column="0" Grid.Row="8"
                    Grid.ColumnSpan="7">
             <StatusBarItem Content="How you want it to look, my dude?"
-                           FontSize="14"/>
+                           FontSize="12" FontFamily="Segoe UI"
+                           Margin="5,0"/>
             <StatusBarItem HorizontalAlignment="Right"
                            Margin="10,0">
                     <TextBlock x:Name="ApplyStatus"
                                Text="Theme Applied"
                                Opacity="0"
-                               FontSize="14"/>
+                               FontSize="12" FontFamily="Segoe UI"/>
             </StatusBarItem>
 
         </StatusBar>

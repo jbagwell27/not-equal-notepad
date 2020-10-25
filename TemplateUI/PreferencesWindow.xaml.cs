@@ -169,24 +169,16 @@ namespace TemplateUI
 
         private async void AddProductEntry_Click(object sender, RoutedEventArgs e)
         {
-            string Product = null;
-            foreach (UIElement item in DataEntriesRadioPanel.Children)
-            {
-                RadioButton rb = item as RadioButton;
-                if (rb.IsChecked.Value)
-                {
-                    Product = rb.Name.Replace("Radio", "");
-                }
-            }
-
-            if (string.IsNullOrEmpty(Product) || string.IsNullOrEmpty(DataEntryBox.Text))
+            MessageBox.Show(DataRadioButton);
+            MessageBox.Show(DataEntryBox.Text);
+            if (string.IsNullOrEmpty(DataRadioButton) || string.IsNullOrEmpty(DataEntryBox.Text))
             {
                 await this.ShowMessageAsync("Try again, Sport", "One or more fields are empty");
             }
             else
             {
                 string s = DataEntryBox.Text;
-                ProductReader.AddEntry(Product, s);
+                ProductReader.AddEntry(DataRadioButton, s);
                 DataEntryBox.Clear();
                 RebuildDataList();
                 DataList.SelectedIndex = DataList.Items.IndexOf(s);

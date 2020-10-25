@@ -554,6 +554,10 @@ namespace TemplateUI
             {
                 PreferencesItem_Click(sender, e);
             }
+            if (Keyboard.Modifiers == ModifierKeys.Control && e.Key == Key.Q)
+            {
+                ClearDataButton_Click(sender, e);
+            }
         }
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
