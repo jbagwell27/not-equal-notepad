@@ -93,6 +93,27 @@
                                 Kind="Copy" Margin="3"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Click="ClearDataButton_Click">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Clear Screen"
+                                       HorizontalAlignment="Left"/>
+                                <TextBlock Text="Ctrl+Q"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       Foreground="gray"
+                                       Margin="25,0,0,0"/>
+                            </Grid>
+                        </MenuItem.Header>
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconCodicons 
+                                Kind="ClearAll" Margin="3"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem>
                         <MenuItem.Header>
                             <TextBlock Text="Logs"/>
@@ -343,7 +364,7 @@
                                 Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                 Click="ClearDataButton_Click">
                             <Button.Content>
-                                <TextBlock Text="Clear Data"
+                                <TextBlock Text="Clear Screen"
                                            Margin="3"/>
                             </Button.Content>
                         </Button>
