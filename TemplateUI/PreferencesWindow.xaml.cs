@@ -169,8 +169,6 @@ namespace TemplateUI
 
         private async void AddProductEntry_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(DataRadioButton);
-            MessageBox.Show(DataEntryBox.Text);
             if (string.IsNullOrEmpty(DataRadioButton) || string.IsNullOrEmpty(DataEntryBox.Text))
             {
                 await this.ShowMessageAsync("Try again, Sport", "One or more fields are empty");
